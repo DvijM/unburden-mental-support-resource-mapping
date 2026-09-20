@@ -1,0 +1,86 @@
+/* Unburden — shared styles. Tailwind handles layout; this covers tokens
+   that are easier to express once (gradients, focus, custom controls). */
+
+:root { color-scheme: light; }
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: Inter, system-ui, sans-serif;
+  background: #F9F9FB;
+  color: #1A1C1D;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Serif display type */
+.font-display { font-family: "Noto Serif", Georgia, serif; letter-spacing: -0.01em; }
+
+/* Small tracked labels used across eyebrows and metadata */
+.label-caps {
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* Primary button: blue gradient, square-ish corners */
+.btn-primary {
+  background: linear-gradient(135deg, #0D4FB5 0%, #2F63C8 100%);
+  color: #fff;
+  border-radius: 4px;
+  font-weight: 600;
+  transition: filter .15s ease, transform .15s ease;
+}
+.btn-primary:hover { filter: brightness(1.08); }
+.btn-primary:active { transform: translateY(1px); }
+
+.btn-secondary {
+  background: #E8E7E9;
+  color: #0D4FB5;
+  border-radius: 4px;
+  font-weight: 600;
+  transition: background .15s ease;
+}
+.btn-secondary:hover { background: #DEDDDF; }
+
+/* Visible keyboard focus everywhere */
+:where(a, button, input, select, [tabindex]):focus-visible {
+  outline: 2px solid #0D4FB5;
+  outline-offset: 2px;
+}
+
+/* Assessment option rows */
+.option-row { transition: background .15s ease, border-color .15s ease; border: 1px solid transparent; }
+.option-row:hover { background: #EDEBEE; }
+.option-row[data-selected="true"] {
+  background: #EEF3FF;
+  border-color: #8FA8DC;
+}
+.option-row[data-selected="true"] .option-title { color: #0D4FB5; }
+.option-row[data-selected="true"] .option-points { background: #0D4FB5; color: #fff; }
+.option-row .radio-dot {
+  width: 16px; height: 16px; border-radius: 9999px;
+  border: 1.5px solid #9A9CA4; background: #fff; flex: none;
+  display: grid; place-items: center;
+}
+.option-row[data-selected="true"] .radio-dot { border-color: #0D4FB5; }
+.option-row[data-selected="true"] .radio-dot::after {
+  content: ""; width: 8px; height: 8px; border-radius: 9999px; background: #0D4FB5;
+}
+
+/* Filter chips */
+.chip { border-radius: 9999px; background: #EEEDEF; color: #44474E; transition: background .15s ease; }
+.chip:hover { background: #E2E1E3; }
+.chip[aria-pressed="true"] { background: #0D4FB5; color: #fff; }
+
+/* Password strength meter */
+.strength-bar { height: 3px; border-radius: 2px; background: #E2E1E3; transition: background .2s ease; }
+.strength-bar.on { background: #0D4FB5; }
+
+/* Hero image frame */
+.hero-frame { background: #EEEDEF; border-radius: 6px; padding: 10px; box-shadow: 0 8px 30px rgba(26,28,29,.08); }
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; animation: none !important; }
+}

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Log In — Unburden</title>
+  <meta name="description" content="Log in to access your saved mental health assessments and resource library." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body data-page="login" class="bg-surface text-ink">
+
+  <!-- Grey crisis strip + full nav (login uses the main nav) -->
+  <div class="bg-surface-mid text-ink-soft" role="region" aria-label="Crisis support">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex flex-wrap items-center justify-center gap-x-2 text-[12px] text-center">
+      <span class="text-crisis font-bold" aria-hidden="true">&#10033;</span>
+      <span>Immediate emotional crisis support available 24/7.</span>
+      <strong class="text-ink">Call or text 988</strong>
+      <span aria-hidden="true">&middot;</span>
+      <a href="/find-support" class="text-primary underline underline-offset-2">Find International Resources</a>
+    </div>
+  </div>
+
+  <header class="bg-white">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between" aria-label="Primary">
+      <a href="/" class="flex items-center gap-2" aria-label="Unburden home">
+        <svg class="w-6 h-6 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3a6 6 0 00-6 6c0 2 1 3.5 2 4.5V17h8v-3.5c1-1 2-2.5 2-4.5a6 6 0 00-6-6z"/><path d="M10 20h4"/></svg>
+        <span class="font-display font-bold text-[20px]">Unburden</span>
+      </a>
+      <ul class="hidden md:flex items-center gap-8 text-[12px] tracking-[.1em] uppercase text-ink-soft">
+        <li><a data-nav="home" href="/" class="py-1 hover:text-primary">Home</a></li>
+        <li><a data-nav="resources" href="/resources" class="py-1 hover:text-primary">Resources</a></li>
+        <li><a data-nav="assessment" href="/assessment" class="py-1 hover:text-primary">Assessment</a></li>
+        <li><a data-nav="support" href="/find-support" class="py-1 hover:text-primary">Find Support</a></li>
+        <li><a data-nav="about" href="/#framework" class="py-1 hover:text-primary">About SDG 3</a></li>
+      </ul>
+      <div class="flex items-center gap-4 text-[13px]">
+        <a href="/login" class="text-primary font-medium border-b border-primary py-0.5" aria-current="page">Log In</a>
+        <a href="/register" class="bg-surface-mid text-primary rounded px-4 py-2 font-medium hover:bg-surface-high">Register</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="relative overflow-hidden">
+    <!-- Soft decorative washes -->
+    <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+      <div class="absolute left-[-8%] top-[15%] w-[42%] h-[60%] rounded-[3rem] bg-[radial-gradient(ellipse,rgba(150,160,220,.12),transparent_70%)]"></div>
+      <div class="absolute right-[-8%] top-[15%] w-[42%] h-[60%] rounded-[3rem] bg-[radial-gradient(ellipse,rgba(250,235,170,.22),transparent_70%)]"></div>
+    </div>
+
+    <div class="relative max-w-xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
+      <p class="mx-auto w-fit flex items-center gap-2 bg-surface-mid text-olive rounded-full px-4 py-1.5 text-[11px] tracking-[.14em] uppercase font-medium">
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/></svg>
+        Verified SDG 3 Health Portal
+      </p>
+
+      <section class="mt-6 bg-white rounded-editorial shadow-lift overflow-hidden" aria-labelledby="login-title">
+        <div class="p-8 sm:p-10">
+          <h1 id="login-title" class="font-display font-bold text-[34px] text-center">Welcome Back</h1>
+          <p class="text-[14px] text-ink-soft leading-relaxed text-center mt-3 max-w-xs mx-auto">Log in to access your saved mental health assessments and resource library.</p>
+
+          <form id="login-form" class="mt-8 space-y-5" novalidate>
+            <div>
+              <label for="email" class="block text-[11px] tracking-[.12em] uppercase text-ink font-medium mb-1.5">Email Address</label>
+              <input id="email" name="email" type="email" autocomplete="email" placeholder="name@example.com" class="w-full bg-white border border-surface-high rounded px-3.5 py-3 text-[13.5px] placeholder:text-ink-mute focus:border-primary" required />
+              <p class="field-error hidden text-[11px] text-crisis mt-1" data-for="email"></p>
+            </div>
+
+            <div>
+              <label for="password" class="block text-[11px] tracking-[.12em] uppercase text-ink font-medium mb-1.5">Password</label>
+              <div class="relative">
+                <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" class="w-full bg-white border border-surface-high rounded px-3.5 py-3 pr-11 text-[13.5px] placeholder:text-ink-mute focus:border-primary" required />
+                <button type="button" id="toggle-pw" class="absolute right-3 top-1/2 -translate-y-1/2 text-ink-soft hover:text-primary" aria-label="Show password" aria-pressed="false">
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+              <p class="field-error hidden text-[11px] text-crisis mt-1" data-for="password"></p>
+            </div>
+
+            <div class="flex items-center justify-between text-[12.5px]">
+              <label class="flex items-center gap-2 text-ink-soft cursor-pointer">
+                <input id="remember" name="remember" type="checkbox" class="w-4 h-4 rounded border-outline accent-[#0D4FB5]" /> Remember Me
+              </label>
+              <a href="#" class="text-primary hover:underline">Forgot Password?</a>
+            </div>
+
+            <p id="form-status" class="hidden text-[12px] rounded p-3" role="status"></p>
+
+            <button type="submit" id="submit-btn" class="btn-primary w-full py-4 text-[13px] tracking-[.12em] uppercase inline-flex items-center justify-center gap-2">Log In <span aria-hidden="true">&rarr;</span></button>
+          </form>
+
+          <div class="flex items-center gap-4 my-6" role="separator">
+            <span class="flex-1 h-px bg-surface-high"></span>
+            <span class="text-[10.5px] tracking-[.14em] uppercase text-ink-mute">Or continue with secure SSO</span>
+            <span class="flex-1 h-px bg-surface-high"></span>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <button type="button" class="sso-btn bg-surface-low rounded px-4 py-3 text-[13px] flex items-center justify-center gap-2 hover:bg-surface-mid" data-provider="Google">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M22 12.2c0-.7-.1-1.4-.2-2H12v3.8h5.6a4.8 4.8 0 01-2.1 3.1v2.6h3.4c2-1.8 3.1-4.5 3.1-7.5z"/><path fill="#34A853" d="M12 22c2.8 0 5.1-.9 6.9-2.5l-3.4-2.6c-.9.6-2.1 1-3.5 1-2.7 0-5-1.8-5.8-4.3H2.7v2.7A10 10 0 0012 22z"/><path fill="#FBBC05" d="M6.2 13.6a6 6 0 010-3.8V7.1H2.7a10 10 0 000 9.2z"/><path fill="#EA4335" d="M12 5.9c1.5 0 2.9.5 4 1.6l3-3A10 10 0 002.7 7.1l3.5 2.7C7 7.7 9.3 5.9 12 5.9z"/></svg>
+              Google Account
+            </button>
+            <button type="button" class="sso-btn bg-surface-low rounded px-4 py-3 text-[13px] flex items-center justify-center gap-2 hover:bg-surface-mid" data-provider="Health ID">
+              <svg class="w-4 h-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M12 8v8M8 12h8"/></svg>
+              Health ID SSO
+            </button>
+          </div>
+        </div>
+
+        <p class="bg-surface-low text-center text-[13px] text-ink-soft py-4">Don&rsquo;t have an account yet? <a href="/register" class="text-primary font-medium hover:underline">Register now</a></p>
+      </section>
+
+      <p class="mt-6 bg-surface-low rounded px-5 py-4 text-[12.5px] text-ink-soft text-center leading-relaxed">
+        <strong class="text-ink">In an acute crisis?</strong> You don&rsquo;t need an account to get help &mdash; call or text <a href="tel:988" class="text-primary font-medium hover:underline">988</a> directly.
+      </p>
+    </div>
+  </main>
+
+  <div data-include="footer"></div>
+
+  <script src="/js/main.js" defer></script>
+  <script src="/js/auth.js" defer></script>
+</body>
+</html>

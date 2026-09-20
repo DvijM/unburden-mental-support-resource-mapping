@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Curated Mental Health Resources — Unburden</title>
+  <meta name="description" content="A scholarly compendium of evidence-based articles, clinical guides, and community support frameworks." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body data-page="resources" class="bg-surface text-ink">
+
+  <!-- Slim banner used on this page -->
+  <div class="bg-crisis-bg text-crisis-ink" role="region" aria-label="Crisis support">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2 flex items-center justify-between gap-4 text-[12px]">
+      <p class="flex items-center gap-2">
+        <span class="text-crisis font-bold" aria-hidden="true">&#10033;</span>
+        <span><strong>Crisis Support Available:</strong> If you or someone you know is in acute distress, immediate help is reachable 24/7.</span>
+      </p>
+      <a href="/find-support" class="flex-none font-medium underline underline-offset-2">Dial 988 or Reach International Helplines &#8599;</a>
+    </div>
+  </div>
+
+  <header class="bg-white border-b border-surface-mid sticky top-0 z-40">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between" aria-label="Primary">
+      <a href="/" class="flex items-center gap-2" aria-label="Unburden home">
+        <span class="w-6 h-6 rounded bg-primary text-white grid place-items-center text-[12px] font-serif font-bold">U</span>
+        <span class="font-display font-bold text-[17px]">Unburden</span>
+      </a>
+      <ul class="hidden md:flex items-center gap-7 text-[10.5px] tracking-[.1em] uppercase text-ink-soft">
+        <li><a data-nav="home" href="/" class="py-1 hover:text-primary">Home</a></li>
+        <li><a data-nav="resources" href="/resources" class="py-1 hover:text-primary">Resources</a></li>
+        <li><a data-nav="assessment" href="/assessment" class="py-1 hover:text-primary">Assessment</a></li>
+        <li><a data-nav="support" href="/find-support" class="py-1 hover:text-primary">Find Support</a></li>
+        <li><a data-nav="about" href="/#framework" class="py-1 hover:text-primary">About SDG 3</a></li>
+      </ul>
+      <div class="flex items-center gap-3 text-[10.5px] tracking-[.08em] uppercase">
+        <a href="/login" class="bg-surface-mid text-ink-soft rounded px-3.5 py-2 hover:bg-surface-high">Log In</a>
+        <a href="/register" class="btn-primary px-3.5 py-2">Register</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="bg-surface">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-16 pb-14">
+        <p class="inline-flex items-center gap-2 bg-surface-mid text-olive rounded px-2.5 py-1 text-[10px] tracking-[.12em] uppercase">
+          <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>
+          UN Sustainable Development Goal 3.4 Archive
+        </p>
+        <h1 class="font-display font-bold text-[40px] sm:text-[52px] leading-[1.05] mt-5 max-w-2xl">Curated Mental Health Resources</h1>
+        <p class="text-[15px] text-ink-soft leading-relaxed mt-5 max-w-xl">A scholarly compendium of evidence-based articles, clinical guides, and community support frameworks aligned with the United Nations SDG 3 mandate to reduce non-communicable mortality and promote mental well-being globally.</p>
+        <div class="mt-8 flex flex-wrap gap-2.5" role="group" aria-label="Filter resources" id="res-chips">
+          <button type="button" class="chip px-4 py-2 text-[10.5px] tracking-[.06em]" data-cat="all" aria-pressed="true">All Resources</button>
+          <button type="button" class="chip px-4 py-2 text-[10.5px] tracking-[.06em]" data-cat="anxiety" aria-pressed="false">Anxiety &amp; Mood</button>
+          <button type="button" class="chip px-4 py-2 text-[10.5px] tracking-[.06em]" data-cat="mindfulness" aria-pressed="false">Mindfulness &amp; Coping</button>
+          <button type="button" class="chip px-4 py-2 text-[10.5px] tracking-[.06em]" data-cat="policy" aria-pressed="false">Policy &amp; Community</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Catalog -->
+    <section class="bg-surface-low py-14" aria-labelledby="cat-title">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        <div class="flex items-end justify-between gap-4">
+          <div>
+            <p class="text-[10px] tracking-[.14em] uppercase text-olive">Cataloged Publications</p>
+            <h2 id="cat-title" class="font-display font-bold text-[26px] mt-2">Curator&rsquo;s Primary Selection</h2>
+          </div>
+          <p id="res-count" class="text-[10px] text-ink-mute" aria-live="polite">3 Core Formats Aligned</p>
+        </div>
+
+        <div class="mt-8 grid md:grid-cols-3 gap-6">
+          <!-- Card 1 -->
+          <article data-cat="anxiety" class="bg-white rounded-editorial shadow-card p-4 flex flex-col">
+            <div class="relative rounded overflow-hidden aspect-[4/3] bg-gradient-to-br from-[#CFC5B4] via-[#A99C86] to-[#5C554A]" role="img" aria-label="Illustration: an open journal on a wooden desk beside a chair">
+              <div class="absolute inset-0 bg-[radial-gradient(circle_at_75%_15%,rgba(255,255,255,.7),transparent_45%)]"></div>
+              <div class="absolute bottom-[18%] left-[14%] w-[52%] h-[26%] bg-[#F1EBDD] rounded-sm rotate-[-4deg] shadow-lg"></div>
+              <div class="absolute bottom-[12%] right-[12%] w-[26%] h-[40%] bg-[#2A3A4A] rounded-sm"></div>
+              <span class="absolute top-3 right-3 bg-white/90 text-[9.5px] rounded px-2 py-0.5">6 min read</span>
+            </div>
+            <p class="mt-4 text-[9.5px] tracking-[.12em] uppercase"><span class="text-primary font-medium">Clinical Insights</span> <span class="text-ink-mute">&bull; Peer-Reviewed</span></p>
+            <h3 class="font-display font-bold text-[17px] leading-snug mt-1.5">Understanding Anxiety &amp; Stress</h3>
+            <p class="text-[12px] text-ink-soft leading-relaxed mt-2">Examine biological stress mechanics, neuro-chemical triggers, and clinical cognitive&hellip;</p>
+            <div class="mt-auto pt-5 flex items-center justify-between text-[11px]">
+              <a href="#" class="text-primary font-medium hover:underline">Read Guide &rarr;</a>
+              <svg class="w-3.5 h-3.5 text-ink-mute" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="5" y="4" width="14" height="16" rx="2"/><path d="M9 9h6M9 13h6"/></svg>
+            </div>
+          </article>
+
+          <!-- Card 2 -->
+          <article data-cat="mindfulness" class="bg-white rounded-editorial shadow-card p-4 flex flex-col">
+            <div class="relative rounded overflow-hidden aspect-[4/3] bg-gradient-to-b from-[#EDE4D3] via-[#DCCFB8] to-[#B8A98D]" role="img" aria-label="Illustration: a still water bowl in a quiet room">
+              <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_20%,rgba(255,255,255,.75),transparent_55%)]"></div>
+              <div class="absolute bottom-[16%] left-1/2 -translate-x-1/2 w-[44%] h-[22%] bg-[#9FB4B4] rounded-[50%] shadow-md"></div>
+              <div class="absolute bottom-[24%] left-1/2 -translate-x-1/2 w-[34%] h-[10%] bg-[#C9DADA] rounded-[50%]"></div>
+              <span class="absolute top-3 right-3 bg-white/90 text-[9.5px] rounded px-2 py-0.5">12 min practice</span>
+            </div>
+            <p class="mt-4 text-[9.5px] tracking-[.12em] uppercase"><span class="text-primary font-medium">Guided Exercises</span> <span class="text-ink-mute">&bull; Audio &amp; Text</span></p>
+            <h3 class="font-display font-bold text-[17px] leading-snug mt-1.5">Daily Mindfulness Practices</h3>
+            <p class="text-[12px] text-ink-soft leading-relaxed mt-2">Structured breath protocols and somatic awareness exercises crafted by licensed&hellip;</p>
+            <div class="mt-auto pt-5 flex items-center justify-between text-[11px]">
+              <a href="#" class="text-primary font-medium hover:underline">Listen &amp; Read &#127911;</a>
+              <svg class="w-3.5 h-3.5 text-ink-mute" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 10v4M9 7v10M13 5v14M17 8v8M21 11v2"/></svg>
+            </div>
+          </article>
+
+          <!-- Card 3 -->
+          <article data-cat="policy" class="bg-white rounded-editorial shadow-card p-4 flex flex-col">
+            <div class="relative rounded overflow-hidden aspect-[4/3] bg-gradient-to-br from-[#D8CBB2] via-[#B8A27E] to-[#6E5F45]" role="img" aria-label="Illustration: people studying together in a bright library">
+              <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_10%,rgba(255,255,255,.6),transparent_50%)]"></div>
+              <div class="absolute bottom-[14%] left-[10%] right-[10%] h-[30%] bg-[#8B7350]/70 rounded-sm"></div>
+              <div class="absolute bottom-[34%] left-[22%] w-[8%] h-[16%] bg-[#3F4A57] rounded-full"></div>
+              <div class="absolute bottom-[34%] left-[46%] w-[8%] h-[16%] bg-[#A1553F] rounded-full"></div>
+              <div class="absolute bottom-[34%] right-[22%] w-[8%] h-[16%] bg-[#3E6A57] rounded-full"></div>
+              <span class="absolute top-3 right-3 bg-white/90 text-[9.5px] text-olive rounded px-2 py-0.5">UN SDG 3 Policy</span>
+            </div>
+            <p class="mt-4 text-[9.5px] tracking-[.12em] uppercase"><span class="text-primary font-medium">Community Care</span> <span class="text-ink-mute">&bull; Framework</span></p>
+            <h3 class="font-display font-bold text-[17px] leading-snug mt-1.5">Navigating Youth &amp; Community Support</h3>
+            <p class="text-[12px] text-ink-soft leading-relaxed mt-2">Investigate grassroots mental health delivery mechanisms, youth-centric peer solidarity node&hellip;</p>
+            <div class="mt-auto pt-5 flex items-center justify-between text-[11px]">
+              <a href="#" class="text-primary font-medium hover:underline">Read Guide &rarr;</a>
+              <svg class="w-3.5 h-3.5 text-ink-mute" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="8" cy="9" r="3"/><circle cx="16" cy="9" r="3"/><path d="M2 19c0-3 3-5 6-5M22 19c0-3-3-5-6-5"/></svg>
+            </div>
+          </article>
+        </div>
+
+        <p id="res-empty" class="hidden mt-6 text-[13px] text-ink-soft">No resources in this category yet. Choose &ldquo;All Resources&rdquo; to see the full selection.</p>
+
+        <!-- Verification panel -->
+        <div class="mt-14 bg-surface-mid rounded-editorial p-6 sm:p-8 grid lg:grid-cols-[1.5fr_1fr] gap-8 items-center">
+          <div>
+            <p class="inline-flex items-center gap-1.5 bg-white text-primary rounded px-2 py-1 text-[10px] font-medium">
+              <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/></svg>
+              Clinical Verification Protocol
+            </p>
+            <h2 class="font-display font-bold text-[26px] leading-tight mt-3 max-w-lg">Verified Scientific Sources &amp; Medical Review Board</h2>
+            <p class="text-[12.5px] text-ink-soft leading-relaxed mt-3 max-w-lg">Every document in the Unburden catalog undergoes strict independent peer review by practicing clinical psychologists, psychiatrists, and global health researchers. Content is cross-indexed with World Health Organization (WHO) and United Nations Sustainable Development Goal 3 benchmarks.</p>
+            <ul class="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-[10.5px] text-ink-soft">
+              <li class="flex items-center gap-1.5"><span class="text-primary" aria-hidden="true">&#10003;</span> APA &amp; WHO Guidelines Aligned</li>
+              <li class="flex items-center gap-1.5"><span class="text-primary" aria-hidden="true">&#10003;</span> Annual Evidence Recertification</li>
+              <li class="flex items-center gap-1.5"><span class="text-primary" aria-hidden="true">&#10003;</span> Conflict-of-Interest Screened</li>
+            </ul>
+          </div>
+          <aside class="bg-white rounded-editorial p-5" aria-label="Editorial credibility">
+            <p class="text-[9.5px] tracking-[.12em] uppercase text-ink-mute">Editorial Credibility</p>
+            <p class="font-display font-bold text-[30px] text-primary mt-1">100%</p>
+            <p class="text-[11px] text-ink-soft leading-relaxed mt-1">Resources independently assessed against clinical validation metrics before archival publication.</p>
+            <a href="#" class="inline-block mt-3 text-[11px] text-primary font-medium hover:underline">View Review Board Credentials &#8599;</a>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div data-include="footer"></div>
+
+  <script src="/js/main.js" defer></script>
+  <script src="/js/resources.js" defer></script>
+</body>
+</html>

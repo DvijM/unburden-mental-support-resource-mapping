@@ -1,0 +1,63 @@
+[
+  {
+    "id": "988",
+    "name": "988 Suicide & Crisis Lifeline",
+    "badge": "24/7 Free & Confidential",
+    "designation": "Federal Designation: US & Canada",
+    "categories": ["crisis"],
+    "regions": ["us-ca"],
+    "description": "Immediate support for individuals experiencing mental health-related distress, suicidal thoughts, or emotional crisis. Callers speak with trained specialists equipped to provide non-judgmental crisis intervention, safety planning, and warm transfers to local emergency psychiatric services.",
+    "channels": [
+      { "icon": "phone", "label": "Call 988" },
+      { "icon": "chat", "label": "Text 988" },
+      { "icon": "chat", "label": "Online Chat Available" }
+    ],
+    "primary": { "label": "Call 988 Now", "icon": "phone", "href": "tel:988" },
+    "secondary": { "label": "Start Web Chat", "href": "https://988lifeline.org/chat/", "external": true }
+  },
+  {
+    "id": "crisis-text-line",
+    "name": "Crisis Text Line",
+    "badge": "24/7 Text Support",
+    "designation": "US, UK, Ireland, Canada",
+    "categories": ["crisis", "peer"],
+    "regions": ["us-ca", "uk-ie"],
+    "description": "A non-profit network providing high-speed text-based emotional support. Users are connected with empathetic, certified crisis counselors within minutes to de-escalate acute panic, severe loneliness, depressive episodes, and interpersonal crisis through structured active listening.",
+    "channels": [
+      { "icon": "chat", "label": "Text HOME to 741741 (US / CA)" },
+      { "icon": "chat", "label": "Text 85258 (UK)" }
+    ],
+    "primary": { "label": "Start Text Chat", "icon": "chat", "href": "sms:741741&body=HOME" },
+    "secondary": { "label": "Program Details", "href": "https://www.crisistextline.org/", "external": false }
+  },
+  {
+    "id": "trevor",
+    "name": "The Trevor Project",
+    "badge": "LGBTQ+ Youth Crisis",
+    "designation": "Affirming & Specialized Care",
+    "categories": ["crisis", "youth"],
+    "regions": ["us-ca"],
+    "description": "The leading national provider of suicide prevention and affirmative crisis intervention for lesbian, gay, bisexual, transgender, queer, and questioning (LGBTQ+) young people under 25. Accessible via encrypted phone, text, and secure browser terminals.",
+    "channels": [
+      { "icon": "phone", "label": "Call 1-866-488-7386" },
+      { "icon": "chat", "label": "Text START to 678-678" }
+    ],
+    "primary": { "label": "Connect Now", "icon": "chat", "href": "https://www.thetrevorproject.org/get-help/" },
+    "secondary": { "label": "TrevorSpace Safe Portal", "href": "https://www.trevorspace.org/", "external": true }
+  },
+  {
+    "id": "iasp",
+    "name": "International Helplines Directory (Befrienders Worldwide & IASP)",
+    "badge": "Global Network (100+ Countries)",
+    "designation": "UN-Accredited Partnerships",
+    "categories": ["crisis", "peer", "therapy"],
+    "regions": ["us-ca", "uk-ie", "global"],
+    "description": "A federated directory maintaining vetted emotional support helplines across Latin America, Africa, Asia-Pacific, Europe, and the Middle East. Facilitated in concert with the International Association for Suicide Prevention (IASP) to support SDG 3 target health outcomes.",
+    "channels": [
+      { "icon": "globe", "label": "Web Directory & Local Helplines" },
+      { "icon": "globe", "label": "Multilingual Country Indices" }
+    ],
+    "primary": { "label": "Find Your Local Line", "icon": "globe", "href": "https://www.iasp.info/crisis-centres-helplines/" },
+    "secondary": { "label": "IASP Global Index", "href": "https://www.iasp.info/", "external": false }
+  }
+]

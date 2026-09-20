@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Clinical Self-Assessment &amp; Mood Screener — Unburden</title>
+  <meta name="description" content="A confidential PHQ-9 inspired mood screener. Responses are computed locally on your device." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body data-page="assessment" class="bg-surface text-ink">
+
+  <div data-include="header"></div>
+
+  <main>
+    <!-- Page header band -->
+    <section class="bg-surface-low">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 pt-10 pb-12">
+        <nav aria-label="Breadcrumb" class="text-[10px] tracking-[.1em] uppercase text-ink-mute">
+          Health Screening &nbsp;/&nbsp; Clinical Inventories &nbsp;/&nbsp; <span class="text-ink font-medium">PHQ-9 Well-Being</span>
+        </nav>
+        <div class="mt-4 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6">
+          <div class="max-w-xl">
+            <span class="inline-flex items-center gap-1.5 bg-gold text-[#4A3F00] text-[10px] font-semibold rounded-full px-2.5 py-1">
+              <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>
+              SDG 3 Target 3.4 Aligned
+            </span>
+            <h1 class="font-display font-bold text-[34px] sm:text-[40px] leading-[1.08] mt-3">Clinical Self-Assessment &amp; Mood Screener</h1>
+            <p class="text-[13.5px] text-ink-soft leading-relaxed mt-3">Standardized, evidence-based questionnaires to help identify patterns in emotional well-being, mood fluctuations, and daily psychological stress.</p>
+          </div>
+          <div class="bg-white rounded-editorial shadow-card px-4 py-3 flex-none self-start">
+            <p class="text-[9px] tracking-[.12em] uppercase text-ink-mute">Estimated Duration</p>
+            <p class="font-display font-bold text-[18px] mt-0.5">3 &ndash; 5 Minutes</p>
+            <p class="text-[10px] text-ink-mute">9 Clinical Inquiries</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 -mt-6 pb-16 space-y-6">
+
+      <!-- Disclaimer card -->
+      <aside class="bg-white rounded-editorial shadow-card p-5 flex gap-4" aria-labelledby="disc-title">
+        <span class="w-8 h-8 rounded bg-surface-mid text-primary grid place-items-center flex-none" aria-hidden="true">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M12 9v4M12 16h.01"/></svg>
+        </span>
+        <div>
+          <h2 id="disc-title" class="font-display font-bold text-[14px]">Clinical Disclaimer &amp; Educational Intent</h2>
+          <p class="text-[12px] text-ink-soft leading-relaxed mt-1.5">
+            This screening instrument is adapted from the Patient Health Questionnaire (PHQ-9) and is provided solely for informational and personal reflective purposes. <strong class="text-ink">It does not constitute a clinical, psychiatric, or diagnostic evaluation</strong>, nor should it substitute for professional consultation with a licensed physician, therapist, or mental health clinician.
+          </p>
+          <p class="text-[11px] text-ink-mute mt-2">In case of severe distress: <a href="/find-support" class="text-primary font-medium hover:underline ml-1">Connect with Crisis Referral Network &rarr;</a></p>
+        </div>
+      </aside>
+
+      <!-- Questionnaire card -->
+      <section id="quiz" class="bg-white rounded-editorial shadow-card p-6 sm:p-8" aria-labelledby="quiz-title">
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <p class="text-[9.5px] tracking-[.14em] uppercase text-primary font-medium">Standardized Clinical Screener</p>
+            <h2 id="quiz-title" class="font-display font-bold text-[20px] leading-tight mt-1 max-w-sm">General Well-Being &amp; Mood Assessment (PHQ-9 Inspired)</h2>
+          </div>
+          <div class="bg-surface-mid rounded px-2.5 py-1.5 text-[10px] text-ink-soft text-center flex-none" aria-live="polite">
+            <span id="q-counter" class="font-medium text-ink">Question 1 of 9</span>
+            <span id="q-percent" class="block">(0% Complete)</span>
+          </div>
+        </div>
+
+        <div class="mt-5 h-1.5 bg-surface-high rounded-full overflow-hidden" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Assessment progress" id="progress-track">
+          <div id="progress-fill" class="h-full bg-primary rounded-full transition-all duration-300" style="width:0%"></div>
+        </div>
+
+        <!-- Question view -->
+        <div id="question-view" class="mt-7">
+          <p id="q-domain" class="text-[9.5px] tracking-[.12em] uppercase text-ink-mute"></p>
+          <h3 id="q-text" class="font-display text-[22px] sm:text-[26px] leading-snug mt-2"></h3>
+          <div id="options" class="mt-6 space-y-2.5" role="radiogroup" aria-labelledby="q-text"></div>
+
+          <div class="mt-8 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex gap-3">
+              <button id="btn-prev" type="button" class="btn-secondary px-4 py-2.5 text-[12px] inline-flex items-center gap-2 !text-ink-soft disabled:opacity-40 disabled:cursor-not-allowed">&larr; Previous</button>
+              <button id="btn-next" type="button" class="btn-primary px-5 py-2.5 text-[12px] inline-flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed" disabled>Next Question &rarr;</button>
+            </div>
+            <button id="btn-save" type="button" class="text-[11px] text-ink-soft underline underline-offset-4 hover:text-primary">Save &amp; View Summary Later</button>
+          </div>
+          <p id="save-note" class="hidden mt-3 text-[11px] text-ink-soft" role="status"></p>
+        </div>
+
+        <!-- Result view (shown after question 9) -->
+        <div id="result-view" class="hidden mt-7" aria-live="polite">
+          <p class="text-[9.5px] tracking-[.12em] uppercase text-olive">Your Screening Summary</p>
+          <div class="flex flex-wrap items-baseline gap-x-4 gap-y-1 mt-2">
+            <p class="font-display font-bold text-[44px] leading-none"><span id="score-total">0</span><span class="text-ink-mute text-[22px]"> / 27</span></p>
+            <p id="score-band" class="font-display text-[20px] text-primary"></p>
+          </div>
+          <p id="score-text" class="text-[13px] text-ink-soft leading-relaxed mt-3 max-w-xl"></p>
+
+          <div id="safety-flag" class="hidden mt-5 bg-crisis-bg text-crisis-ink rounded-editorial p-4 text-[12.5px] leading-relaxed" role="alert">
+            <strong>You indicated thoughts of self-harm.</strong> You deserve support right now. In the US or Canada, call or text <a class="underline font-semibold" href="tel:988">988</a>, or find a line in your country in the
+            <a class="underline font-semibold" href="/find-support">support directory</a>. If you are in immediate danger, contact local emergency services.
+          </div>
+
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a href="/find-support" class="btn-primary px-5 py-2.5 text-[12px]">Find professional support &rarr;</a>
+            <button id="btn-restart" type="button" class="btn-secondary px-5 py-2.5 text-[12px]">Retake screener</button>
+          </div>
+          <p class="text-[11px] text-ink-mute mt-5 max-w-xl">This score is a screening indicator, not a diagnosis. Share it with a licensed clinician if you are concerned.</p>
+        </div>
+      </section>
+
+      <!-- Privacy card -->
+      <aside class="bg-surface-low rounded-editorial p-5 flex gap-3" aria-labelledby="priv-title">
+        <svg class="w-4 h-4 text-olive flex-none mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>
+        <div>
+          <h2 id="priv-title" class="text-[10px] tracking-[.12em] uppercase text-ink font-medium">Strict Privacy &amp; Zero PHI Retention Guarantee</h2>
+          <p class="text-[11.5px] text-ink-soft leading-relaxed mt-1.5">Your responses in this screener are computed locally on your device in real-time. Unburden does not record, log, or transmit Protected Health Information (PHI) to remote analytical servers or commercial marketing trackers. Your identity remains strictly anonymous.</p>
+        </div>
+      </aside>
+
+      <!-- Info trio -->
+      <div class="grid sm:grid-cols-3 gap-4">
+        <article class="bg-white rounded-editorial shadow-card p-5">
+          <span class="w-7 h-7 rounded bg-surface-mid text-primary grid place-items-center" aria-hidden="true"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 6h7a2 2 0 012 2v11H6a2 2 0 01-2-2zM20 6h-7"/></svg></span>
+          <h3 class="font-display font-bold text-[14px] mt-3">Curated Scoring Metrics</h3>
+          <p class="text-[11.5px] text-ink-soft leading-relaxed mt-1.5">Based on Kroenke et al. (2001). Scores span 0&ndash;27 categorized into minimal, mild, moderate, moderately severe, and severe depressive symptoms.</p>
+        </article>
+        <article class="bg-white rounded-editorial shadow-card p-5">
+          <span class="w-7 h-7 rounded bg-surface-mid text-primary grid place-items-center" aria-hidden="true"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.3 3 14.7 0 18M12 3c-3 3.3-3 14.7 0 18"/></svg></span>
+          <h3 class="font-display font-bold text-[14px] mt-3">SDG 3 Global Target 3.4</h3>
+          <p class="text-[11.5px] text-ink-soft leading-relaxed mt-1.5">Advancing the United Nations target to reduce premature mortality from non-communicable diseases by one-third through prevention and mental well-being promotion.</p>
+        </article>
+        <article class="bg-white rounded-editorial shadow-card p-5">
+          <span class="w-7 h-7 rounded bg-surface-mid text-primary grid place-items-center" aria-hidden="true"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="9" cy="8" r="3"/><path d="M3 19c0-3 3-5 6-5s6 2 6 5M17 6l2 2 3-3"/></svg></span>
+          <h3 class="font-display font-bold text-[14px] mt-3">Professional Referral</h3>
+          <p class="text-[11.5px] text-ink-soft leading-relaxed mt-1.5">Upon questionnaire completion, you will be offered optional directory connections to vetted psychological professionals and community clinics.</p>
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <div data-include="footer"></div>
+
+  <script src="/js/main.js" defer></script>
+  <script src="/js/assessment.js" defer></script>
+</body>
+</html>
