@@ -42,6 +42,7 @@ app.use((req, res, next) => {
 // Static assets (css, js, partials). Pages are served by explicit routes below
 // so that clean URLs like /assessment work without the .html extension.
 app.use(express.static(PUBLIC_DIR, { index: false, extensions: [] }));
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 // ---------------------------------------------------------------------------
 // Page routes
