@@ -58,8 +58,16 @@
       <!-- Form panel -->
       <section class="p-8 sm:p-10" aria-labelledby="reg-title">
         <p class="text-[10.5px] tracking-[.14em] uppercase text-primary font-medium">Account Creation</p>
-        <h2 id="reg-title" class="font-display font-bold text-[28px] mt-1">Create Your Account</h2>
-        <p class="text-[13.5px] text-ink-soft leading-relaxed mt-2 max-w-sm">Join Unburden to track your assessments and bookmark verified care resources.</p>
+        <h2 id="reg-title" data-auth-title data-default="Create Your Account" class="font-display font-bold text-[28px] mt-1">Create Your Account</h2>
+        <p id="reg-sub" data-auth-sub data-default="Join Unburden to track your assessments and bookmark verified care resources." class="text-[13.5px] text-ink-soft leading-relaxed mt-2 max-w-sm">Join Unburden to track your assessments and bookmark verified care resources.</p>
+
+        <!-- Admin / User mode toggle -->
+        <div class="flex justify-center mt-4" role="radiogroup" aria-label="Account type">
+          <div class="flex items-center bg-surface-mid rounded-full p-1 w-fit">
+            <button type="button" data-mode="user" aria-pressed="true" class="auth-mode-btn px-4 py-1.5 text-[12px] rounded-full font-medium">User</button>
+            <button type="button" data-mode="admin" aria-pressed="false" class="auth-mode-btn px-4 py-1.5 text-[12px] rounded-full font-medium">Admin</button>
+          </div>
+        </div>
 
         <form id="register-form" class="mt-8 space-y-5" novalidate>
           <div>
@@ -108,6 +116,16 @@
               <span id="match-icon" class="hidden absolute right-3.5 top-1/2 -translate-y-1/2 text-ok" aria-hidden="true">&#10003;</span>
             </div>
             <p class="field-error hidden text-[11px] text-crisis mt-1" data-for="confirm"></p>
+          </div>
+
+          <!-- Phone field (admin only, hidden by default) -->
+          <div id="admin-phone-field" class="hidden">
+            <label id="phone-label" for="phone" class="block text-[10.5px] tracking-[.12em] uppercase text-ink font-medium mb-1.5">Phone Number</label>
+            <div class="relative">
+              <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="e.g., +1 555-0100" class="w-full bg-white border border-outline rounded px-3.5 py-3 pr-10 text-[13.5px] placeholder:text-ink-mute focus:border-primary" />
+              <svg class="w-4 h-4 text-ink-soft absolute right-3.5 top-1/2 -translate-y-1/2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M6.6 10.8a15 15 0 006.6 6.6l2.2-2.2a1 1 0 011-.25 11 11 0 003.5.6 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11 11 0 00.6 3.5 1 1 0 01-.25 1z"/></svg>
+            </div>
+            <p class="field-error hidden text-[11px] text-crisis mt-1" data-for="phone"></p>
           </div>
 
           <div>

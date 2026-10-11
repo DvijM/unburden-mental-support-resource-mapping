@@ -60,10 +60,18 @@
 
       <section class="mt-6 bg-white rounded-editorial shadow-lift overflow-hidden" aria-labelledby="login-title">
         <div class="p-8 sm:p-10">
-          <h1 id="login-title" class="font-display font-bold text-[34px] text-center">Welcome Back</h1>
-          <p class="text-[14px] text-ink-soft leading-relaxed text-center mt-3 max-w-xs mx-auto">Log in to access your saved mental health assessments and resource library.</p>
+          <h1 id="login-title" data-auth-title data-default="Welcome Back" class="font-display font-bold text-[34px] text-center">Welcome Back</h1>
+          <p data-auth-sub data-default="Log in to access your saved mental health assessments and resource library." class="text-[14px] text-ink-soft leading-relaxed text-center mt-3 max-w-xs mx-auto">Log in to access your saved mental health assessments and resource library.</p>
 
-          <form id="login-form" class="mt-8 space-y-5" novalidate>
+          <!-- Admin / User mode toggle -->
+          <div class="flex justify-center mt-5" role="radiogroup" aria-label="Account type">
+            <div class="flex items-center bg-surface-mid rounded-full p-1 w-fit">
+              <button type="button" data-mode="user" aria-pressed="true" class="auth-mode-btn px-4 py-1.5 text-[12px] rounded-full font-medium">User</button>
+              <button type="button" data-mode="admin" aria-pressed="false" class="auth-mode-btn px-4 py-1.5 text-[12px] rounded-full font-medium">Admin</button>
+            </div>
+          </div>
+
+          <form id="login-form" class="mt-6 space-y-5" novalidate>
             <div>
               <label for="email" class="block text-[11px] tracking-[.12em] uppercase text-ink font-medium mb-1.5">Email Address</label>
               <input id="email" name="email" type="email" autocomplete="email" placeholder="name@example.com" class="w-full bg-white border border-surface-high rounded px-3.5 py-3 text-[13.5px] placeholder:text-ink-mute focus:border-primary" required />
@@ -109,6 +117,7 @@
               Health ID SSO
             </button>
           </div>
+          <p id="admin-login-help" class="hidden text-[11.5px] text-center text-ink-soft">Administrator access is restricted to verified accounts. <a href="/register" class="text-primary font-medium hover:underline">Register an admin account &rarr;</a></p>
         </div>
 
         <p class="bg-surface-low text-center text-[13px] text-ink-soft py-4">Don&rsquo;t have an account yet? <a href="/register" class="text-primary font-medium hover:underline">Register now</a></p>

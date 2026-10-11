@@ -5,6 +5,46 @@
 
   const $ = (id) => document.getElementById(id);
   const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  const PHONE_RE = /^[+\d\s\-().]{7,20}$/;
+
+  // ---------- Auth mode state ----------
+  let authMode = 'user'; // 'user' or 'admin'
+  const isRegisterPage = !!$('register-form');
+
+  // Initialize toggle buttons (present on both login and register pages)
+  document.querySelectorAll('[data-mode]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      authMode = btn.dataset.mode;
+      document.querySelectorAll('[data-mode]').forEach((b) =>
+        b.setAttribute('aria-pressed', String(b === btn))
+      );
+      onModeChange();
+    });
+  });
+
+  function onModeChange() {
+    // Update title/subtitle from defaults
+    const title = document.querySelector('[data-auth-title]');
+    const sub = document.querySelector('[data-auth-sub]');
+
+    if (authMode === 'admin') {
+      if (title) title.textContent = isRegisterPage ? 'Create Admin Account' : 'Admin Sign In';
+      if (sub) sub.textContent = isRegisterPage
+        ? 'Register a new administrator account with verified credentials.'
+        : 'Sign in with administrator credentials to access the dashboard.';
+    } else {
+      if (title) title.textContent = title.dataset.default;
+      if (sub) sub.textContent = sub.dataset.default;
+    }
+
+    // Toggle phone field visibility (register only)
+    const phoneField = $('admin-phone-field');
+    if (phoneField) phoneField.classList.toggle('hidden', authMode !== 'admin');
+
+    // Toggle admin login help (login only)
+    const adminHelp = $('admin-login-help');
+    if (adminHelp) adminHelp.classList.toggle('hidden', authMode !== 'admin');
+  }
 
   // ---------- helpers ----------
   function setError(form, field, message) {
@@ -115,6 +155,7 @@
       const name = $('fullname').value.trim();
       const email = $('email').value.trim();
       const password = pw.value;
+      const phone = $('phone').value.trim();
       let valid = true;
 
       if (name.length < 2) { setError(regForm, 'fullname', 'Enter your full name.'); valid = false; }
@@ -122,6 +163,13 @@
       if (password.length < 8) { setError(regForm, 'password', 'Use at least 8 characters.'); valid = false; }
       if (confirm.value !== password) { setError(regForm, 'confirm', 'Passwords do not match.'); valid = false; }
       if (!$('terms').checked) { setError(regForm, 'terms', 'Accept the Terms of Service and Privacy Policy to continue.'); valid = false; }
+
+      // Admin-specific validation
+      if (authMode === 'admin') {
+        if (!PHONE_RE.test(phone)) { setError(regForm, 'phone', 'Enter a valid phone number for administrator accounts.'); valid = false; }
+        if (password.length < 12) { setError(regForm, 'password', 'Administrator accounts require at least 12 characters.'); valid = false; }
+      }
+
       if (!valid) {
         const firstBad = regForm.querySelector('[aria-invalid="true"]');
         if (firstBad) firstBad.focus();
@@ -131,9 +179,9 @@
       const idle = 'Register Account <span aria-hidden="true">&rarr;</span>';
       setBusy(true, idle);
       try {
-        const { ok, status, data } = await postJSON('/api/register', { name, email, password });
+        const { ok, status, data } = await postJSON('/api/register', { name, email, password, phone, role: authMode });
         if (ok) {
-          showStatus('info', 'Account created. Redirecting you to log in\u2026');
+          showStatus('info', isRegisterPage ? 'Admin account created. Redirecting you to log in…' : 'Account created. Redirecting you to log in…');
           setTimeout(() => { window.location.href = '/login'; }, 900);
           return;
         }
@@ -169,9 +217,17 @@
       const idle = 'Log In <span aria-hidden="true">&rarr;</span>';
       setBusy(true, idle);
       try {
-        const { ok, status, data } = await postJSON('/api/login', { email, password, remember: $('remember').checked });
+        const { ok, status, data } = await postJSON('/api/login', { email, password, role: authMode });
         if (ok) {
-          showStatus('info', `Welcome back${data.name ? ', ' + data.name.split(' ')[0] : ''}. Redirecting\u2026`);
+          // Store token in localStorage for subsequent authenticated requests
+          localStorage.setItem('unburden_token', data.token);
+
+          if (data.role === 'admin') {
+            showStatus('info', `Welcome, admin ${data.name.split(' ')[0]}. Redirecting to dashboard…`);
+            setTimeout(() => { window.location.href = '/admin'; }, 700);
+            return;
+          }
+          showStatus('info', `Welcome back${data.name ? ', ' + data.name.split(' ')[0] : ''}. Redirecting…`);
           setTimeout(() => { window.location.href = '/assessment'; }, 700);
           return;
         }

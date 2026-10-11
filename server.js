@@ -45,6 +45,49 @@ app.use(express.static(PUBLIC_DIR, { index: false, extensions: [] }));
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 // ---------------------------------------------------------------------------
+// In-memory session tokens
+//
+// Auth is a working demo implementation, not production auth: there are no
+// sessions/cookies, and this Map is not safe across server restarts or cluster
+// scaling. Swap the token store / getSession for a real session provider and
+// switch the frontend to httpOnly cookies before shipping.
+// ---------------------------------------------------------------------------
+const activeSessions = new Map(); // token -> { userId, role, name, email }
+
+function createSessionToken(user) {
+  const token = crypto.randomUUID();
+  activeSessions.set(token, {
+    userId: user.id,
+    role: user.role || 'user',
+    name: user.name,
+    email: user.email,
+  });
+  return token;
+}
+
+function getSession(req) {
+  const auth = req.headers.authorization || '';
+  const token = auth.startsWith('Bearer ') ? auth.slice(7) : null;
+  if (!token || !activeSessions.has(token)) return null;
+  return { token, ...activeSessions.get(token) };
+}
+
+function requireAuth(req, res, next) {
+  const session = getSession(req);
+  if (!session) return res.status(401).json({ error: 'Authentication required.' });
+  req.session = session;
+  next();
+}
+
+function requireAdmin(req, res, next) {
+  const session = getSession(req);
+  if (!session) return res.status(401).json({ error: 'Authentication required.' });
+  if (session.role !== 'admin') return res.status(403).json({ error: 'Administrator access required.' });
+  req.session = session;
+  next();
+}
+
+// ---------------------------------------------------------------------------
 // Page routes
 // ---------------------------------------------------------------------------
 const PAGES = {
@@ -59,6 +102,12 @@ const PAGES = {
 Object.entries(PAGES).forEach(([route, file]) => {
   app.get(route, (req, res) => res.sendFile(path.join(PAGES_DIR, file)));
 });
+
+// The admin page HTML is deliberately public (it is empty of data); the
+// dashboard itself only loads information through /api/admin/* endpoints, which
+// are protected by server-side role checks (requireAdmin). See /api/session for
+// the redirect that sends unauthenticated users back to /login.
+app.get('/admin', (req, res) => res.sendFile(path.join(PAGES_DIR, 'admin.html')));
 
 // ---------------------------------------------------------------------------
 // API: helplines
@@ -76,17 +125,17 @@ app.get('/api/helplines', (req, res) => {
 // ---------------------------------------------------------------------------
 // API: auth (file-backed demo store)
 //
-// This is a working reference implementation, not production auth: there are
-// no sessions or cookies, and the JSON file is not safe under concurrent
-// writes. Swap the readUsers/writeUsers functions for a real database and add
-// session handling (e.g. express-session or JWT in an httpOnly cookie) before
-// shipping.
+// Roles: 'user' (regular accounts, created through normal registration) and
+// 'admin' (administrator accounts). Regular login and registration always use
+// role 'user'; an explicit 'admin' flag is only sent via the admin switch on
+// the login / register pages.
 // ---------------------------------------------------------------------------
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const PHONE_RE = /^[+\d\s\-().]{7,20}$/;
 
 function readUsers() {
   try {
-    return JSON.parse(fs.readFileSync(USERS_FILE, 'utf8'));
+    return JSON.parse(fs.readFileSync(USERS_FILE, 'utf8')).map(normalizeUser);
   } catch (err) {
     if (err.code === 'ENOENT') return [];
     throw err;
@@ -96,6 +145,16 @@ function readUsers() {
 function writeUsers(users) {
   fs.mkdirSync(DATA_DIR, { recursive: true });
   fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2), { mode: 0o600 });
+}
+
+// Normalize legacy records that lack the new fields.
+function normalizeUser(u) {
+  return {
+    ...u,
+    role: u.role || 'user',
+    phone: u.phone || '',
+    screeningScore: u.screeningScore !== undefined ? u.screeningScore : null,
+  };
 }
 
 function hashPassword(password, salt = crypto.randomBytes(16).toString('hex')) {
@@ -110,7 +169,8 @@ function verifyPassword(password, salt, expectedHex) {
 }
 
 app.post('/api/register', (req, res) => {
-  const { name, email, password } = req.body || {};
+  const { name, email, password, phone, role } = req.body || {};
+  const isAdmin = role === 'admin';
 
   if (typeof name !== 'string' || name.trim().length < 2) {
     return res.status(400).json({ field: 'fullname', error: 'Enter your full name.' });
@@ -120,6 +180,16 @@ app.post('/api/register', (req, res) => {
   }
   if (typeof password !== 'string' || password.length < 8) {
     return res.status(400).json({ field: 'password', error: 'Use at least 8 characters.' });
+  }
+  // Admin registration is opt-in only: the toggle on the login/register
+  // pages must be switched to "Admin" to send the admin flag.
+  if (isAdmin) {
+    if (typeof phone !== 'string' || !PHONE_RE.test(phone.trim())) {
+      return res.status(400).json({ field: 'phone', error: 'Enter a valid phone number for administrator accounts.' });
+    }
+    if (password.length < 12) {
+      return res.status(400).json({ field: 'password', error: 'Administrator accounts require at least 12 characters.' });
+    }
   }
 
   const normalized = email.trim().toLowerCase();
@@ -133,8 +203,11 @@ app.post('/api/register', (req, res) => {
     id: crypto.randomUUID(),
     name: name.trim(),
     email: normalized,
+    phone: isAdmin ? phone.trim() : '',
     salt,
     hash,
+    role: isAdmin ? 'admin' : 'user',
+    screeningScore: null,
     createdAt: new Date().toISOString(),
   });
   writeUsers(users);
@@ -143,14 +216,16 @@ app.post('/api/register', (req, res) => {
 });
 
 app.post('/api/login', (req, res) => {
-  const { email, password } = req.body || {};
+  const { email, password, role: requestedRole } = req.body || {};
+  const role = requestedRole === 'admin' ? 'admin' : 'user';
   const GENERIC = 'Email or password is incorrect.';
 
   if (typeof email !== 'string' || typeof password !== 'string') {
     return res.status(400).json({ error: GENERIC });
   }
 
-  const user = readUsers().find((u) => u.email === email.trim().toLowerCase());
+  const users = readUsers();
+  const user = users.find((u) => u.email === email.trim().toLowerCase());
   // Run a hash even for unknown users so response time does not reveal
   // whether an account exists.
   const ok = user
@@ -158,7 +233,91 @@ app.post('/api/login', (req, res) => {
     : (hashPassword(password), false);
 
   if (!ok) return res.status(401).json({ error: GENERIC });
-  res.json({ ok: true, name: user.name });
+
+  if (role === 'admin' && user.role !== 'admin') {
+    return res.status(403).json({ error: 'This account does not have administrator privileges. Please contact your system administrator.' });
+  }
+
+  const token = createSessionToken(user);
+  res.json({ ok: true, name: user.name, role: user.role, token });
+});
+
+// ---------------------------------------------------------------------------
+// API: session
+// ---------------------------------------------------------------------------
+app.get('/api/session', (req, res) => {
+  const session = getSession(req);
+  if (!session) return res.status(401).json({ error: 'Not authenticated.' });
+
+  const user = readUsers().find((u) => u.id === session.userId);
+  if (!user) {
+    activeSessions.delete(session.token);
+    return res.status(401).json({ error: 'Session expired.' });
+  }
+
+  res.json({
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    role: user.role,
+  });
+});
+
+app.post('/api/logout', (req, res) => {
+  const session = getSession(req);
+  if (session) activeSessions.delete(session.token);
+  res.json({ ok: true });
+});
+
+// ---------------------------------------------------------------------------
+// API: assessment submission (auth required)
+// ---------------------------------------------------------------------------
+app.post('/api/assessment/submit', requireAuth, (req, res) => {
+  const { score } = req.body || {};
+  if (typeof score !== 'number' || !Number.isInteger(score) || score < 0 || score > 27) {
+    return res.status(400).json({ error: 'Invalid score. Must be an integer between 0 and 27.' });
+  }
+
+  const users = readUsers();
+  const user = users.find((u) => u.id === req.session.userId);
+  if (!user) return res.status(401).json({ error: 'User not found.' });
+
+  user.screeningScore = score;
+  writeUsers(users);
+  res.json({ ok: true, score });
+});
+
+// ---------------------------------------------------------------------------
+// API: admin (admin only)
+//
+// Only name, email, phone and the screening summary score are returned.
+// Password hashes, tokens and secret fields are never exposed.
+// ---------------------------------------------------------------------------
+app.get('/api/admin/users', requireAdmin, (req, res) => {
+  const users = readUsers();
+  res.json(users.map((u) => ({
+    id: u.id,
+    name: u.name,
+    email: u.email,
+    phone: u.phone,
+    screeningScore: u.screeningScore,
+    createdAt: u.createdAt,
+  })));
+});
+
+app.get('/api/admin/stats', requireAdmin, (req, res) => {
+  const users = readUsers();
+  const usersWithScores = users.filter((u) => u.screeningScore !== null);
+  const adminCount = users.filter((u) => u.role === 'admin').length;
+  const avgScore = usersWithScores.length
+    ? Math.round((usersWithScores.reduce((s, u) => s + u.screeningScore, 0) / usersWithScores.length) * 10) / 10
+    : null;
+  const recentSignups = [...users]
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    .slice(0, 5)
+    .map((u) => ({ name: u.name, email: u.email, role: u.role, createdAt: u.createdAt }));
+
+  res.json({ totalUsers: users.length, usersWithScores: usersWithScores.length, adminCount, avgScore, recentSignups });
 });
 
 // ---------------------------------------------------------------------------

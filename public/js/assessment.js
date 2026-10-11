@@ -123,10 +123,24 @@
   function next() {
     if (answers[index] === null) return;
     if (index < QUESTIONS.length - 1) {
+      // Capture the quiz card's current position so the DOM re-render does not
+      // cause the page to jump to the top.
+      const quizCard = document.getElementById('quiz');
+      const cardTop = quizCard ? quizCard.getBoundingClientRect().top + window.scrollY : 0;
+
       index += 1;
       persist();
       renderQuestion();
-      el.text.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      // Scroll back to the top of the quiz card (not the top of the page) to
+      // keep the question text and options in view without a jarring jump.
+      if (cardTop > 0) {
+        const html = document.documentElement;
+        const prevBehavior = html.style.scrollBehavior;
+        html.style.scrollBehavior = 'auto'; // skip the CSS smooth behaviour for this reset
+        window.scrollTo(0, cardTop - 80); // 80 px offset to account for the sticky nav
+        html.style.scrollBehavior = prevBehavior;
+      }
     } else {
       showResult();
     }
@@ -137,6 +151,24 @@
     index -= 1;
     persist();
     renderQuestion();
+  }
+
+  async function submitScore(total) {
+    const token = localStorage.getItem('unburden_token');
+    if (!token) return; // not logged in — no-op
+
+    try {
+      await fetch('/api/assessment/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ score: total }),
+      });
+    } catch (_) {
+      // Silently swallow submission errors — the user must not see failures here.
+    }
   }
 
   function showResult() {
@@ -158,6 +190,9 @@
     el.rView.classList.remove('hidden');
     clearStore();
     el.rView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    // Persist the same score the user sees so the admin dashboard reflects it.
+    submitScore(total);
   }
 
   function restart() {
