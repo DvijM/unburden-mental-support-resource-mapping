@@ -14,36 +14,7 @@
 </head>
 <body data-page="login" class="bg-surface text-ink">
 
-  <!-- Grey crisis strip + full nav (login uses the main nav) -->
-  <div class="bg-surface-mid text-ink-soft" role="region" aria-label="Crisis support">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex flex-wrap items-center justify-center gap-x-2 text-[12px] text-center">
-      <span class="text-crisis font-bold" aria-hidden="true">&#10033;</span>
-      <span>Immediate emotional crisis support available 24/7.</span>
-      <strong class="text-ink">Call or text 988</strong>
-      <span aria-hidden="true">&middot;</span>
-      <a href="/find-support" class="text-primary underline underline-offset-2">Find International Resources</a>
-    </div>
-  </div>
-
-  <header class="bg-white">
-    <nav class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between" aria-label="Primary">
-      <a href="/" class="flex items-center gap-2" aria-label="Unburden home">
-        <svg class="w-6 h-6 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3a6 6 0 00-6 6c0 2 1 3.5 2 4.5V17h8v-3.5c1-1 2-2.5 2-4.5a6 6 0 00-6-6z"/><path d="M10 20h4"/></svg>
-        <span class="font-display font-bold text-[20px]">Unburden</span>
-      </a>
-      <ul class="hidden md:flex items-center gap-8 text-[12px] tracking-[.1em] uppercase text-ink-soft">
-        <li><a data-nav="home" href="/" class="py-1 hover:text-primary">Home</a></li>
-        <li><a data-nav="resources" href="/resources" class="py-1 hover:text-primary">Resources</a></li>
-        <li><a data-nav="assessment" href="/assessment" class="py-1 hover:text-primary">Assessment</a></li>
-        <li><a data-nav="support" href="/find-support" class="py-1 hover:text-primary">Find Support</a></li>
-        <li><a data-nav="about" href="/#framework" class="py-1 hover:text-primary">About SDG 3</a></li>
-      </ul>
-      <div class="flex items-center gap-4 text-[13px]">
-        <a href="/login" class="text-primary font-medium border-b border-primary py-0.5" aria-current="page">Log In</a>
-        <a href="/register" class="bg-surface-mid text-primary rounded px-4 py-2 font-medium hover:bg-surface-high">Register</a>
-      </div>
-    </nav>
-  </header>
+  <div data-include="header"></div>
 
   <main class="relative overflow-hidden">
     <!-- Soft decorative washes -->

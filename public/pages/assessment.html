@@ -59,10 +59,25 @@
 
       <!-- Questionnaire card -->
       <section id="quiz" class="bg-white rounded-editorial shadow-card p-6 sm:p-8" aria-labelledby="quiz-title">
+        <!-- Screener Switcher Dropdown -->
+        <div class="mb-6 pb-4 border-b border-surface-mid flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <label for="screener-type" class="block text-[9.5px] tracking-[.14em] uppercase text-primary font-semibold">Assessment Instrument</label>
+            <p class="text-[11.5px] text-ink-soft">Select a standardized clinical screener</p>
+          </div>
+          <div class="relative min-w-[260px]">
+            <select id="screener-type" class="w-full bg-surface-mid rounded px-3 py-2 text-[12.5px] font-medium text-ink border border-transparent focus:border-primary pr-8 cursor-pointer" aria-label="Select screener type">
+              <option value="phq9" selected>PHQ-9 (Depression Screener &bull; 9 questions)</option>
+              <option value="gad7">GAD-7 (Anxiety Screener &bull; 7 questions)</option>
+              <option value="who5">WHO-5 (Well-Being Index &bull; 5 questions)</option>
+            </select>
+          </div>
+        </div>
+
         <div class="flex items-start justify-between gap-4">
           <div>
-            <p class="text-[9.5px] tracking-[.14em] uppercase text-primary font-medium">Standardized Clinical Screener</p>
-            <h2 id="quiz-title" class="font-display font-bold text-[20px] leading-tight mt-1 max-w-sm">General Well-Being &amp; Mood Assessment (PHQ-9 Inspired)</h2>
+            <p id="quiz-badge" class="text-[9.5px] tracking-[.14em] uppercase text-primary font-medium">Standardized Clinical Screener</p>
+            <h2 id="quiz-title" class="font-display font-bold text-[20px] leading-tight mt-1 max-w-sm">General Well-Being &amp; Mood Assessment (PHQ-9)</h2>
           </div>
           <div class="bg-surface-mid rounded px-2.5 py-1.5 text-[10px] text-ink-soft text-center flex-none" aria-live="polite">
             <span id="q-counter" class="font-medium text-ink">Question 1 of 9</span>
@@ -90,11 +105,11 @@
           <p id="save-note" class="hidden mt-3 text-[11px] text-ink-soft" role="status"></p>
         </div>
 
-        <!-- Result view (shown after question 9) -->
+        <!-- Result view -->
         <div id="result-view" class="hidden mt-7" aria-live="polite">
           <p class="text-[9.5px] tracking-[.12em] uppercase text-olive">Your Screening Summary</p>
           <div class="flex flex-wrap items-baseline gap-x-4 gap-y-1 mt-2">
-            <p class="font-display font-bold text-[44px] leading-none"><span id="score-total">0</span><span class="text-ink-mute text-[22px]"> / 27</span></p>
+            <p class="font-display font-bold text-[44px] leading-none"><span id="score-total">0</span><span id="score-max" class="text-ink-mute text-[22px]"> / 27</span></p>
             <p id="score-band" class="font-display text-[20px] text-primary"></p>
           </div>
           <p id="score-text" class="text-[13px] text-ink-soft leading-relaxed mt-3 max-w-xl"></p>
@@ -116,9 +131,20 @@
       <aside class="bg-surface-low rounded-editorial p-5 flex gap-3" aria-labelledby="priv-title">
         <svg class="w-4 h-4 text-olive flex-none mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>
         <div>
-          <h2 id="priv-title" class="text-[10px] tracking-[.12em] uppercase text-ink font-medium">Strict Privacy &amp; Zero PHI Retention Guarantee</h2>
-          <p class="text-[11.5px] text-ink-soft leading-relaxed mt-1.5">Your responses in this screener are computed locally on your device in real-time. Unburden does not record, log, or transmit Protected Health Information (PHI) to remote analytical servers or commercial marketing trackers. Your identity remains strictly anonymous.</p>
+          <h2 id="priv-title" class="text-[10px] tracking-[.12em] uppercase text-ink font-medium">Privacy &amp; Data Minimisation</h2>
+          <p class="text-[11.5px] text-ink-soft leading-relaxed mt-1.5">Questionnaire answers stay in your browser and are never transmitted. When you are logged in, only your total screening score (0–27) is saved to your account so you can track your well-being over time. Screening scores are visible to administrators only in aggregate. Nothing is stored for visitors who are not logged in.</p>
         </div>
+      </aside>
+
+      <!-- Account Management (visible for authenticated users) -->
+      <aside id="account-card" class="hidden bg-white rounded-editorial shadow-card p-5 border border-surface-mid flex flex-col sm:flex-row sm:items-center justify-between gap-4" aria-labelledby="acc-title">
+        <div>
+          <h2 id="acc-title" class="font-display font-bold text-[14px] text-ink">Account Settings</h2>
+          <p class="text-[12px] text-ink-soft mt-1">Logged in as <span id="account-email" class="font-medium text-ink"></span>. You can permanently delete your account and all associated data at any time.</p>
+        </div>
+        <button id="btn-delete-account" type="button" class="btn-secondary px-3.5 py-2 text-[11px] tracking-[.08em] uppercase text-crisis hover:bg-crisis-bg hover:text-crisis-ink flex-none transition">
+          Delete My Account
+        </button>
       </aside>
 
       <!-- Info trio -->

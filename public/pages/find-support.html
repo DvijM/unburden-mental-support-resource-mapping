@@ -44,9 +44,10 @@
       <ul class="hidden md:flex items-center gap-7 text-[11px] tracking-[.08em] uppercase text-ink-soft">
         <li><a data-nav="home" href="/" class="py-1 hover:text-primary">Home</a></li>
         <li><a data-nav="resources" href="/resources" class="py-1 hover:text-primary">Resources</a></li>
+        <li><a data-nav="sounds" href="/sounds" class="py-1 hover:text-primary">Sounds</a></li>
         <li><a data-nav="assessment" href="/assessment" class="py-1 hover:text-primary">Assessment</a></li>
         <li><a data-nav="support" href="/find-support" class="py-1 hover:text-primary">Find Support</a></li>
-        <li><a data-nav="about" href="/#framework" class="py-1 hover:text-primary">About SDG 3</a></li>
+        <li><a data-nav="about" href="/about-sdg3" class="py-1 hover:text-primary">About SDG 3</a></li>
       </ul>
       <div class="flex items-center gap-4 text-[12px]">
         <a href="/login" class="text-primary font-medium hover:underline">Log In</a>
@@ -197,13 +198,93 @@
               continuous verification to ensure conformity with international human rights standards, non-punitive
               mental health response practices, and strict data confidentiality protocols.</p>
           </div>
-          <a href="/#framework"
+          <a href="/about-sdg3"
             class="text-[10px] tracking-[.12em] uppercase text-primary font-medium hover:underline flex-none">Read
             Standards</a>
         </div>
       </div>
     </section>
   </main>
+
+  <!-- Helpline Intake Modal (Forces details collection before connecting to helplines) -->
+  <div id="intake-modal" class="hidden fixed inset-0 z-50 bg-ink/50 backdrop-blur-sm grid place-items-center p-4 overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="intake-modal-title">
+    <div class="bg-white rounded-editorial shadow-lift max-w-lg w-full p-6 sm:p-7 border border-surface-mid relative my-8">
+      <div class="flex items-start justify-between gap-4 border-b border-surface-mid pb-4">
+        <div>
+          <span class="label-caps text-crisis bg-crisis-bg rounded px-2 py-0.5">Helpline Intake Required</span>
+          <h2 id="intake-modal-title" class="font-display font-bold text-[20px] text-ink mt-2">Connect to Crisis Support</h2>
+          <p class="text-[12px] text-ink-soft mt-1">
+            Connecting to: <strong id="intake-target-name" class="text-ink">Helpline</strong>
+          </p>
+        </div>
+        <button id="intake-close-btn" type="button" class="text-ink-mute hover:text-ink text-[22px] leading-none p-1" aria-label="Close dialog">&times;</button>
+      </div>
+
+      <div class="mt-4 bg-surface-low rounded-editorial p-3.5 text-[11.5px] text-ink-soft leading-relaxed flex items-start gap-2.5">
+        <svg class="w-4 h-4 text-primary flex-none mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>
+        <span>To connect you directly with crisis response, please provide your details. This information is visible on the administrator dashboard to ensure your safety and continuity of care.</span>
+      </div>
+
+      <form id="intake-form" class="mt-5 space-y-4" novalidate>
+        <div id="intake-general-error" class="hidden p-3 rounded bg-crisis-bg text-crisis-ink text-[12px]" role="alert"></div>
+
+        <div>
+          <label for="intake-name" class="block text-[10px] tracking-[.1em] uppercase text-ink-mute mb-1">Full Name <span class="text-crisis">*</span></label>
+          <input id="intake-name" type="text" required placeholder="e.g. Jane Doe"
+            class="w-full bg-surface-mid rounded px-3 py-2 text-[12.5px] border border-transparent focus:border-primary text-ink placeholder:text-ink-mute" />
+          <p id="intake-name-error" class="hidden text-crisis text-[11px] mt-1"></p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label for="intake-email" class="block text-[10px] tracking-[.1em] uppercase text-ink-mute mb-1">Email Address <span class="text-crisis">*</span></label>
+            <input id="intake-email" type="email" required placeholder="jane@example.com"
+              class="w-full bg-surface-mid rounded px-3 py-2 text-[12.5px] border border-transparent focus:border-primary text-ink placeholder:text-ink-mute" />
+            <p id="intake-email-error" class="hidden text-crisis text-[11px] mt-1"></p>
+          </div>
+
+          <div>
+            <label for="intake-phone" class="block text-[10px] tracking-[.1em] uppercase text-ink-mute mb-1">Phone Number <span class="text-crisis">*</span></label>
+            <input id="intake-phone" type="tel" required placeholder="+14155550199"
+              class="w-full bg-surface-mid rounded px-3 py-2 text-[12.5px] border border-transparent focus:border-primary text-ink placeholder:text-ink-mute font-mono" />
+            <p id="intake-phone-error" class="hidden text-crisis text-[11px] mt-1"></p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label for="intake-age" class="block text-[10px] tracking-[.1em] uppercase text-ink-mute mb-1">Age (13–120) <span class="text-crisis">*</span></label>
+            <input id="intake-age" type="number" min="13" max="120" required placeholder="25"
+              class="w-full bg-surface-mid rounded px-3 py-2 text-[12.5px] border border-transparent focus:border-primary text-ink placeholder:text-ink-mute" />
+            <p id="intake-age-error" class="hidden text-crisis text-[11px] mt-1"></p>
+          </div>
+
+          <div>
+            <label for="intake-country" class="block text-[10px] tracking-[.1em] uppercase text-ink-mute mb-1">Country <span class="text-crisis">*</span></label>
+            <select id="intake-country" required
+              class="w-full bg-surface-mid rounded px-3 py-2 text-[12.5px] border border-transparent focus:border-primary text-ink">
+              <option value="">Select country…</option>
+            </select>
+            <p id="intake-country-error" class="hidden text-crisis text-[11px] mt-1"></p>
+          </div>
+        </div>
+
+        <div>
+          <label for="intake-notes" class="block text-[10px] tracking-[.1em] uppercase text-ink-mute mb-1">Immediate Concern / Reason (Optional)</label>
+          <textarea id="intake-notes" rows="2" placeholder="Brief note on what kind of support you need right now..."
+            class="w-full bg-surface-mid rounded px-3 py-2 text-[12px] border border-transparent focus:border-primary text-ink placeholder:text-ink-mute resize-none"></textarea>
+        </div>
+
+        <div class="pt-2 flex items-center justify-end gap-3 border-t border-surface-mid">
+          <button id="intake-cancel-btn" type="button" class="btn-secondary px-4 py-2 text-[11px] tracking-[.06em] uppercase">Cancel</button>
+          <button id="intake-submit-btn" type="submit" class="btn-primary px-5 py-2 text-[11px] tracking-[.06em] uppercase inline-flex items-center gap-2">
+            <span>Proceed to Helpline</span>
+            <span aria-hidden="true">&rarr;</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <div data-include="footer"></div>
 

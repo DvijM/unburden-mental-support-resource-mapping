@@ -138,6 +138,33 @@ body {
 .score-severe { background: #FFDAD6; color: #7A0A0A; }
 .score-pending { background: #EEEDEF; color: #74777F; }
 
+/* Sound card active state & equalizer animation */
+.sound-card[data-playing="true"] {
+  border-color: #0D4FB5;
+  box-shadow: 0 4px 20px rgba(13, 79, 181, 0.12);
+}
+.eq-bars {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 14px;
+}
+.eq-bar {
+  width: 2.5px;
+  background-color: currentColor;
+  border-radius: 1px;
+  animation: eqBounce 1s ease-in-out infinite alternate;
+}
+.eq-bar:nth-child(1) { height: 6px; animation-delay: 0.1s; }
+.eq-bar:nth-child(2) { height: 14px; animation-delay: 0.3s; }
+.eq-bar:nth-child(3) { height: 8px; animation-delay: 0.2s; }
+.eq-bar:nth-child(4) { height: 11px; animation-delay: 0.4s; }
+
+@keyframes eqBounce {
+  0% { transform: scaleY(0.35); transform-origin: bottom; }
+  100% { transform: scaleY(1); transform-origin: bottom; }
+}
+
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

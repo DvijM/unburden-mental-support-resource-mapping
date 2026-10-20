@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title id="page-title">Curated Clinical Resource — Unburden</title>
+  <meta name="description" id="meta-description"
+    content="An evidence-based mental health guide curated from verified public domain and open-access sources." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+
+<body data-page="resources" class="bg-surface text-ink flex flex-col min-h-screen">
+
+  <div data-include="header"></div>
+
+  <main class="flex-1">
+    <!-- Article Header & Hero -->
+    <header class="bg-surface-low border-b border-surface-mid">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 pt-10 pb-12">
+        <nav aria-label="Breadcrumb"
+          class="text-[10px] tracking-[.1em] uppercase text-ink-mute flex items-center gap-1.5 flex-wrap">
+          <a href="/" class="hover:text-primary">Home</a>
+          <span>/</span>
+          <a href="/resources" class="hover:text-primary">Resources</a>
+          <span>/</span>
+          <span id="breadcrumb-category" class="text-primary font-medium">Category</span>
+        </nav>
+
+        <div class="mt-4">
+          <div class="flex flex-wrap items-center gap-2.5">
+            <span id="article-badge" class="label-caps text-primary bg-primary-tint rounded px-2.5 py-0.5">Clinical
+              Guide</span>
+            <span id="article-read-time" class="text-[11px] text-ink-mute">7 min read</span>
+            <span class="text-ink-mute">&bull;</span>
+            <span class="text-[11px] text-ink-soft">Full-Length Clinical Guide</span>
+          </div>
+
+          <h1 id="article-title" class="font-display font-bold text-[32px] sm:text-[42px] leading-tight mt-4 text-ink">
+            Loading Resource Guide…
+          </h1>
+
+          <p id="article-summary" class="text-[15px] text-ink-soft leading-relaxed mt-4 max-w-2xl font-serif italic">
+            Please wait while the publication content is loaded from the archive.
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Article Content -->
+    <article class="max-w-4xl mx-auto px-4 sm:px-6 py-10">
+      <div id="article-error" class="hidden bg-crisis-bg text-crisis-ink rounded-editorial p-6 text-[13px] mb-8"
+        role="alert">
+        The requested publication could not be found. <a href="/resources" class="underline font-semibold ml-1">Return
+          to Resources Catalog &rarr;</a>
+      </div>
+
+      <div id="article-container" class="space-y-10">
+        <!-- Author & Institutional Attribution Card -->
+        <div
+          class="bg-white rounded-editorial shadow-card p-6 border border-surface-mid flex flex-col sm:flex-row sm:items-center justify-between gap-5">
+          <div class="flex items-start sm:items-center gap-3.5">
+            <span
+              class="w-11 h-11 rounded-full bg-primary-tint text-primary grid place-items-center flex-none font-serif font-bold text-[16px] shadow-sm">
+              &para;
+            </span>
+            <div>
+              <p class="text-[9.5px] tracking-[.14em] uppercase text-primary font-semibold">Author &amp; Attribution</p>
+              <h2 id="article-author" class="font-display font-bold text-[18px] text-ink mt-0.5 leading-snug">—</h2>
+              <p id="article-institution" class="text-[12px] text-ink-soft mt-1 leading-normal">—</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Key Takeaways Box -->
+        <section class="bg-primary-tint/20 border border-primary/20 rounded-editorial p-6 sm:p-7"
+          aria-labelledby="takeaways-title">
+          <p class="text-[10px] tracking-[.14em] uppercase text-primary font-bold">Executive Clinical Summary</p>
+          <h2 id="takeaways-title" class="font-display font-bold text-[18px] text-ink mt-1">Core Clinical Takeaways</h2>
+          <ul id="article-takeaways" class="mt-4 space-y-2.5 text-[13px] text-ink leading-relaxed">
+            <li class="text-ink-mute">Loading takeaways…</li>
+          </ul>
+        </section>
+
+        <!-- Detailed Article Body Sections -->
+        <div id="article-sections" class="space-y-8 text-ink leading-relaxed">
+          <!-- Populated dynamically -->
+        </div>
+
+        <!-- Citation & Legal Integrity -->
+        <footer class="mt-12 pt-8 border-t border-surface-mid space-y-5">
+          <!-- Formal Citation Box -->
+          <div id="article-citation-box"
+            class="bg-white rounded-editorial p-6 shadow-card border border-surface-mid text-[12px] text-ink">
+            <div class="flex items-center gap-2 mb-2">
+              <svg class="w-4 h-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+                <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
+              </svg>
+              <h3 class="font-bold text-ink uppercase text-[10px] tracking-[.12em] text-primary">Academic Citation &amp;
+                Author Credits</h3>
+            </div>
+            <p id="article-citation"
+              class="font-serif italic text-[13px] text-ink-soft bg-surface-low p-4 rounded border border-surface-mid leading-relaxed select-all">
+              Loading citation…
+            </p>
+          </div>
+
+          <div class="bg-surface-low rounded-editorial p-5 text-[11.5px] text-ink-soft leading-relaxed">
+            <h3 class="font-bold text-ink uppercase text-[10px] tracking-[.1em] mb-1.5">Editorial Notice &amp;
+              Educational Purpose</h3>
+            <p>
+              This full-length publication is curated from established clinical guidance and peer-reviewed protocols
+              from the accredited authors and health institutions named above. It is intended for educational, clinical
+              literacy, and personal self-care reference, and does not replace individualized diagnostic assessment or
+              treatment by a licensed physician or mental health professional.
+            </p>
+          </div>
+
+          <div class="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <a href="/resources"
+              class="btn-secondary px-4 py-2.5 text-[11px] tracking-[.06em] uppercase inline-flex items-center gap-1.5">
+              &larr; Back to All Resources
+            </a>
+            <div class="flex items-center gap-3">
+              <a href="/sounds"
+                class="text-primary text-[12px] font-medium hover:underline inline-flex items-center gap-1">
+                Listen to Calming Sounds &#127911;
+              </a>
+              <span class="text-ink-mute">&bull;</span>
+              <a href="/find-support" class="btn-primary px-4 py-2 text-[11px] tracking-[.06em] uppercase">
+                Find Support Helplines &rarr;
+              </a>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </article>
+  </main>
+
+  <div data-include="footer"></div>
+
+  <script src="/js/main.js" defer></script>
+  <script src="/js/resource-detail.js" defer></script>
+</body>
+
+</html>

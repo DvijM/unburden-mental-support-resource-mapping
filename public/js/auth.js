@@ -5,48 +5,41 @@
 
   const $ = (id) => document.getElementById(id);
   const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-  const PHONE_RE = /^[+\d\s\-().]{7,20}$/;
+  const PHONE_RE = /^\+[0-9]{8,15}$/;
 
-  // ---------- Auth mode state ----------
+  // ---------- Auth mode state for Login Page only ----------
   let authMode = 'user'; // 'user' or 'admin'
-  const isRegisterPage = !!$('register-form');
+  const isLoginPage = !!$('login-form');
 
-  // Initialize toggle buttons (present on both login and register pages)
-  document.querySelectorAll('[data-mode]').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      authMode = btn.dataset.mode;
-      document.querySelectorAll('[data-mode]').forEach((b) =>
-        b.setAttribute('aria-pressed', String(b === btn))
-      );
-      onModeChange();
+  if (isLoginPage) {
+    document.querySelectorAll('[data-mode]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        authMode = btn.dataset.mode;
+        document.querySelectorAll('[data-mode]').forEach((b) =>
+          b.setAttribute('aria-pressed', String(b === btn))
+        );
+        onLoginModeChange();
+      });
     });
-  });
+  }
 
-  function onModeChange() {
-    // Update title/subtitle from defaults
+  function onLoginModeChange() {
     const title = document.querySelector('[data-auth-title]');
     const sub = document.querySelector('[data-auth-sub]');
 
     if (authMode === 'admin') {
-      if (title) title.textContent = isRegisterPage ? 'Create Admin Account' : 'Admin Sign In';
-      if (sub) sub.textContent = isRegisterPage
-        ? 'Register a new administrator account with verified credentials.'
-        : 'Sign in with administrator credentials to access the dashboard.';
+      if (title) title.textContent = 'Admin Sign In';
+      if (sub) sub.textContent = 'Sign in with administrator credentials to access the dashboard.';
     } else {
-      if (title) title.textContent = title.dataset.default;
-      if (sub) sub.textContent = sub.dataset.default;
+      if (title && title.dataset.default) title.textContent = title.dataset.default;
+      if (sub && sub.dataset.default) sub.textContent = sub.dataset.default;
     }
 
-    // Toggle phone field visibility (register only)
-    const phoneField = $('admin-phone-field');
-    if (phoneField) phoneField.classList.toggle('hidden', authMode !== 'admin');
-
-    // Toggle admin login help (login only)
     const adminHelp = $('admin-login-help');
     if (adminHelp) adminHelp.classList.toggle('hidden', authMode !== 'admin');
   }
 
-  // ---------- helpers ----------
+  // ---------- Error and Status Helpers ----------
   function setError(form, field, message) {
     const slot = form.querySelector(`.field-error[data-for="${field}"]`);
     const input = form.querySelector(`[name="${field}"]`);
@@ -93,7 +86,7 @@
     return { ok: res.ok, status: res.status, data };
   }
 
-  // ---------- show/hide password ----------
+  // ---------- Show/hide Password ----------
   const toggle = $('toggle-pw');
   if (toggle) {
     toggle.addEventListener('click', () => {
@@ -105,14 +98,7 @@
     });
   }
 
-  // ---------- SSO placeholders ----------
-  document.querySelectorAll('.sso-btn').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      showStatus('info', `${btn.dataset.provider} sign-in is not configured in this build. Please use email and password.`);
-    });
-  });
-
-  // ---------- password strength ----------
+  // ---------- Password Strength Meter ----------
   function strengthOf(pw) {
     if (!pw) return { score: 0, label: 'Enter a password' };
     let score = 0;
@@ -125,27 +111,48 @@
     return { score, label: pw.length < 8 ? 'Too short' : label };
   }
 
+  // ---------- Registration Form ----------
   const regForm = $('register-form');
   if (regForm) {
     const pw = $('password');
     const confirm = $('confirm');
+    const countrySelect = $('country');
     const bars = document.querySelectorAll('#strength-bars .strength-bar');
     const sText = $('strength-text');
     const matchIcon = $('match-icon');
 
-    pw.addEventListener('input', () => {
-      const { score, label } = strengthOf(pw.value);
-      bars.forEach((b, i) => b.classList.toggle('on', i < score));
-      sText.textContent = label;
-      sText.className = score >= 3 ? 'text-primary flex items-center gap-1' : 'text-ink-mute';
-      checkMatch();
-    });
+    // Populate country dropdown from /api/countries
+    fetch('/api/countries')
+      .then((res) => res.json())
+      .then((countries) => {
+        if (!Array.isArray(countries) || !countrySelect) return;
+        countries.forEach((c) => {
+          const opt = document.createElement('option');
+          opt.value = c.code;
+          opt.textContent = `${c.name} (${c.code})`;
+          countrySelect.appendChild(opt);
+        });
+      })
+      .catch((err) => {
+        console.error('Failed to load countries:', err);
+      });
+
+    if (pw && bars.length) {
+      pw.addEventListener('input', () => {
+        const { score, label } = strengthOf(pw.value);
+        bars.forEach((b, i) => b.classList.toggle('on', i < score));
+        sText.textContent = label;
+        sText.className = score >= 3 ? 'text-primary flex items-center gap-1' : 'text-ink-mute';
+        checkMatch();
+      });
+    }
 
     function checkMatch() {
+      if (!confirm || !matchIcon) return;
       const ok = confirm.value.length > 0 && confirm.value === pw.value;
       matchIcon.classList.toggle('hidden', !ok);
     }
-    confirm.addEventListener('input', checkMatch);
+    if (confirm) confirm.addEventListener('input', checkMatch);
 
     regForm.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -156,18 +163,43 @@
       const email = $('email').value.trim();
       const password = pw.value;
       const phone = $('phone').value.trim();
+      const ageRaw = $('age').value.trim();
+      const ageNum = parseInt(ageRaw, 10);
+      const country = $('country').value.trim();
+      const consentChecked = $('consent').checked;
       let valid = true;
 
-      if (name.length < 2) { setError(regForm, 'fullname', 'Enter your full name.'); valid = false; }
-      if (!EMAIL_RE.test(email)) { setError(regForm, 'email', 'Enter a valid email address, like name@example.com.'); valid = false; }
-      if (password.length < 8) { setError(regForm, 'password', 'Use at least 8 characters.'); valid = false; }
-      if (confirm.value !== password) { setError(regForm, 'confirm', 'Passwords do not match.'); valid = false; }
-      if (!$('terms').checked) { setError(regForm, 'terms', 'Accept the Terms of Service and Privacy Policy to continue.'); valid = false; }
-
-      // Admin-specific validation
-      if (authMode === 'admin') {
-        if (!PHONE_RE.test(phone)) { setError(regForm, 'phone', 'Enter a valid phone number for administrator accounts.'); valid = false; }
-        if (password.length < 12) { setError(regForm, 'password', 'Administrator accounts require at least 12 characters.'); valid = false; }
+      if (name.length < 2 || name.length > 100) {
+        setError(regForm, 'fullname', 'Enter your full name (2 to 100 characters).');
+        valid = false;
+      }
+      if (!EMAIL_RE.test(email)) {
+        setError(regForm, 'email', 'Enter a valid email address.');
+        valid = false;
+      }
+      if (!PHONE_RE.test(phone)) {
+        setError(regForm, 'phone', 'Enter international phone starting with "+" and 8-15 digits (e.g. +14155552671).');
+        valid = false;
+      }
+      if (isNaN(ageNum) || ageNum < 13 || ageNum > 120) {
+        setError(regForm, 'age', 'Enter a valid age between 13 and 120.');
+        valid = false;
+      }
+      if (!country) {
+        setError(regForm, 'country', 'Select your country from the list.');
+        valid = false;
+      }
+      if (password.length < 8) {
+        setError(regForm, 'password', 'Use at least 8 characters.');
+        valid = false;
+      }
+      if (confirm.value !== password) {
+        setError(regForm, 'confirm', 'Passwords do not match.');
+        valid = false;
+      }
+      if (!consentChecked) {
+        setError(regForm, 'consent', 'You must provide consent to store your registration details.');
+        valid = false;
       }
 
       if (!valid) {
@@ -176,17 +208,37 @@
         return;
       }
 
-      const idle = 'Register Account <span aria-hidden="true">&rarr;</span>';
+      const idle = 'Create Account <span aria-hidden="true">&rarr;</span>';
       setBusy(true, idle);
       try {
-        const { ok, status, data } = await postJSON('/api/register', { name, email, password, phone, role: authMode });
+        // Public registration NEVER sends or trusts role
+        const { ok, status, data } = await postJSON('/api/register', {
+          name,
+          email,
+          password,
+          phone,
+          age: ageNum,
+          country,
+          consent: consentChecked,
+        });
+
         if (ok) {
-          showStatus('info', isRegisterPage ? 'Admin account created. Redirecting you to log in…' : 'Account created. Redirecting you to log in…');
-          setTimeout(() => { window.location.href = '/login'; }, 900);
+          if (data.token) {
+            localStorage.setItem('unburden_token', data.token);
+            showStatus('info', `Welcome${data.name ? ', ' + data.name.split(' ')[0] : ''}! Your account is ready. Redirecting…`);
+            setTimeout(() => { window.location.href = '/assessment'; }, 700);
+          } else {
+            showStatus('info', 'Account created successfully. Redirecting you to log in…');
+            setTimeout(() => { window.location.href = '/login'; }, 900);
+          }
           return;
         }
-        if (data.field) setError(regForm, data.field, data.error);
-        else showStatus('error', data.error || `Something went wrong (error ${status}). Try again.`);
+
+        if (data.field) {
+          setError(regForm, data.field, data.error);
+        } else {
+          showStatus('error', data.error || `Registration failed (error ${status}). Please check your entries.`);
+        }
       } catch (_) {
         showStatus('error', 'Could not reach the server. Check your connection and try again.');
       }
@@ -194,7 +246,7 @@
     });
   }
 
-  // ---------- login ----------
+  // ---------- Login Form ----------
   const logForm = $('login-form');
   if (logForm) {
     logForm.addEventListener('submit', async (e) => {
@@ -206,8 +258,14 @@
       const password = $('password').value;
       let valid = true;
 
-      if (!EMAIL_RE.test(email)) { setError(logForm, 'email', 'Enter a valid email address, like name@example.com.'); valid = false; }
-      if (!password) { setError(logForm, 'password', 'Enter your password.'); valid = false; }
+      if (!EMAIL_RE.test(email)) {
+        setError(logForm, 'email', 'Enter a valid email address.');
+        valid = false;
+      }
+      if (!password) {
+        setError(logForm, 'password', 'Enter your password.');
+        valid = false;
+      }
       if (!valid) {
         const firstBad = logForm.querySelector('[aria-invalid="true"]');
         if (firstBad) firstBad.focus();
@@ -217,13 +275,17 @@
       const idle = 'Log In <span aria-hidden="true">&rarr;</span>';
       setBusy(true, idle);
       try {
-        const { ok, status, data } = await postJSON('/api/login', { email, password, role: authMode });
+        const { ok, status, data } = await postJSON('/api/login', {
+          email,
+          password,
+          role: authMode,
+        });
+
         if (ok) {
-          // Store token in localStorage for subsequent authenticated requests
           localStorage.setItem('unburden_token', data.token);
 
           if (data.role === 'admin') {
-            showStatus('info', `Welcome, admin ${data.name.split(' ')[0]}. Redirecting to dashboard…`);
+            showStatus('info', `Welcome, admin ${data.name ? data.name.split(' ')[0] : ''}. Redirecting to dashboard…`);
             setTimeout(() => { window.location.href = '/admin'; }, 700);
             return;
           }
@@ -231,7 +293,7 @@
           setTimeout(() => { window.location.href = '/assessment'; }, 700);
           return;
         }
-        showStatus('error', data.error || `Something went wrong (error ${status}). Try again.`);
+        showStatus('error', data.error || `Login failed (error ${status}). Check your credentials.`);
       } catch (_) {
         showStatus('error', 'Could not reach the server. Check your connection and try again.');
       }

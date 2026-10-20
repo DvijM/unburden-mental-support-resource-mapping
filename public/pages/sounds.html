@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Calming Sounds &amp; Ambient Soundscapes — Unburden</title>
+  <meta name="description"
+    content="A curated library of calming, therapeutic ambient audio. Build personalized multi-track soundscapes for relaxation, grounding, and acoustic comfort." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+
+<body data-page="sounds" class="bg-surface text-ink pb-24 sm:pb-20">
+
+  <!-- Shared Header with Crisis Banner & Navigation -->
+  <div data-include="header"></div>
+
+  <main>
+    <!-- Hero -->
+    <section class="bg-surface">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-16 pb-12">
+        <p
+          class="inline-flex items-center gap-2 bg-surface-mid text-olive rounded px-2.5 py-1 text-[10px] tracking-[.12em] uppercase">
+          <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            aria-hidden="true">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M8 12l3 3 5-6" />
+          </svg>
+          UN Sustainable Development Goal 3.4 Well-Being
+        </p>
+        <h1 class="font-display font-bold text-[40px] sm:text-[52px] leading-[1.05] mt-5 max-w-2xl">
+          Calming Sounds Library
+        </h1>
+        <p class="text-[15px] text-ink-soft leading-relaxed mt-5 max-w-xl">
+          A library of calming ambient audio designed to support relaxation and personal centering. Layer multiple
+          recordings simultaneously to compose your own soothing soundscape—such as rainforest rain paired with a
+          crackling hearth and evening crickets.
+        </p>
+
+        <!-- Category Filter Chips -->
+        <div class="mt-8 flex flex-wrap gap-2.5" role="group" aria-label="Filter sounds by category" id="sound-chips">
+          <button type="button" class="chip px-4 py-2 text-[10.5px] tracking-[.06em]" data-cat="all"
+            aria-pressed="true">All Sounds</button>
+          <button type="button" class="chip px-4 py-2 text-[10.5px] tracking-[.06em]" data-cat="nature"
+            aria-pressed="false">Nature</button>
+          <button type="button" class="chip px-4 py-2 text-[10.5px] tracking-[.06em]" data-cat="water"
+            aria-pressed="false">Water</button>
+          <button type="button" class="chip px-4 py-2 text-[10.5px] tracking-[.06em]" data-cat="night"
+            aria-pressed="false">Night</button>
+          <button type="button" class="chip px-4 py-2 text-[10.5px] tracking-[.06em]" data-cat="ambient"
+            aria-pressed="false">Ambient</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Catalog Section on bg-surface-low -->
+    <section class="bg-surface-low py-14" aria-labelledby="sounds-cat-title">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        <div class="flex items-end justify-between gap-4">
+          <div>
+            <p class="text-[10px] tracking-[.14em] uppercase text-olive">Curated Audio Library</p>
+            <h2 id="sounds-cat-title" class="font-display font-bold text-[26px] mt-2">Ambient Audio Collection</h2>
+          </div>
+          <p id="sounds-count" class="text-[10px] text-ink-mute" aria-live="polite">11 Sounds Available</p>
+        </div>
+
+        <!-- Dynamic Grid of Sound Cards -->
+        <div id="sounds-loading" class="py-16 text-center text-[13px] text-ink-mute">
+          Loading soothing sound library&hellip;
+        </div>
+
+        <div id="sounds-grid" class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+        <p id="sounds-empty" class="hidden mt-8 text-[13px] text-ink-soft text-center py-10">
+          No sounds found in this category. Select &ldquo;All Sounds&rdquo; to browse the entire collection.
+        </p>
+
+        <!-- Educational Note Panel & Medical Disclaimer (mirrors resources.html structure) -->
+        <div class="mt-14 bg-surface-mid rounded-editorial p-6 sm:p-8 grid lg:grid-cols-[1.5fr_1fr] gap-8 items-center">
+          <div>
+            <p
+              class="inline-flex items-center gap-1.5 bg-white text-primary rounded px-2.5 py-1 text-[10px] font-medium">
+              <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                aria-hidden="true">
+                <path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z" />
+              </svg>
+              Somatic Awareness &amp; Relaxation
+            </p>
+            <h2 class="font-display font-bold text-[26px] leading-tight mt-3 max-w-lg">
+              Soundscapes for Rest &amp; Grounding
+            </h2>
+            <p class="text-[12.5px] text-ink-soft leading-relaxed mt-3 max-w-lg">
+              Ambient soundscapes provide gentle acoustic continuity that can help buffer jarring environmental
+              distractions, facilitate mindful breathing, and support natural sleep rituals. Each ambient track is
+              designed to loop seamlessly to maintain a peaceful, steady environment.
+            </p>
+            <ul class="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-[10.5px] text-ink-soft">
+              <li class="flex items-center gap-1.5"><span class="text-primary" aria-hidden="true">&#10003;</span>
+                Seamless gapless Web Audio looping</li>
+              <li class="flex items-center gap-1.5"><span class="text-primary" aria-hidden="true">&#10003;</span>
+                Independent multi-track mixing</li>
+              <li class="flex items-center gap-1.5"><span class="text-primary" aria-hidden="true">&#10003;</span>
+                100% private: plays locally in browser with zero tracking</li>
+            </ul>
+          </div>
+
+          <aside class="bg-white rounded-editorial p-5 shadow-card" aria-label="Relaxation guidance and care notice">
+            <p class="text-[9.5px] tracking-[.12em] uppercase text-ink-mute">Important Health Note</p>
+            <h3 class="font-display font-bold text-[14px] mt-1 text-ink">Not a Medical Treatment</h3>
+            <p class="text-[12px] text-ink-soft leading-relaxed mt-2">
+              These ambient sounds are intended for relaxation and leisure. They are not a medical treatment, clinical
+              therapy, or substitute for professional psychiatric care.
+            </p>
+            <a href="/find-support" class="inline-block mt-3 text-[11px] text-primary font-medium hover:underline">
+              Access Certified Professional Support &rarr;
+            </a>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Shared Footer -->
+  <div data-include="footer"></div>
+
+  <!-- Fixed Bottom Media Bar (Compact Soundscape Player) -->
+  <aside class="fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-surface-mid shadow-lift py-2.5 px-4 sm:px-6"
+    aria-label="Soundscape mixer controls">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-3 sm:gap-6">
+      <!-- Left: Title & Active Count with Pulse Indicator -->
+      <div class="flex items-center gap-2.5 min-w-0">
+        <span class="w-2.5 h-2.5 rounded-full bg-olive animate-pulse flex-none" aria-hidden="true"></span>
+        <div class="truncate">
+          <h2 class="font-display font-bold text-[13.5px] sm:text-[14.5px] leading-tight text-ink truncate">Your Soundscape</h2>
+          <p id="active-count" class="text-[10.5px] sm:text-[11px] text-ink-mute truncate" aria-live="polite">0 sounds playing</p>
+        </div>
+      </div>
+
+      <!-- Center: Stop All & Sleep Timer -->
+      <div class="flex items-center gap-2 sm:gap-3 flex-none">
+        <!-- Stop All Button -->
+        <button id="stop-all" type="button"
+          class="btn-secondary px-3 py-1.5 text-[10.5px] sm:text-[11px] tracking-[.06em] uppercase flex items-center gap-1.5 disabled:opacity-40 disabled:cursor-not-allowed"
+          disabled aria-label="Stop all playing sounds">
+          <svg class="w-3 h-3 text-ink-soft flex-none" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true">
+            <rect x="6" y="6" width="12" height="12" rx="1.5" />
+          </svg>
+          <span>Stop All</span>
+        </button>
+
+        <!-- Sleep Timer -->
+        <div class="flex items-center gap-1 bg-surface-low rounded px-2.5 py-1 border border-surface-mid">
+          <label for="sleep-timer" class="label-caps text-ink-soft flex items-center gap-1 cursor-pointer">
+            <svg class="w-3 h-3 text-ink-mute flex-none" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="1.8" aria-hidden="true">
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="12 6 12 12 16 14" />
+            </svg>
+            <span class="hidden sm:inline">Timer</span>
+          </label>
+          <select id="sleep-timer"
+            class="bg-transparent text-[10.5px] sm:text-[11px] text-ink font-medium focus:outline-none cursor-pointer pr-0.5"
+            aria-label="Set sleep timer">
+            <option value="0">Off</option>
+            <option value="15">15 min</option>
+            <option value="30">30 min</option>
+            <option value="60">60 min</option>
+          </select>
+          <span id="timer-countdown" class="hidden text-[10px] font-mono text-primary font-medium"
+            aria-live="polite"></span>
+        </div>
+      </div>
+
+      <!-- Right: Master Volume Slider -->
+      <div class="flex items-center gap-2 bg-surface-low rounded px-2.5 sm:px-3 py-1 border border-surface-mid flex-none">
+        <label for="master-volume" class="label-caps text-ink-soft flex items-center gap-1 cursor-pointer">
+          <svg class="w-3.5 h-3.5 text-ink-mute flex-none" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="1.8" aria-hidden="true">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+          </svg>
+          <span class="hidden md:inline">Master</span>
+        </label>
+        <input id="master-volume" type="range" min="0" max="100" value="80"
+          class="w-16 sm:w-24 h-1.5 bg-surface-high rounded-lg appearance-none cursor-pointer accent-primary"
+          aria-label="Master volume control" />
+        <span id="master-vol-num" class="text-[10.5px] sm:text-[11px] font-mono text-ink-mute w-7 text-right">80%</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Scripts -->
+  <script src="/js/main.js" defer></script>
+  <script src="/js/sounds.js" defer></script>
+</body>
+
+</html>

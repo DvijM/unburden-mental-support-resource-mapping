@@ -1,0 +1,134 @@
+[
+  {
+    "id": "rainforest",
+    "name": "Rainforest Canopy",
+    "category": "nature",
+    "categoryLabel": "Nature",
+    "description": "Lush tropical rainfall rustling through broad leaves with distant canopy fauna.",
+    "file": "/audio/rainforest.mp3",
+    "defaultVolume": 0.75,
+    "palette": "from-[#5D7052] via-[#3B4D33] to-[#253221]",
+    "accent": "#738B66"
+  },
+  {
+    "id": "gentle-rain",
+    "name": "Gentle Rain",
+    "category": "water",
+    "categoryLabel": "Water",
+    "description": "Steady, tranquil rainfall against a windowpane, ideal for deepening focus.",
+    "file": "/audio/gentle-rain.mp3",
+    "defaultVolume": 0.7,
+    "palette": "from-[#7A95A8] via-[#526F84] to-[#364958]",
+    "accent": "#98B5C9"
+  },
+  {
+    "id": "thunderstorm",
+    "name": "Distant Thunderstorm",
+    "category": "nature",
+    "categoryLabel": "Nature",
+    "description": "Low rhythmic rumbles of rolling thunder accompanied by soft persistent rain.",
+    "file": "/audio/thunderstorm.mp3",
+    "defaultVolume": 0.65,
+    "palette": "from-[#4F5568] via-[#363B4E] to-[#202331]",
+    "accent": "#B8C1EC"
+  },
+  {
+    "id": "ocean-waves",
+    "name": "Ocean Waves",
+    "category": "water",
+    "categoryLabel": "Water",
+    "description": "Calm, rhythmic ocean swells rolling and receding along a sandy shoreline.",
+    "file": "/audio/ocean-waves.mp3",
+    "defaultVolume": 0.7,
+    "palette": "from-[#6E9EAA] via-[#487683] to-[#2F535D]",
+    "accent": "#93C5D3"
+  },
+  {
+    "id": "flowing-stream",
+    "name": "Flowing Stream",
+    "category": "water",
+    "categoryLabel": "Water",
+    "description": "A crisp mountain brook murmuring continuously over smooth river stones.",
+    "file": "/audio/flowing-stream.mp3",
+    "defaultVolume": 0.75,
+    "palette": "from-[#8AA39B] via-[#5B7971] to-[#3B544D]",
+    "accent": "#A9C5BD"
+  },
+  {
+    "id": "fireplace",
+    "name": "Crackling Fireplace",
+    "category": "ambient",
+    "categoryLabel": "Ambient",
+    "description": "Warm cedar embers gently popping and crackling in a hearth on a cool night.",
+    "file": "/audio/fireplace.mp3",
+    "defaultVolume": 0.6,
+    "palette": "from-[#9E5D4E] via-[#753D31] to-[#48231B]",
+    "accent": "#DE8F7C"
+  },
+  {
+    "id": "crickets",
+    "name": "Night Crickets",
+    "category": "night",
+    "categoryLabel": "Night",
+    "description": "Soothing evening chorus of field crickets beneath a quiet, open night sky.",
+    "file": "/audio/crickets.mp3",
+    "defaultVolume": 0.6,
+    "palette": "from-[#414660] via-[#2A2E44] to-[#1A1D2D]",
+    "accent": "#8E97C6"
+  },
+  {
+    "id": "wind-trees",
+    "name": "Wind Through Trees",
+    "category": "nature",
+    "categoryLabel": "Nature",
+    "description": "A soft, temperate breeze rustling high pine needles and forest boughs.",
+    "file": "/audio/wind-trees.mp3",
+    "defaultVolume": 0.65,
+    "palette": "from-[#73826B] via-[#4F5E48] to-[#313C2D]",
+    "accent": "#A1B498"
+  },
+  {
+    "id": "birdsong",
+    "name": "Morning Birdsong",
+    "category": "nature",
+    "categoryLabel": "Nature",
+    "description": "Gentle dawn melodic bird calls echoing through peaceful meadow foliage.",
+    "file": "/audio/birdsong.mp3",
+    "defaultVolume": 0.55,
+    "palette": "from-[#A39678] via-[#7D7053] to-[#4F4531]",
+    "accent": "#D1C4A5"
+  },
+  {
+    "id": "brown-noise",
+    "name": "Soft Brown Noise",
+    "category": "ambient",
+    "categoryLabel": "Ambient",
+    "description": "Deep, smooth low-frequency acoustic noise to soften intrusive environmental sounds.",
+    "file": "/audio/brown-noise.mp3",
+    "defaultVolume": 0.7,
+    "palette": "from-[#7D6B63] via-[#5A4B44] to-[#392E29]",
+    "accent": "#BCA9A1"
+  },
+  {
+    "id": "singing-bowls",
+    "name": "Singing Bowls",
+    "category": "ambient",
+    "categoryLabel": "Ambient",
+    "description": "Harmonic Tibetan singing bowl overtones providing resonance and quiet centering.",
+    "file": "/audio/singing-bowls.mp3",
+    "defaultVolume": 0.5,
+    "palette": "from-[#968257] via-[#6D5D3A] to-[#453A21]",
+    "accent": "#D4C294"
+  },
+  {
+    "id": "whispering-pines",
+    "name": "Whispering Pines",
+    "category": "nature",
+    "categoryLabel": "Nature",
+    "description": "Gentle mountain pines swaying in high alpine air (placeholder awaiting audio recording).",
+    "file": "/audio/whispering-pines.mp3",
+    "defaultVolume": 0.6,
+    "palette": "from-[#5B6D56] via-[#3E4F39] to-[#283525]",
+    "accent": "#8DA585"
+  }
+]

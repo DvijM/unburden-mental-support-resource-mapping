@@ -1,5 +1,7 @@
 /* Find Support directory: loads listings from /api/helplines and filters
-   by region, free-text search, and category chip. */
+   by region, free-text search, and category chip.
+   Helpline Intake: forces visitors to submit contact details before accessing helpline numbers,
+   storing support requests on the server for admin visibility. */
 (function () {
   'use strict';
 
@@ -19,18 +21,41 @@
   const search = $('search');
   const chips = $('chips');
 
+  // Intake Elements
+  const modal = $('intake-modal');
+  const form = $('intake-form');
+  const targetNameEl = $('intake-target-name');
+  const closeBtn = $('intake-close-btn');
+  const cancelBtn = $('intake-cancel-btn');
+  const countrySelect = $('intake-country');
+  const generalError = $('intake-general-error');
+
+  const fields = {
+    name: $('intake-name'),
+    email: $('intake-email'),
+    phone: $('intake-phone'),
+    age: $('intake-age'),
+    country: $('intake-country'),
+    notes: $('intake-notes'),
+  };
+
+  const errors = {
+    name: $('intake-name-error'),
+    email: $('intake-email-error'),
+    phone: $('intake-phone-error'),
+    age: $('intake-age-error'),
+    country: $('intake-country-error'),
+  };
+
   let all = [];
   let category = 'all';
+  let pendingHelpline = null;
 
-  // Escape text before putting it in innerHTML. Data comes from our own server,
-  // but escaping keeps this safe if the source ever changes.
   const esc = (s) =>
-    String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    String(s || '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
   function card(h) {
     const ext = h.secondary.external ? ' <span aria-hidden="true">&#8599;</span>' : ' <span aria-hidden="true">&rarr;</span>';
-    const rel = h.secondary.href.startsWith('http') ? ' target="_blank" rel="noopener noreferrer"' : '';
-    const primaryRel = h.primary.href.startsWith('http') ? ' target="_blank" rel="noopener noreferrer"' : '';
     return `
       <article class="bg-white rounded-editorial shadow-card p-5 sm:p-6 grid md:grid-cols-[1fr_220px] gap-6 items-center">
         <div>
@@ -45,8 +70,14 @@
           </ul>
         </div>
         <div class="flex flex-col gap-2.5">
-          <a href="${esc(h.primary.href)}"${primaryRel} class="btn-primary px-4 py-3 text-[12px] inline-flex items-center justify-center gap-2">${icon(h.primary.icon)}${esc(h.primary.label)}</a>
-          <a href="${esc(h.secondary.href)}"${rel} class="btn-secondary px-4 py-2.5 text-[10px] tracking-[.1em] uppercase inline-flex items-center justify-center gap-1.5">${esc(h.secondary.label)}${ext}</a>
+          <button type="button" class="btn-primary px-4 py-3 text-[12px] inline-flex items-center justify-center gap-2 helpline-action-btn"
+            data-href="${esc(h.primary.href)}" data-name="${esc(h.name)}" data-target="primary">
+            ${icon(h.primary.icon)}${esc(h.primary.label)}
+          </button>
+          <button type="button" class="btn-secondary px-4 py-2.5 text-[10px] tracking-[.1em] uppercase inline-flex items-center justify-center gap-1.5 helpline-action-btn"
+            data-href="${esc(h.secondary.href)}" data-name="${esc(h.name)}" data-target="secondary">
+            ${esc(h.secondary.label)}${ext}
+          </button>
         </div>
       </article>`;
   }
@@ -68,6 +99,219 @@
     count.textContent = `Showing ${rows.length} certified global & national ${rows.length === 1 ? 'hub' : 'hubs'}`;
   }
 
+  // ---------- Country Dropdown Population ----------
+  async function loadCountries() {
+    try {
+      const res = await fetch('/api/countries');
+      if (!res.ok) return;
+      const countries = await res.json();
+      if (!countrySelect) return;
+      countries.forEach((c) => {
+        const opt = document.createElement('option');
+        opt.value = c.code;
+        opt.textContent = `${c.name} (${c.code})`;
+        countrySelect.appendChild(opt);
+      });
+    } catch (_) {}
+  }
+
+  // ---------- Intake Modal Logic ----------
+  function openIntake(helplineName, href) {
+    pendingHelpline = { name: helplineName, href: href };
+    if (targetNameEl) targetNameEl.textContent = helplineName;
+
+    // Check pre-saved intake details
+    const saved = sessionStorage.getItem('unburden_helpline_intake');
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (fields.name) fields.name.value = parsed.name || '';
+        if (fields.email) fields.email.value = parsed.email || '';
+        if (fields.phone) fields.phone.value = parsed.phone || '';
+        if (fields.age) fields.age.value = parsed.age || '';
+        if (fields.country) fields.country.value = parsed.country || '';
+      } catch (_) {}
+    }
+
+    // Clear previous errors
+    clearErrors();
+    if (modal) modal.classList.remove('hidden');
+    if (fields.name) fields.name.focus();
+  }
+
+  function closeIntake() {
+    if (modal) modal.classList.add('hidden');
+    pendingHelpline = null;
+    clearErrors();
+  }
+
+  function clearErrors() {
+    if (generalError) {
+      generalError.textContent = '';
+      generalError.classList.add('hidden');
+    }
+    Object.values(errors).forEach((el) => {
+      if (el) {
+        el.textContent = '';
+        el.classList.add('hidden');
+      }
+    });
+  }
+
+  function setFieldError(field, msg) {
+    const el = errors[field];
+    if (el) {
+      el.textContent = msg;
+      el.classList.remove('hidden');
+    }
+  }
+
+  function executeHelplineLink(href) {
+    if (!href) return;
+    if (href.startsWith('tel:') || href.startsWith('sms:')) {
+      window.location.href = href;
+    } else {
+      window.open(href, '_blank', 'noopener,noreferrer');
+    }
+  }
+
+  async function handleIntakeSubmit(e) {
+    e.preventDefault();
+    clearErrors();
+
+    const name = fields.name.value.trim();
+    const email = fields.email.value.trim();
+    const phone = fields.phone.value.trim();
+    const age = parseInt(fields.age.value, 10);
+    const country = fields.country.value.trim();
+    const notes = fields.notes ? fields.notes.value.trim() : '';
+
+    let hasError = false;
+
+    if (!name || name.length < 2) {
+      setFieldError('name', 'Full name must be at least 2 characters.');
+      hasError = true;
+    }
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setFieldError('email', 'Please enter a valid email address.');
+      hasError = true;
+    }
+    if (!phone || phone.length < 7) {
+      setFieldError('phone', 'Please enter a valid phone number (e.g. +14155550199).');
+      hasError = true;
+    }
+    if (isNaN(age) || age < 13 || age > 120) {
+      setFieldError('age', 'Please enter an age between 13 and 120.');
+      hasError = true;
+    }
+    if (!country) {
+      setFieldError('country', 'Please select your country.');
+      hasError = true;
+    }
+
+    if (hasError) return;
+
+    const payload = {
+      name,
+      email,
+      phone,
+      age,
+      country,
+      helplineName: pendingHelpline ? pendingHelpline.name : 'Unknown Helpline',
+      helplineContact: pendingHelpline ? pendingHelpline.href : '',
+      notes,
+    };
+
+    const submitBtn = $('intake-submit-btn');
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting & Connecting…';
+    }
+
+    try {
+      const token = localStorage.getItem('unburden_token');
+      const res = await fetch('/api/support-requests', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token && { Authorization: `Bearer ${token}` }),
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        if (data.field) {
+          setFieldError(data.field, data.error);
+        } else if (generalError) {
+          generalError.textContent = data.error || 'Could not record intake details. Please try again.';
+          generalError.classList.remove('hidden');
+        }
+        return;
+      }
+
+      // Save to sessionStorage so subsequent clicks in this session don't re-prompt
+      sessionStorage.setItem('unburden_helpline_intake', JSON.stringify({ name, email, phone, age, country }));
+
+      const target = pendingHelpline ? pendingHelpline.href : null;
+      closeIntake();
+      executeHelplineLink(target);
+    } catch (err) {
+      if (generalError) {
+        generalError.textContent = 'Connection error. Please try again or dial your local emergency services.';
+        generalError.classList.remove('hidden');
+      }
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<span>Proceed to Helpline</span> <span aria-hidden="true">&rarr;</span>';
+      }
+    }
+  }
+
+  // Intercept click on helpline cards
+  list.addEventListener('click', (e) => {
+    const btn = e.target.closest('.helpline-action-btn');
+    if (!btn) return;
+    e.preventDefault();
+
+    const href = btn.dataset.href;
+    const name = btn.dataset.name;
+
+    // Check if user already submitted intake in this session
+    const saved = sessionStorage.getItem('unburden_helpline_intake');
+    if (saved) {
+      executeHelplineLink(href);
+    } else {
+      openIntake(name, href);
+    }
+  });
+
+  // Also intercept any emergency notice link if clicked
+  document.querySelectorAll('a[href^="tel:"], a[href^="sms:"]').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      const saved = sessionStorage.getItem('unburden_helpline_intake');
+      if (!saved) {
+        e.preventDefault();
+        openIntake(link.textContent.trim() || 'Crisis Helpline', link.getAttribute('href'));
+      }
+    });
+  });
+
+  if (form) form.addEventListener('submit', handleIntakeSubmit);
+  if (closeBtn) closeBtn.addEventListener('click', closeIntake);
+  if (cancelBtn) cancelBtn.addEventListener('click', closeIntake);
+  if (modal) {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeIntake();
+    });
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
+      closeIntake();
+    }
+  });
+
   chips.addEventListener('click', (e) => {
     const btn = e.target.closest('[data-cat]');
     if (!btn) return;
@@ -79,6 +323,25 @@
   region.addEventListener('change', render);
   search.addEventListener('input', render);
   $('refine').addEventListener('click', render);
+
+  // Try pre-filling if user is logged in
+  async function prefillLoggedInUser() {
+    const token = localStorage.getItem('unburden_token');
+    if (!token) return;
+    try {
+      const res = await fetch('/api/session', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.ok) {
+        const session = await res.json();
+        if (fields.name && !fields.name.value) fields.name.value = session.name || '';
+        if (fields.email && !fields.email.value) fields.email.value = session.email || '';
+      }
+    } catch (_) {}
+  }
+
+  loadCountries();
+  prefillLoggedInUser();
 
   fetch('/api/helplines')
     .then((res) => {

@@ -1,90 +1,173 @@
-/* PHQ-9 screener. Everything runs in the browser; nothing is sent to the server.
-   Progress is kept in sessionStorage only so "Save & View Summary Later" works
-   within the same browser tab session. */
+/* Clinical Self-Assessment: Standardized Multi-Inventory Screener
+   Supports PHQ-9 (Depression), GAD-7 (Anxiety), and WHO-5 (Well-Being Index).
+   Everything runs locally in the browser; only the total score of the active screener
+   is submitted if the user is authenticated. */
 (function () {
   'use strict';
 
-  const QUESTIONS = [
-    { domain: 'Domain: Anhedonia & Interest', text: 'Over the last two weeks, how often have you had little interest or pleasure in doing things?' },
-    { domain: 'Domain: Mood Dysphoria', text: 'Over the last two weeks, how often have you been bothered by feeling down, depressed, or hopeless?' },
-    { domain: 'Domain: Sleep Regulation', text: 'Over the last two weeks, how often have you had trouble falling or staying asleep, or sleeping too much?' },
-    { domain: 'Domain: Energy & Fatigue', text: 'Over the last two weeks, how often have you been bothered by feeling tired or having little energy?' },
-    { domain: 'Domain: Appetite', text: 'Over the last two weeks, how often have you had a poor appetite or been overeating?' },
-    { domain: 'Domain: Self-Worth', text: 'Over the last two weeks, how often have you felt bad about yourself, or that you are a failure or have let yourself or your family down?' },
-    { domain: 'Domain: Concentration', text: 'Over the last two weeks, how often have you had trouble concentrating on things, such as reading or watching television?' },
-    { domain: 'Domain: Psychomotor Change', text: 'Over the last two weeks, how often have you moved or spoken so slowly that others noticed, or been so fidgety or restless that you were moving around more than usual?' },
-    { domain: 'Domain: Safety', text: 'Over the last two weeks, how often have you had thoughts that you would be better off dead, or of hurting yourself in some way?' },
-  ];
+  const INVENTORIES = {
+    phq9: {
+      name: 'General Well-Being & Mood Assessment (PHQ-9)',
+      badge: 'Standardized Depression Screener',
+      scaleMax: 27,
+      questions: [
+        { domain: 'Domain: Anhedonia & Interest', text: 'Over the last two weeks, how often have you had little interest or pleasure in doing things?' },
+        { domain: 'Domain: Mood Dysphoria', text: 'Over the last two weeks, how often have you been bothered by feeling down, depressed, or hopeless?' },
+        { domain: 'Domain: Sleep Regulation', text: 'Over the last two weeks, how often have you had trouble falling or staying asleep, or sleeping too much?' },
+        { domain: 'Domain: Energy & Fatigue', text: 'Over the last two weeks, how often have you been bothered by feeling tired or having little energy?' },
+        { domain: 'Domain: Appetite', text: 'Over the last two weeks, how often have you had a poor appetite or been overeating?' },
+        { domain: 'Domain: Self-Worth', text: 'Over the last two weeks, how often have you felt bad about yourself, or that you are a failure or have let yourself or your family down?' },
+        { domain: 'Domain: Concentration', text: 'Over the last two weeks, how often have you had trouble concentrating on things, such as reading or watching television?' },
+        { domain: 'Domain: Psychomotor Change', text: 'Over the last two weeks, how often have you moved or spoken so slowly that others noticed, or been so fidgety or restless that you were moving around more than usual?' },
+        { domain: 'Domain: Safety', text: 'Over the last two weeks, how often have you had thoughts that you would be better off dead, or of hurting yourself in some way?' },
+      ],
+      options: [
+        { label: 'Not at all', hint: 'Absent or zero days during this observation window', points: 0 },
+        { label: 'Several days', hint: 'Intermittent episodes across 2–6 separate days', points: 1 },
+        { label: 'More than half the days', hint: 'Persistent symptoms present across 7–11 days', points: 2 },
+        { label: 'Nearly every day', hint: 'Chronic or daily presence throughout the last 14 days', points: 3 },
+      ],
+      bands: [
+        { max: 4, name: 'Minimal symptoms', text: 'Your responses suggest few or no depressive symptoms over the last two weeks. Keep up the routines that support you, and revisit this screener if things change.' },
+        { max: 9, name: 'Mild symptoms', text: 'Your responses suggest mild symptoms. Self-care, sleep, movement, and talking with someone you trust can help. Consider checking in again in a couple of weeks.' },
+        { max: 14, name: 'Moderate symptoms', text: 'Your responses suggest moderate symptoms. It is worth speaking with a clinician or counselor about how you have been feeling.' },
+        { max: 19, name: 'Moderately severe symptoms', text: 'Your responses suggest moderately severe symptoms. We encourage you to contact a licensed professional soon to discuss support options.' },
+        { max: 27, name: 'Severe symptoms', text: 'Your responses suggest severe symptoms. Please reach out to a licensed professional promptly. You do not have to manage this alone.' },
+      ],
+      hasSafetyItem: true,
+      safetyIndex: 8,
+    },
 
-  const OPTIONS = [
-    { label: 'Not at all', hint: 'Absent or zero days during this observation window', points: 0 },
-    { label: 'Several days', hint: 'Intermittent episodes across 2\u20136 separate days', points: 1 },
-    { label: 'More than half the days', hint: 'Persistent symptoms present across 7\u201311 days', points: 2 },
-    { label: 'Nearly every day', hint: 'Chronic or daily presence throughout the last 14 days', points: 3 },
-  ];
+    gad7: {
+      name: 'Generalized Anxiety Screener (GAD-7)',
+      badge: 'Clinical Anxiety Inventory',
+      scaleMax: 21,
+      questions: [
+        { domain: 'Domain: Tension & Hyperarousal', text: 'Over the last two weeks, how often have you been bothered by feeling nervous, anxious, or on edge?' },
+        { domain: 'Domain: Uncontrolled Worry', text: 'Over the last two weeks, how often have you been bothered by not being able to stop or control worrying?' },
+        { domain: 'Domain: Generalized Worry', text: 'Over the last two weeks, how often have you been bothered by worrying too much about different things?' },
+        { domain: 'Domain: Somatic Tension', text: 'Over the last two weeks, how often have you had trouble relaxing?' },
+        { domain: 'Domain: Psychomotor Agitation', text: 'Over the last two weeks, how often have you been so restless that it is hard to sit still?' },
+        { domain: 'Domain: Irritability', text: 'Over the last two weeks, how often have you become easily annoyed or irritable?' },
+        { domain: 'Domain: Anticipatory Dread', text: 'Over the last two weeks, how often have you felt afraid, as if something awful might happen?' },
+      ],
+      options: [
+        { label: 'Not at all', hint: 'Absent across the last 14 days', points: 0 },
+        { label: 'Several days', hint: 'Present on 2–6 separate days', points: 1 },
+        { label: 'More than half the days', hint: 'Persistent across 7–11 days', points: 2 },
+        { label: 'Nearly every day', hint: 'Daily or near-daily presence', points: 3 },
+      ],
+      bands: [
+        { max: 4, name: 'Minimal anxiety', text: 'Your responses reflect minimal or no anxiety symptoms over the past two weeks. Continue regular stress management and restorative routines.' },
+        { max: 9, name: 'Mild anxiety', text: 'Your responses reflect mild anxiety symptoms. Mindful breathing, physical activity, and sleep hygiene can help ground your nervous system.' },
+        { max: 14, name: 'Moderate anxiety', text: 'Your responses reflect moderate anxiety. Consider consulting a therapist or licensed counselor for coping strategies and support.' },
+        { max: 21, name: 'Severe anxiety', text: 'Your responses reflect severe anxiety. We encourage you to seek evaluation from a licensed psychologist or healthcare provider.' },
+      ],
+      hasSafetyItem: false,
+    },
 
-  // Kroenke, Spitzer & Williams (2001) severity bands
-  const BANDS = [
-    { max: 4, name: 'Minimal symptoms', text: 'Your responses suggest few or no depressive symptoms over the last two weeks. Keep up the routines that support you, and revisit this screener if things change.' },
-    { max: 9, name: 'Mild symptoms', text: 'Your responses suggest mild symptoms. Self-care, sleep, movement, and talking with someone you trust can help. Consider checking in again in a couple of weeks.' },
-    { max: 14, name: 'Moderate symptoms', text: 'Your responses suggest moderate symptoms. It is worth speaking with a clinician or counselor about how you have been feeling.' },
-    { max: 19, name: 'Moderately severe symptoms', text: 'Your responses suggest moderately severe symptoms. We encourage you to contact a licensed professional soon to discuss support options.' },
-    { max: 27, name: 'Severe symptoms', text: 'Your responses suggest severe symptoms. Please reach out to a licensed professional promptly. You do not have to manage this alone.' },
-  ];
-
-  const STORE_KEY = 'unburden.phq9';
+    who5: {
+      name: 'WHO-5 Well-Being Index',
+      badge: 'Psychological Vitality Screener',
+      scaleMax: 25,
+      questions: [
+        { domain: 'Domain: Positive Mood', text: 'Over the last two weeks, I have felt cheerful and in good spirits.' },
+        { domain: 'Domain: Emotional Serenity', text: 'Over the last two weeks, I have felt calm and relaxed.' },
+        { domain: 'Domain: Physical Vitality', text: 'Over the last two weeks, I have felt active and vigorous.' },
+        { domain: 'Domain: Restorative Sleep', text: 'Over the last two weeks, I woke up feeling fresh and rested.' },
+        { domain: 'Domain: Daily Meaning & Interest', text: 'Over the last two weeks, my daily life has been filled with things that interest me.' },
+      ],
+      options: [
+        { label: 'All of the time', hint: 'Continuous presence throughout observation period', points: 5 },
+        { label: 'Most of the time', hint: 'Present more often than not', points: 4 },
+        { label: 'More than half the time', hint: 'Moderate regularity', points: 3 },
+        { label: 'Less than half the time', hint: 'Infrequent presence', points: 2 },
+        { label: 'Some of the time', hint: 'Rare or brief moments', points: 1 },
+        { label: 'At no time', hint: 'Completely absent over the last 14 days', points: 0 },
+      ],
+      bands: [
+        { max: 13, name: 'Reduced well-being (Clinical threshold)', text: 'A raw score of 13 or lower (<=50%) indicates reduced psychological well-being. In clinical practice, this is the recognized screening threshold warranting further evaluation for mood or depressive symptoms.' },
+        { max: 19, name: 'Moderate well-being', text: 'Your responses indicate moderate psychological well-being. Focusing on supportive social connections, hobbies, and balanced rest can help maintain your vitality.' },
+        { max: 25, name: 'High well-being', text: 'Your responses reflect high psychological well-being and positive emotional vitality. Keep practicing the healthy habits that nurture your mind.' },
+      ],
+      hasSafetyItem: false,
+    },
+  };
 
   const $ = (id) => document.getElementById(id);
   const el = {
+    typeSelect: $('screener-type'),
+    quizTitle: $('quiz-title'), quizBadge: $('quiz-badge'),
     counter: $('q-counter'), percent: $('q-percent'),
     fill: $('progress-fill'), track: $('progress-track'),
     domain: $('q-domain'), text: $('q-text'), options: $('options'),
     prev: $('btn-prev'), next: $('btn-next'), save: $('btn-save'), saveNote: $('save-note'),
     qView: $('question-view'), rView: $('result-view'),
-    total: $('score-total'), band: $('score-band'), scoreText: $('score-text'),
+    total: $('score-total'), max: $('score-max'), band: $('score-band'), scoreText: $('score-text'),
     safety: $('safety-flag'), restart: $('btn-restart'),
   };
 
-  // answers[i] is a points value (0-3) or null
-  let answers = new Array(QUESTIONS.length).fill(null);
+  let activeType = 'phq9';
+  let activeInv = INVENTORIES.phq9;
+  let answers = [];
   let index = 0;
 
-  function load() {
+  function initInventory(type) {
+    activeType = type;
+    activeInv = INVENTORIES[type] || INVENTORIES.phq9;
+    answers = new Array(activeInv.questions.length).fill(null);
+    index = 0;
+
+    if (el.quizTitle) el.quizTitle.textContent = activeInv.name;
+    if (el.quizBadge) el.quizBadge.textContent = activeInv.badge;
+    if (el.max) el.max.textContent = ` / ${activeInv.scaleMax}`;
+
+    loadFromStorage();
+    renderQuestion();
+  }
+
+  function storageKey() {
+    return `unburden.assessment.${activeType}`;
+  }
+
+  function loadFromStorage() {
     try {
-      const raw = sessionStorage.getItem(STORE_KEY);
+      const raw = sessionStorage.getItem(storageKey());
       if (!raw) return;
       const saved = JSON.parse(raw);
-      if (Array.isArray(saved.answers) && saved.answers.length === QUESTIONS.length) {
+      if (Array.isArray(saved.answers) && saved.answers.length === activeInv.questions.length) {
         answers = saved.answers;
-        index = Math.min(Math.max(saved.index | 0, 0), QUESTIONS.length - 1);
+        index = Math.min(Math.max(saved.index | 0, 0), activeInv.questions.length - 1);
       }
-    } catch (_) { /* storage unavailable or corrupt: start fresh */ }
+    } catch (_) {}
   }
 
   function persist() {
-    try { sessionStorage.setItem(STORE_KEY, JSON.stringify({ answers, index })); } catch (_) {}
+    try { sessionStorage.setItem(storageKey(), JSON.stringify({ answers, index })); } catch (_) {}
   }
 
   function clearStore() {
-    try { sessionStorage.removeItem(STORE_KEY); } catch (_) {}
+    try { sessionStorage.removeItem(storageKey()); } catch (_) {}
   }
 
   function renderProgress() {
-    // Progress reflects questions completed before the current one, matching "Question 3 of 9 (33% Complete)"
-    const pct = Math.round((index / QUESTIONS.length) * 100);
-    el.counter.textContent = `Question ${index + 1} of ${QUESTIONS.length}`;
-    el.percent.textContent = `(${pct}% Complete)`;
-    el.fill.style.width = `${pct}%`;
-    el.track.setAttribute('aria-valuenow', String(pct));
+    const totalQ = activeInv.questions.length;
+    const pct = Math.round((index / totalQ) * 100);
+    if (el.counter) el.counter.textContent = `Question ${index + 1} of ${totalQ}`;
+    if (el.percent) el.percent.textContent = `(${pct}% Complete)`;
+    if (el.fill) el.fill.style.width = `${pct}%`;
+    if (el.track) el.track.setAttribute('aria-valuenow', String(pct));
   }
 
   function renderQuestion() {
-    const q = QUESTIONS[index];
-    el.domain.textContent = q.domain;
-    el.text.textContent = q.text;
-    el.options.innerHTML = '';
+    const q = activeInv.questions[index];
+    if (!q) return;
 
-    OPTIONS.forEach((opt, i) => {
+    if (el.domain) el.domain.textContent = q.domain;
+    if (el.text) el.text.textContent = q.text;
+    if (el.options) el.options.innerHTML = '';
+
+    activeInv.options.forEach((opt, i) => {
       const selected = answers[index] === opt.points;
       const row = document.createElement('button');
       row.type = 'button';
@@ -102,12 +185,14 @@
         </span>
         <span class="option-points flex-none text-[10px] bg-surface-high text-ink-soft rounded px-2 py-0.5">${opt.points} ${opt.points === 1 ? 'point' : 'points'}</span>`;
       row.addEventListener('click', () => select(opt.points));
-      el.options.appendChild(row);
+      if (el.options) el.options.appendChild(row);
     });
 
-    el.prev.disabled = index === 0;
-    el.next.disabled = answers[index] === null;
-    el.next.innerHTML = index === QUESTIONS.length - 1 ? 'See Summary &rarr;' : 'Next Question &rarr;';
+    if (el.prev) el.prev.disabled = index === 0;
+    if (el.next) {
+      el.next.disabled = answers[index] === null;
+      el.next.innerHTML = index === activeInv.questions.length - 1 ? 'See Summary &rarr;' : 'Next Question &rarr;';
+    }
     renderProgress();
   }
 
@@ -115,16 +200,13 @@
     answers[index] = points;
     persist();
     renderQuestion();
-    // Keep focus on the chosen option so keyboard users do not lose their place
     const chosen = el.options.querySelector('[data-selected="true"]');
     if (chosen) chosen.focus();
   }
 
   function next() {
     if (answers[index] === null) return;
-    if (index < QUESTIONS.length - 1) {
-      // Capture the quiz card's current position so the DOM re-render does not
-      // cause the page to jump to the top.
+    if (index < activeInv.questions.length - 1) {
       const quizCard = document.getElementById('quiz');
       const cardTop = quizCard ? quizCard.getBoundingClientRect().top + window.scrollY : 0;
 
@@ -132,13 +214,11 @@
       persist();
       renderQuestion();
 
-      // Scroll back to the top of the quiz card (not the top of the page) to
-      // keep the question text and options in view without a jarring jump.
       if (cardTop > 0) {
         const html = document.documentElement;
         const prevBehavior = html.style.scrollBehavior;
-        html.style.scrollBehavior = 'auto'; // skip the CSS smooth behaviour for this reset
-        window.scrollTo(0, cardTop - 80); // 80 px offset to account for the sticky nav
+        html.style.scrollBehavior = 'auto';
+        window.scrollTo(0, cardTop - 80);
         html.style.scrollBehavior = prevBehavior;
       }
     } else {
@@ -155,7 +235,7 @@
 
   async function submitScore(total) {
     const token = localStorage.getItem('unburden_token');
-    if (!token) return; // not logged in — no-op
+    if (!token) return;
 
     try {
       await fetch('/api/assessment/submit', {
@@ -164,68 +244,134 @@
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ score: total }),
+        body: JSON.stringify({ score: total, type: activeType }),
       });
-    } catch (_) {
-      // Silently swallow submission errors — the user must not see failures here.
-    }
+    } catch (_) {}
   }
 
   function showResult() {
     const total = answers.reduce((sum, v) => sum + (v || 0), 0);
-    const band = BANDS.find((b) => total <= b.max) || BANDS[BANDS.length - 1];
+    const band = activeInv.bands.find((b) => total <= b.max) || activeInv.bands[activeInv.bands.length - 1];
 
-    el.total.textContent = String(total);
-    el.band.textContent = band.name;
-    el.scoreText.textContent = band.text;
+    if (el.total) el.total.textContent = String(total);
+    if (el.max) el.max.textContent = ` / ${activeInv.scaleMax}`;
+    if (el.band) el.band.textContent = band.name;
+    if (el.scoreText) el.scoreText.textContent = band.text;
 
-    // Item 9 (safety) triggers a support notice regardless of total score
-    el.safety.classList.toggle('hidden', !(answers[8] > 0));
+    // Safety notice only on PHQ-9 item 9
+    if (el.safety) {
+      const showSafety = activeInv.hasSafetyItem && answers[activeInv.safetyIndex] > 0;
+      el.safety.classList.toggle('hidden', !showSafety);
+    }
 
-    el.fill.style.width = '100%';
-    el.percent.textContent = '(100% Complete)';
-    el.counter.textContent = 'Complete';
-    el.track.setAttribute('aria-valuenow', '100');
-    el.qView.classList.add('hidden');
-    el.rView.classList.remove('hidden');
+    if (el.fill) el.fill.style.width = '100%';
+    if (el.percent) el.percent.textContent = '(100% Complete)';
+    if (el.counter) el.counter.textContent = 'Complete';
+    if (el.track) el.track.setAttribute('aria-valuenow', '100');
+    if (el.qView) el.qView.classList.add('hidden');
+    if (el.rView) {
+      el.rView.classList.remove('hidden');
+      el.rView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
     clearStore();
-    el.rView.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-    // Persist the same score the user sees so the admin dashboard reflects it.
     submitScore(total);
   }
 
   function restart() {
-    answers = new Array(QUESTIONS.length).fill(null);
+    answers = new Array(activeInv.questions.length).fill(null);
     index = 0;
     clearStore();
-    el.rView.classList.add('hidden');
-    el.qView.classList.remove('hidden');
-    el.safety.classList.add('hidden');
+    if (el.rView) el.rView.classList.add('hidden');
+    if (el.qView) el.qView.classList.remove('hidden');
+    if (el.safety) el.safety.classList.add('hidden');
     renderQuestion();
   }
 
   function saveForLater() {
     persist();
-    el.saveNote.textContent = 'Progress saved in this browser tab only. Closing the tab will clear it.';
-    el.saveNote.classList.remove('hidden');
+    if (el.saveNote) {
+      el.saveNote.textContent = 'Progress saved in this browser tab only. Closing the tab will clear it.';
+      el.saveNote.classList.remove('hidden');
+    }
   }
 
-  // Arrow-key navigation within the radio group
-  el.options.addEventListener('keydown', (e) => {
-    if (!['ArrowDown', 'ArrowUp', 'ArrowRight', 'ArrowLeft'].includes(e.key)) return;
-    e.preventDefault();
-    const dir = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : -1;
-    const current = answers[index] === null ? (dir === 1 ? -1 : OPTIONS.length) : answers[index];
-    const nextPoints = Math.min(Math.max(current + dir, 0), OPTIONS.length - 1);
-    select(nextPoints);
-  });
+  // Keyboard navigation
+  if (el.options) {
+    el.options.addEventListener('keydown', (e) => {
+      if (!['ArrowDown', 'ArrowUp', 'ArrowRight', 'ArrowLeft'].includes(e.key)) return;
+      e.preventDefault();
+      const dir = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : -1;
+      const opts = activeInv.options;
+      const current = answers[index] === null ? (dir === 1 ? -1 : opts.length) : answers[index];
+      const nextPoints = Math.min(Math.max(current + dir, 0), opts.length - 1);
+      select(nextPoints);
+    });
+  }
 
-  el.next.addEventListener('click', next);
-  el.prev.addEventListener('click', prev);
-  el.save.addEventListener('click', saveForLater);
-  el.restart.addEventListener('click', restart);
+  if (el.typeSelect) {
+    el.typeSelect.addEventListener('change', (e) => {
+      const newType = e.target.value;
+      if (newType !== activeType) {
+        if (el.rView) el.rView.classList.add('hidden');
+        if (el.qView) el.qView.classList.remove('hidden');
+        if (el.saveNote) el.saveNote.classList.add('hidden');
+        initInventory(newType);
+      }
+    });
+  }
 
-  load();
-  renderQuestion();
+  if (el.next) el.next.addEventListener('click', next);
+  if (el.prev) el.prev.addEventListener('click', prev);
+  if (el.save) el.save.addEventListener('click', saveForLater);
+  if (el.restart) el.restart.addEventListener('click', restart);
+
+  // Account management
+  async function initAccount() {
+    const token = localStorage.getItem('unburden_token');
+    if (!token) return;
+
+    try {
+      const res = await fetch('/api/session', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (!res.ok) return;
+      const session = await res.json();
+      const accountCard = $('account-card');
+      const accountEmail = $('account-email');
+      const deleteBtn = $('btn-delete-account');
+
+      if (accountCard && accountEmail) {
+        accountEmail.textContent = session.email;
+        accountCard.classList.remove('hidden');
+      }
+
+      if (deleteBtn) {
+        deleteBtn.addEventListener('click', async () => {
+          const confirmed = window.confirm(
+            'Are you sure you want to permanently delete your account and all associated data? This action cannot be undone.'
+          );
+          if (!confirmed) return;
+
+          try {
+            const delRes = await fetch('/api/account', {
+              method: 'DELETE',
+              headers: { Authorization: `Bearer ${token}` },
+            });
+            if (delRes.ok) {
+              localStorage.removeItem('unburden_token');
+              alert('Your account has been deleted.');
+              window.location.href = '/';
+            } else {
+              alert('Failed to delete account. Please try again.');
+            }
+          } catch (_) {
+            alert('Could not reach the server. Please try again.');
+          }
+        });
+      }
+    } catch (_) {}
+  }
+
+  initInventory('phq9');
+  initAccount();
 })();
