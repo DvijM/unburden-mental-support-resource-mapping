@@ -38,7 +38,10 @@
     return `
       <article data-cat="${esc(r.category)}" class="relative bg-white rounded-editorial shadow-card p-4 flex flex-col hover:-translate-y-1 hover:shadow-lg cursor-pointer transition duration-200 focus-within:ring-2 focus-within:ring-primary">
         <div class="relative rounded overflow-hidden aspect-[16/10] bg-gradient-to-br ${gradient} p-4 flex flex-col justify-between" role="img" aria-label="${esc(r.title)}">
-          <div class="flex items-start justify-between gap-2">
+         <img src="/images/resources/${esc(r.slug)}.png" alt="" loading="lazy" width="800" height="500"
+               class="absolute inset-0 w-full h-full object-cover"
+               onerror="this.remove()">
+          <div class="relative flex items-start justify-between gap-2">
             <span class="bg-white/95 text-ink text-[9.5px] font-medium rounded px-2 py-0.5 shadow-sm">${esc(r.badge)}</span>
             <span class="bg-white/90 text-ink-mute text-[9.5px] rounded px-2 py-0.5">${esc(r.readTime)}</span>
           </div>
