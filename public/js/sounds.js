@@ -163,6 +163,28 @@
   let timerInterval = null;
   let timerRemainingSeconds = 0;
 
+  let anonPlaybackSessionId = sessionStorage.getItem('unburden_anon_sound_sid');
+  if (!anonPlaybackSessionId) {
+    anonPlaybackSessionId = Math.random().toString(36).slice(2) + Date.now().toString(36);
+    try { sessionStorage.setItem('unburden_anon_sound_sid', anonPlaybackSessionId); } catch (_) {}
+  }
+  const reportedPlaybacks = new Set();
+
+  function recordSoundPlayAnalytics(sound) {
+    if (!sound || !sound.id || reportedPlaybacks.has(sound.id)) return;
+    reportedPlaybacks.add(sound.id);
+    const apiFetch = window.unburdenApiFetch || ((url, opts) => fetch(url, opts));
+    apiFetch('/api/analytics/sound-play', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        itemId: sound.id,
+        title: sound.name,
+        sessionId: anonPlaybackSessionId,
+      }),
+    }).catch(() => {});
+  }
+
   /**
    * Initializes or resumes the Web Audio API AudioContext.
    * Defers creation until the first user interaction to comply with browser autoplay policies.
@@ -277,6 +299,7 @@
       track.sourceNode = source;
       track.isPlaying = true;
       track.hasError = false;
+      recordSoundPlayAnalytics(track.sound);
 
       // Update card UI to active playing state
       if (cardEl) {

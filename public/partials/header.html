@@ -1,13 +1,13 @@
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
 <!-- Crisis banner -->
 <div class="bg-crisis-bg text-crisis-ink" role="region" aria-label="Crisis support">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2 flex items-center justify-between gap-4 text-[12px]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2 flex flex-wrap items-center justify-between gap-4 text-[12px]">
     <p class="flex items-center gap-2">
       <span class="text-crisis font-bold" aria-hidden="true">&#10033;</span>
-      <span><strong>Crisis Support Available:</strong> If you or someone you know is in acute distress, immediate help
-        is reachable 24/7.</span>
+      <span><strong>Crisis Support Available:</strong> If you or someone you know is in distress, free confidential support is available.</span>
     </p>
-    <a href="/find-support" class="flex-none font-medium underline underline-offset-2">Dial 988 or Reach International
-      Helplines &#8599;</a>
+    <a href="/find-support" class="flex-none font-semibold underline underline-offset-2">Global Helplines &amp; Emergency Support &rarr;</a>
   </div>
 </div>
 
@@ -20,7 +20,7 @@
       <span class="font-display font-bold text-[17px]">Unburden</span>
     </a>
 
-    <ul class="hidden md:flex items-center gap-7 text-[12px] text-ink-soft">
+    <ul class="hidden md:flex items-center gap-6 text-[12.5px] text-ink-soft">
       <li><a data-nav="home" href="/" class="py-1 hover:text-primary">Home</a></li>
       <li><a data-nav="resources" href="/resources" class="py-1 hover:text-primary">Resources</a></li>
       <li><a data-nav="sounds" href="/sounds" class="py-1 hover:text-primary">Sounds</a></li>
@@ -29,16 +29,10 @@
       <li><a data-nav="about" href="/about-sdg3" class="py-1 hover:text-primary">About SDG 3</a></li>
     </ul>
 
-    <div class="flex items-center gap-4 text-[12px]">
-      <button type="button" class="hidden sm:block text-ink-soft hover:text-primary" aria-label="Change language">
-        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-          <circle cx="12" cy="12" r="9" />
-          <path d="M3 12h18M12 3c3 3.3 3 14.7 0 18M12 3c-3 3.3-3 14.7 0 18" />
-        </svg>
-      </button>
+    <div class="flex items-center gap-3.5 text-[12.5px]" id="nav-auth-actions">
       <a href="/login" class="text-primary font-medium hover:underline">Log In</a>
       <a href="/register" class="btn-primary px-4 py-1.5 text-[12px]">Register</a>
-      <button id="menu-toggle" type="button" class="md:hidden text-ink-soft" aria-label="Open menu"
+      <button id="menu-toggle" type="button" class="md:hidden text-ink-soft p-1" aria-label="Open menu"
         aria-expanded="false" aria-controls="mobile-menu">
         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
           <path d="M4 7h16M4 12h16M4 17h16" />
@@ -48,12 +42,13 @@
   </nav>
 
   <ul id="mobile-menu"
-    class="hidden md:hidden border-t border-surface-mid bg-white px-4 py-3 space-y-2 text-[13px] text-ink-soft">
-    <li><a data-nav="home" href="/" class="block py-1">Home</a></li>
-    <li><a data-nav="resources" href="/resources" class="block py-1">Resources</a></li>
-    <li><a data-nav="sounds" href="/sounds" class="block py-1">Sounds</a></li>
-    <li><a data-nav="assessment" href="/assessment" class="block py-1">Assessment</a></li>
-    <li><a data-nav="support" href="/find-support" class="block py-1">Find Support</a></li>
-    <li><a data-nav="about" href="/about-sdg3" class="block py-1">About SDG 3</a></li>
+    class="hidden md:hidden border-t border-surface-mid bg-white px-4 py-3 space-y-2 text-[14px] text-ink-soft">
+    <li><a data-nav="home" href="/" class="block py-1.5">Home</a></li>
+    <li><a data-nav="resources" href="/resources" class="block py-1.5">Resources</a></li>
+    <li><a data-nav="sounds" href="/sounds" class="block py-1.5">Sounds</a></li>
+    <li><a data-nav="assessment" href="/assessment" class="block py-1.5">Assessment</a></li>
+    <li><a data-nav="support" href="/find-support" class="block py-1.5">Find Support</a></li>
+    <li><a data-nav="about" href="/about-sdg3" class="block py-1.5">About SDG 3</a></li>
+    <li class="pt-2 border-t border-surface-mid"><a data-nav="dashboard" href="/dashboard" class="block py-1.5 text-primary font-medium">My Dashboard &amp; Privacy</a></li>
   </ul>
 </header>

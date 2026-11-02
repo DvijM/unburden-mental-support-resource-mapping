@@ -46,6 +46,25 @@
 
       const r = await res.json();
 
+      // Record anonymous aggregate resource view (deduplicated per browser session)
+      try {
+        let anonSid = sessionStorage.getItem('unburden_anon_res_sid');
+        if (!anonSid) {
+          anonSid = Math.random().toString(36).slice(2) + Date.now().toString(36);
+          sessionStorage.setItem('unburden_anon_res_sid', anonSid);
+        }
+        const viewedKey = `unburden_viewed_${r.slug}`;
+        if (!sessionStorage.getItem(viewedKey)) {
+          sessionStorage.setItem(viewedKey, '1');
+          const apiFetch = window.unburdenApiFetch || ((u, o) => fetch(u, o));
+          apiFetch('/api/analytics/resource-view', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ itemId: r.slug, title: r.title, sessionId: anonSid }),
+          }).catch(() => {});
+        }
+      } catch (_) {}
+
       // Page Title & Meta
       document.title = `${r.title} — Unburden Resource`;
       const meta = $('meta-description');

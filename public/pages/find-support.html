@@ -4,283 +4,232 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Find Support &amp; Crisis Helplines — Unburden</title>
+  <title>Find Support &amp; Verified Global Crisis Helplines — Unburden</title>
   <meta name="description"
-    content="Free, confidential, 24/7 crisis helplines and accredited care directories worldwide." />
+    content="Search verified national mental health crisis helplines and international emergency support directories across all countries." />
+  <meta property="og:title" content="Find Support & Verified Crisis Helplines — Unburden" />
+  <meta property="og:description"
+    content="Immediate access to verified crisis hotlines, SMS relays, and global support networks without mandatory intake barriers." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
     rel="stylesheet" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="/js/tailwind-config.js"></script>
   <link rel="stylesheet" href="/css/styles.css" />
 </head>
 
 <body data-page="support" class="bg-surface text-ink">
 
-  <!-- Emergency banner (this page uses the longer emergency wording) -->
-  <div class="bg-crisis-bg text-crisis-ink" role="region" aria-label="Emergency notice">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2 flex items-center justify-between gap-4 text-[12px]">
+  <div data-include="header"></div>
+
+  <!-- Emergency banner -->
+  <div class="bg-crisis-bg text-crisis-ink border-b border-crisis/20" role="region" aria-label="Emergency notice">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-4 text-xs">
       <p class="flex items-center gap-2">
         <span class="text-crisis font-bold" aria-hidden="true">&#10033;</span>
-        <span><strong>Immediate Risk?</strong> If you or someone you know is in immediate life-threatening danger,
-          please contact local emergency services (e.g. 911 in the US, 999 in the UK, 112 in the EU, 112 in India) or
-          visit the
-          nearest medical emergency facility immediately.</span>
+        <span><strong>Immediate Life-Threatening Emergency?</strong> Contact your local emergency services immediately (<strong>112</strong> in India &amp; EU, <strong>911</strong> in US &amp; Canada, <strong>999</strong> in UK, <strong>000</strong> in Australia) or visit the nearest hospital emergency department.</span>
       </p>
-      <a href="#directory" class="flex-none text-crisis font-medium hover:underline">Emergency Helplines Below
-        &darr;</a>
+      <a href="#directory" class="flex-none text-crisis font-semibold hover:underline">Jump to Helplines &darr;</a>
     </div>
   </div>
 
-  <header class="bg-white border-b border-surface-mid sticky top-0 z-40">
-    <nav class="max-w-7xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between" aria-label="Primary">
-      <a href="/" class="flex items-center gap-2" aria-label="Unburden home">
-        <span
-          class="w-6 h-6 rounded bg-primary text-white grid place-items-center text-[12px] font-serif font-bold">U</span>
-        <span class="font-display font-bold text-[17px]">Unburden</span>
-      </a>
-      <ul class="hidden md:flex items-center gap-7 text-[11px] tracking-[.08em] uppercase text-ink-soft">
-        <li><a data-nav="home" href="/" class="py-1 hover:text-primary">Home</a></li>
-        <li><a data-nav="resources" href="/resources" class="py-1 hover:text-primary">Resources</a></li>
-        <li><a data-nav="sounds" href="/sounds" class="py-1 hover:text-primary">Sounds</a></li>
-        <li><a data-nav="assessment" href="/assessment" class="py-1 hover:text-primary">Assessment</a></li>
-        <li><a data-nav="support" href="/find-support" class="py-1 hover:text-primary">Find Support</a></li>
-        <li><a data-nav="about" href="/about-sdg3" class="py-1 hover:text-primary">About SDG 3</a></li>
-      </ul>
-      <div class="flex items-center gap-4 text-[12px]">
-        <a href="/login" class="text-primary font-medium hover:underline">Log In</a>
-        <a href="/register" class="btn-primary px-4 py-1.5 text-[12px]">Register</a>
-      </div>
-    </nav>
-  </header>
-
-  <main>
+  <main id="main-content">
     <!-- Intro -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 pt-14 pb-10">
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 pt-12 pb-8">
       <p
-        class="inline-flex items-center gap-2 bg-surface-mid text-ink-soft rounded px-2.5 py-1 text-[10px] tracking-[.12em] uppercase">
-        <span class="w-1.5 h-1.5 rounded-full bg-olive"></span> UN SDG Target 3.4 Support Infrastructure
+        class="inline-flex items-center gap-2 bg-surface-mid text-ink-soft rounded px-3 py-1 text-xs font-semibold tracking-wider uppercase">
+        <span class="w-2 h-2 rounded-full bg-olive"></span> UN SDG Target 3.4 Resource Mapping
       </p>
-      <h1 class="font-display font-bold text-[34px] sm:text-[40px] leading-tight mt-4">Find Support &amp; Crisis
-        Helplines</h1>
-      <p class="text-[14px] text-ink-soft leading-relaxed mt-3 max-w-2xl">Immediate, 24/7 confidential, free crisis
-        intervention and accredited care directories globally. You do not have to carry mental pain or crisis alone;
-        trained advocates and professional clinical resources are accessible whenever you need them.</p>
-      <ul class="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-[11px] text-ink-mute">
-        <li class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-primary" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="1.8">
+      <h1 class="font-display font-bold text-[34px] sm:text-[40px] leading-tight mt-4">Find Support &amp; Verified Crisis Helplines</h1>
+      <p class="text-[14px] text-ink-soft leading-relaxed mt-3 max-w-2xl">Connect directly with verified national mental health helplines and international crisis directories. Calling, texting, or visiting any helpline below is direct and never requires filling out an intake form.</p>
+      <ul class="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-xs text-ink-soft">
+        <li class="flex items-center gap-1.5">
+          <svg class="w-4 h-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
             <path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z" />
-          </svg> 100% Confidential</li>
-        <li class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-primary" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="1.8">
-            <path
-              d="M6.6 10.8a15 15 0 006.6 6.6l2.2-2.2a1 1 0 011-.25 11 11 0 003.5.6 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11 11 0 00.6 3.5 1 1 0 01-.25 1z" />
-          </svg> Free of Charge</li>
-        <li class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-primary" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="1.8">
+          </svg>
+          Direct Connection (No Intake Gate)
+        </li>
+        <li class="flex items-center gap-1.5">
+          <svg class="w-4 h-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M6.6 10.8a15 15 0 006.6 6.6l2.2-2.2a1 1 0 011-.25 11 11 0 003.5.6 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11 11 0 00.6 3.5 1 1 0 01-.25 1z" />
+          </svg>
+          Source-Verified Numbers
+        </li>
+        <li class="flex items-center gap-1.5">
+          <svg class="w-4 h-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
             <circle cx="12" cy="12" r="9" />
             <path d="M12 7v5l3 2" />
-          </svg> Available 24 Hours / 7 Days</li>
+          </svg>
+          Global Country Selector + International Fallbacks
+        </li>
       </ul>
     </section>
+
+    <!-- Static No-JS / Always-Available Emergency Fallback -->
+    <noscript>
+      <section class="max-w-7xl mx-auto px-4 sm:px-6 mb-8">
+        <div class="rounded-editorial border border-crisis bg-crisis-bg p-5 text-crisis-ink space-y-2 text-sm">
+          <h2 class="font-bold text-base">JavaScript is disabled — Static Emergency Helpline Reference</h2>
+          <ul class="list-disc pl-5 space-y-1">
+            <li><strong>India (Tele-MANAS 24/7):</strong> Call <a href="tel:14416" class="underline font-bold">14416</a> or <a href="tel:18008914416" class="underline font-bold">1800-891-4416</a></li>
+            <li><strong>United States &amp; Canada (988 Lifeline 24/7):</strong> Call or text <a href="tel:988" class="underline font-bold">988</a></li>
+            <li><strong>United Kingdom &amp; Ireland (Samaritans 24/7):</strong> Call <a href="tel:116123" class="underline font-bold">116 123</a></li>
+            <li><strong>Australia (Lifeline 24/7):</strong> Call <a href="tel:131114" class="underline font-bold">13 11 14</a></li>
+            <li><strong>All Countries (Find A Helpline):</strong> <a href="https://findahelpline.com/" class="underline font-bold">https://findahelpline.com/</a></li>
+          </ul>
+        </div>
+      </section>
+    </noscript>
 
     <!-- Filters -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6" aria-label="Filter directory">
       <div class="bg-white rounded-editorial shadow-card p-5">
-        <div class="grid md:grid-cols-[1fr_1.6fr_auto] gap-4 items-end">
+        <div class="grid md:grid-cols-3 gap-4 items-end">
           <div>
-            <label for="region" class="block text-[9.5px] tracking-[.12em] uppercase text-ink-mute mb-1.5">Territory
-              &amp; Region</label>
+            <label for="country-filter-input" class="block text-xs tracking-wider uppercase text-ink-soft font-semibold mb-1.5">1. Filter Country List</label>
+            <input id="country-filter-input" type="search"
+              placeholder="Type country name (e.g. India, Kenya, Brazil)..."
+              class="w-full bg-surface-mid rounded px-3 py-2.5 text-[13px] border border-transparent focus:border-primary placeholder:text-ink-mute"
+              autocomplete="off" />
+          </div>
+          <div>
+            <label for="region" class="block text-xs tracking-wider uppercase text-ink-soft font-semibold mb-1.5">2. Select Country or Region</label>
             <select id="region"
-              class="w-full bg-surface-mid rounded px-3 py-2.5 text-[12.5px] text-ink border border-transparent">
-              <option value="in">India</option>
-              <option value="us-ca">United States / Canada</option>
-              <option value="uk-ie">United Kingdom / Ireland</option>
-              <option value="global">Global / Other regions</option>
+              class="w-full bg-surface-mid rounded px-3 py-2.5 text-[13px] text-ink border border-transparent focus:border-primary">
+              <option value="IN">India</option>
+              <option value="US">United States</option>
+              <option value="CA">Canada</option>
+              <option value="GB">United Kingdom</option>
+              <option value="AU">Australia</option>
+              <option value="GLOBAL">Global / International Directories</option>
             </select>
           </div>
           <div>
-            <label for="search" class="block text-[9.5px] tracking-[.12em] uppercase text-ink-mute mb-1.5">Search by
-              Need, Name, or Modality</label>
-            <input id="search" type="search"
-              placeholder="e.g., 'Youth suicide prevention', 'Anxiety chat', 'Bilingual counselors'..."
-              class="w-full bg-surface-mid rounded px-3 py-2.5 text-[12.5px] border border-transparent placeholder:text-ink-mute"
-              autocomplete="off" />
+            <label for="search" class="block text-xs tracking-wider uppercase text-ink-soft font-semibold mb-1.5">3. Search by Need, Language, or Name</label>
+            <div class="flex gap-2">
+              <input id="search" type="search"
+                placeholder="e.g. 'Youth', 'Hindi', 'Text', '24/7'..."
+                class="w-full bg-surface-mid rounded px-3 py-2.5 text-[13px] border border-transparent focus:border-primary placeholder:text-ink-mute"
+                autocomplete="off" />
+              <button id="refine" type="button"
+                class="btn-secondary px-4 py-2.5 text-xs tracking-wider uppercase shrink-0">Filter</button>
+            </div>
           </div>
-          <button id="refine" type="button"
-            class="btn-secondary px-5 py-2.5 text-[10.5px] tracking-[.1em] uppercase">Refine</button>
         </div>
         <div class="mt-4 flex flex-wrap gap-2" role="group" aria-label="Service categories" id="chips">
-          <button type="button" class="chip px-3 py-1.5 text-[10px] tracking-[.08em] uppercase" data-cat="all"
+          <button type="button" class="chip px-3 py-1.5 text-xs tracking-wider uppercase" data-cat="all"
             aria-pressed="true">All Services</button>
-          <button type="button" class="chip px-3 py-1.5 text-[10px] tracking-[.08em] uppercase" data-cat="crisis"
+          <button type="button" class="chip px-3 py-1.5 text-xs tracking-wider uppercase" data-cat="crisis"
             aria-pressed="false">24/7 Crisis Hotlines</button>
-          <button type="button" class="chip px-3 py-1.5 text-[10px] tracking-[.08em] uppercase" data-cat="therapy"
-            aria-pressed="false">Therapy &amp; Counseling</button>
-          <button type="button" class="chip px-3 py-1.5 text-[10px] tracking-[.08em] uppercase" data-cat="peer"
-            aria-pressed="false">Peer Support Networks</button>
-          <button type="button" class="chip px-3 py-1.5 text-[10px] tracking-[.08em] uppercase" data-cat="youth"
-            aria-pressed="false">Youth &amp; LGBTQ+ Helplines</button>
+          <button type="button" class="chip px-3 py-1.5 text-xs tracking-wider uppercase" data-cat="therapy"
+            aria-pressed="false">Counseling &amp; Psychosocial Support</button>
+          <button type="button" class="chip px-3 py-1.5 text-xs tracking-wider uppercase" data-cat="peer"
+            aria-pressed="false">Global &amp; Peer Networks</button>
+          <button type="button" class="chip px-3 py-1.5 text-xs tracking-wider uppercase" data-cat="youth"
+            aria-pressed="false">Youth &amp; LGBTQ+ Support</button>
         </div>
       </div>
     </section>
 
     <!-- Directory -->
-    <section id="directory" class="max-w-7xl mx-auto px-4 sm:px-6 mt-12" aria-labelledby="dir-title">
-      <div class="flex items-baseline justify-between gap-4">
-        <h2 id="dir-title" class="font-display font-bold text-[20px]">Primary Crisis Intervention Directory</h2>
-        <p id="result-count" class="text-[10px] tracking-[.1em] uppercase text-ink-mute" aria-live="polite"></p>
+    <section id="directory" class="max-w-7xl mx-auto px-4 sm:px-6 mt-10" aria-labelledby="dir-title">
+      <div class="flex flex-wrap items-baseline justify-between gap-4">
+        <h2 id="dir-title" class="font-display font-bold text-[22px]">Verified Helpline Directory</h2>
+        <p id="result-count" class="text-xs tracking-wider uppercase text-ink-soft font-semibold" aria-live="polite"></p>
       </div>
-      <div id="dir-list" class="mt-5 space-y-4"></div>
-      <p id="dir-empty" class="hidden mt-6 bg-surface-low rounded-editorial p-5 text-[13px] text-ink-soft">
+
+      <!-- Country Fallback Notice (shown when a country uses verified international directories) -->
+      <div id="country-fallback-notice" class="hidden mt-4 rounded-editorial border border-amber-300 bg-amber-50 p-4 text-xs text-amber-950 leading-relaxed" role="status"></div>
+
+      <div id="dir-list" class="mt-5 space-y-4">
+        <!-- Static initial fallback rendered before JS hydration -->
+        <article class="bg-white rounded-editorial shadow-card p-6 border border-slate-200">
+          <h3 class="font-display font-bold text-lg">Tele-MANAS (National Tele Mental Health Programme of India)</h3>
+          <p class="text-xs text-ink-soft mt-1">24/7 toll-free mental health helpline by the Ministry of Health &amp; Family Welfare, Government of India.</p>
+          <div class="mt-3 flex flex-wrap gap-3">
+            <a href="tel:14416" class="btn-primary px-4 py-2 text-xs">Call 14416</a>
+            <a href="https://telemanas.mohfw.gov.in/" target="_blank" rel="noopener noreferrer" class="btn-secondary px-4 py-2 text-xs">Official Website &rarr;</a>
+          </div>
+        </article>
+      </div>
+
+      <p id="dir-empty" class="hidden mt-6 bg-surface-low rounded-editorial p-5 text-[13.5px] text-ink-soft">
         No listings match those filters. Clear the search box or choose &ldquo;All Services&rdquo; to see every
-        directory. If you need help right now, call or text 988 (US/Canada) or contact local emergency services.
+        verified directory.
       </p>
     </section>
 
     <!-- Field guide -->
     <section class="bg-surface-low mt-16 py-14">
       <div class="max-w-7xl mx-auto px-4 sm:px-6">
-        <p class="text-[10px] tracking-[.14em] uppercase text-olive">Editorial Field Guide</p>
-        <h2 class="font-display font-bold text-[26px] mt-2">Demystifying Crisis Care: What to Expect</h2>
-        <p class="text-[13px] text-ink-soft leading-relaxed mt-2 max-w-xl">Reaching out during severe distress requires
-          profound courage. Knowing precisely what takes place on the other side of the connection can alleviate anxiety
-          and help you take the first step toward safety.</p>
+        <p class="text-xs tracking-wider uppercase text-olive font-semibold">Support Field Guide</p>
+        <h2 class="font-display font-bold text-[26px] mt-2">Demystifying Crisis Support: What to Expect</h2>
+        <p class="text-[13.5px] text-ink-soft leading-relaxed mt-2 max-w-xl">Reaching out during distress takes courage. Knowing what happens when you call or text a crisis helpline can make taking the first step easier.</p>
 
         <div class="mt-8 grid md:grid-cols-3 gap-5">
           <article class="bg-white rounded-editorial shadow-card p-5 flex flex-col">
-            <span class="w-7 h-7 rounded bg-surface-mid text-primary grid place-items-center" aria-hidden="true"><svg
+            <span class="w-8 h-8 rounded bg-surface-mid text-primary grid place-items-center" aria-hidden="true"><svg
                 class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
                 <rect x="5" y="11" width="14" height="9" rx="2" />
                 <path d="M8 11V8a4 4 0 018 0v3" />
               </svg></span>
-            <h3 class="font-display font-bold text-[15px] mt-3">1. Complete Anonymity</h3>
-            <p class="text-[12px] text-ink-soft leading-relaxed mt-1.5">You are never mandated to provide your legal
-              name, physical address, or identifying records. You may remain anonymous or use a pseudonym throughout the
-              entire engagement.</p>
-            <p class="mt-auto pt-5 text-[9.5px] tracking-[.12em] uppercase text-ink-mute">Strict Data Privacy</p>
+            <h3 class="font-display font-bold text-[16px] mt-3">1. Direct &amp; Confidential</h3>
+            <p class="text-[13px] text-ink-soft leading-relaxed mt-1.5">Unburden never asks for your personal details before connecting you to a helpline. You can share only what you feel comfortable sharing with the helpline responder.</p>
           </article>
           <article class="bg-white rounded-editorial shadow-card p-5 flex flex-col">
-            <span class="w-7 h-7 rounded bg-surface-mid text-primary grid place-items-center" aria-hidden="true"><svg
+            <span class="w-8 h-8 rounded bg-surface-mid text-primary grid place-items-center" aria-hidden="true"><svg
                 class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
                 <path d="M6 10a6 6 0 0112 0v4a2 2 0 01-2 2h-1v-5h3M6 10v4a2 2 0 002 2h1v-5H6" />
               </svg></span>
-            <h3 class="font-display font-bold text-[15px] mt-3">2. Active, Judgment-Free Listening</h3>
-            <p class="text-[12px] text-ink-soft leading-relaxed mt-1.5">Counselors do not scold, evaluate, or
-              interrogate. Their objective is to understand your immediate emotional landscape, de-escalate
-              physiological distress, and help you ground your breathing.</p>
-            <p class="mt-auto pt-5 text-[9.5px] tracking-[.12em] uppercase text-ink-mute">Trauma-Informed Practice</p>
+            <h3 class="font-display font-bold text-[16px] mt-3">2. Active, Non-Judgmental Listening</h3>
+            <p class="text-[13px] text-ink-soft leading-relaxed mt-1.5">Trained responders listen without judgment, help you slow down overwhelming thoughts, and focus on your immediate safety and comfort.</p>
           </article>
           <article class="bg-white rounded-editorial shadow-card p-5 flex flex-col">
-            <span class="w-7 h-7 rounded bg-surface-mid text-primary grid place-items-center" aria-hidden="true"><svg
+            <span class="w-8 h-8 rounded bg-surface-mid text-primary grid place-items-center" aria-hidden="true"><svg
                 class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
                 <path d="M12 20s-7-4.5-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.5-7 10-7 10z" />
               </svg></span>
-            <h3 class="font-display font-bold text-[15px] mt-3">3. Collaborative Safety Planning</h3>
-            <p class="text-[12px] text-ink-soft leading-relaxed mt-1.5">Rather than prescribing mandates, specialists
-              collaborate with you to create practical steps for getting through the night safely, connecting with
-              friends, or booking ongoing psychiatric care.</p>
-            <p class="mt-auto pt-5 text-[9.5px] tracking-[.12em] uppercase text-ink-mute">Self-Directed Autonomy</p>
+            <h3 class="font-display font-bold text-[16px] mt-3">3. Collaborative Next Steps</h3>
+            <p class="text-[13px] text-ink-soft leading-relaxed mt-1.5">Together, you can identify practical coping steps for the next few hours and explore local community or clinical support options.</p>
           </article>
-        </div>
-
-        <div class="mt-6 bg-surface-mid rounded-editorial p-4 flex flex-col sm:flex-row sm:items-center gap-4">
-          <span class="w-8 h-8 rounded bg-gold text-[#4A3F00] grid place-items-center flex-none" aria-hidden="true"><svg
-              class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="9" />
-              <path d="M8 12l3 3 5-6" />
-            </svg></span>
-          <div class="flex-1">
-            <h3 class="font-display font-bold text-[13px]">UN SDG 3 Protocol Alignment</h3>
-            <p class="text-[11.5px] text-ink-soft leading-relaxed mt-0.5">Every registry linked under Unburden undergoes
-              continuous verification to ensure conformity with international human rights standards, non-punitive
-              mental health response practices, and strict data confidentiality protocols.</p>
-          </div>
-          <a href="/about-sdg3"
-            class="text-[10px] tracking-[.12em] uppercase text-primary font-medium hover:underline flex-none">Read
-            Standards</a>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Helpline Intake Modal (Forces details collection before connecting to helplines) -->
-  <div id="intake-modal" class="hidden fixed inset-0 z-50 bg-ink/50 backdrop-blur-sm grid place-items-center p-4 overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="intake-modal-title">
-    <div class="bg-white rounded-editorial shadow-lift max-w-lg w-full p-6 sm:p-7 border border-surface-mid relative my-8">
-      <div class="flex items-start justify-between gap-4 border-b border-surface-mid pb-4">
+  <!-- Report Incorrect Helpline Information Modal -->
+  <div id="report-modal" class="hidden fixed inset-0 z-50 bg-ink/50 backdrop-blur-sm grid place-items-center p-4 overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="report-modal-title">
+    <div class="bg-white rounded-editorial shadow-lift max-w-md w-full p-6 border border-surface-mid relative my-8">
+      <div class="flex items-start justify-between gap-4 border-b border-surface-mid pb-3">
         <div>
-          <span class="label-caps text-crisis bg-crisis-bg rounded px-2 py-0.5">Helpline Intake Required</span>
-          <h2 id="intake-modal-title" class="font-display font-bold text-[20px] text-ink mt-2">Connect to Crisis Support</h2>
-          <p class="text-[12px] text-ink-soft mt-1">
-            Connecting to: <strong id="intake-target-name" class="text-ink">Helpline</strong>
-          </p>
+          <span class="text-xs font-bold uppercase tracking-wider text-primary">Directory Verification</span>
+          <h2 id="report-modal-title" class="font-display font-bold text-[18px] text-ink mt-1">Report Incorrect Helpline Info</h2>
+          <p class="text-xs text-ink-soft mt-0.5">Listing: <strong id="report-target-name" class="text-ink">Helpline</strong></p>
         </div>
-        <button id="intake-close-btn" type="button" class="text-ink-mute hover:text-ink text-[22px] leading-none p-1" aria-label="Close dialog">&times;</button>
+        <button id="report-close-btn" type="button" class="text-ink-soft hover:text-ink text-[22px] leading-none p-1" aria-label="Close dialog">&times;</button>
       </div>
 
-      <div class="mt-4 bg-surface-low rounded-editorial p-3.5 text-[11.5px] text-ink-soft leading-relaxed flex items-start gap-2.5">
-        <svg class="w-4 h-4 text-primary flex-none mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>
-        <span>To connect you directly with crisis response, please provide your details. This information is visible on the administrator dashboard to ensure your safety and continuity of care.</span>
-      </div>
-
-      <form id="intake-form" class="mt-5 space-y-4" novalidate>
-        <div id="intake-general-error" class="hidden p-3 rounded bg-crisis-bg text-crisis-ink text-[12px]" role="alert"></div>
-
+      <form id="report-form" class="mt-4 space-y-4">
+        <input id="report-helpline-id" type="hidden" />
         <div>
-          <label for="intake-name" class="block text-[10px] tracking-[.1em] uppercase text-ink-mute mb-1">Full Name <span class="text-crisis">*</span></label>
-          <input id="intake-name" type="text" required placeholder="e.g. Jane Doe"
-            class="w-full bg-surface-mid rounded px-3 py-2 text-[12.5px] border border-transparent focus:border-primary text-ink placeholder:text-ink-mute" />
-          <p id="intake-name-error" class="hidden text-crisis text-[11px] mt-1"></p>
+          <label for="report-reason" class="block text-xs font-semibold text-ink mb-1">What needs to be updated? *</label>
+          <select id="report-reason" required class="w-full bg-surface-mid rounded px-3 py-2 text-xs text-ink">
+            <option value="Phone number out of service or changed">Phone number out of service or changed</option>
+            <option value="Operating hours or language details inaccurate">Operating hours or language details inaccurate</option>
+            <option value="Website link broken">Website link broken</option>
+            <option value="Other directory correction">Other directory correction</option>
+          </select>
         </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div>
-            <label for="intake-email" class="block text-[10px] tracking-[.1em] uppercase text-ink-mute mb-1">Email Address <span class="text-crisis">*</span></label>
-            <input id="intake-email" type="email" required placeholder="jane@example.com"
-              class="w-full bg-surface-mid rounded px-3 py-2 text-[12.5px] border border-transparent focus:border-primary text-ink placeholder:text-ink-mute" />
-            <p id="intake-email-error" class="hidden text-crisis text-[11px] mt-1"></p>
-          </div>
-
-          <div>
-            <label for="intake-phone" class="block text-[10px] tracking-[.1em] uppercase text-ink-mute mb-1">Phone Number <span class="text-crisis">*</span></label>
-            <input id="intake-phone" type="tel" required placeholder="+14155550199"
-              class="w-full bg-surface-mid rounded px-3 py-2 text-[12.5px] border border-transparent focus:border-primary text-ink placeholder:text-ink-mute font-mono" />
-            <p id="intake-phone-error" class="hidden text-crisis text-[11px] mt-1"></p>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div>
-            <label for="intake-age" class="block text-[10px] tracking-[.1em] uppercase text-ink-mute mb-1">Age (13–120) <span class="text-crisis">*</span></label>
-            <input id="intake-age" type="number" min="13" max="120" required placeholder="25"
-              class="w-full bg-surface-mid rounded px-3 py-2 text-[12.5px] border border-transparent focus:border-primary text-ink placeholder:text-ink-mute" />
-            <p id="intake-age-error" class="hidden text-crisis text-[11px] mt-1"></p>
-          </div>
-
-          <div>
-            <label for="intake-country" class="block text-[10px] tracking-[.1em] uppercase text-ink-mute mb-1">Country <span class="text-crisis">*</span></label>
-            <select id="intake-country" required
-              class="w-full bg-surface-mid rounded px-3 py-2 text-[12.5px] border border-transparent focus:border-primary text-ink">
-              <option value="">Select country…</option>
-            </select>
-            <p id="intake-country-error" class="hidden text-crisis text-[11px] mt-1"></p>
-          </div>
-        </div>
-
         <div>
-          <label for="intake-notes" class="block text-[10px] tracking-[.1em] uppercase text-ink-mute mb-1">Immediate Concern / Reason (Optional)</label>
-          <textarea id="intake-notes" rows="2" placeholder="Brief note on what kind of support you need right now..."
-            class="w-full bg-surface-mid rounded px-3 py-2 text-[12px] border border-transparent focus:border-primary text-ink placeholder:text-ink-mute resize-none"></textarea>
+          <label for="report-details" class="block text-xs font-semibold text-ink mb-1">Additional Details or Official Source Link (Optional)</label>
+          <textarea id="report-details" rows="3" maxlength="500" placeholder="Share the updated number or official government/NGO URL..." class="w-full bg-surface-mid rounded px-3 py-2 text-xs text-ink"></textarea>
         </div>
-
-        <div class="pt-2 flex items-center justify-end gap-3 border-t border-surface-mid">
-          <button id="intake-cancel-btn" type="button" class="btn-secondary px-4 py-2 text-[11px] tracking-[.06em] uppercase">Cancel</button>
-          <button id="intake-submit-btn" type="submit" class="btn-primary px-5 py-2 text-[11px] tracking-[.06em] uppercase inline-flex items-center gap-2">
-            <span>Proceed to Helpline</span>
-            <span aria-hidden="true">&rarr;</span>
-          </button>
+        <p id="report-status-msg" class="hidden" role="status" aria-live="polite"></p>
+        <div class="flex justify-end gap-2 pt-2">
+          <button id="report-cancel-btn" type="button" class="btn-secondary px-4 py-2 text-xs">Cancel</button>
+          <button type="submit" class="btn-primary px-4 py-2 text-xs">Submit Report</button>
         </div>
       </form>
     </div>

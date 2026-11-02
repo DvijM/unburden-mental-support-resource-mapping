@@ -4,111 +4,100 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Create Your Account — Unburden</title>
-  <meta name="description" content="Create an account to track your well-being assessments and bookmark verified care resources." />
+  <meta name="description" content="Create a user account with granular opt-in privacy controls for self-assessments and wellness tracking." />
+  <meta property="og:title" content="Create Your Account — Unburden" />
+  <meta property="og:description" content="Privacy-first account registration with unbundled, optional consent controls." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="/js/tailwind-config.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/styles.css" />
 </head>
 <body data-page="register" class="bg-surface text-ink">
 
   <div data-include="header-auth"></div>
 
-  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+  <main id="main-content" class="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
     <div class="bg-white rounded-editorial shadow-card overflow-hidden grid lg:grid-cols-[0.9fr_1.1fr]">
 
       <!-- Left editorial panel -->
       <section class="relative bg-surface-low p-8 sm:p-10 flex flex-col" aria-labelledby="reg-left-title">
         <div class="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_20%_0%,rgba(150,170,230,.18),transparent_45%),radial-gradient(circle_at_0%_100%,rgba(240,225,170,.35),transparent_50%)]"></div>
         <div class="relative">
-          <p class="text-[10.5px] tracking-[.14em] uppercase text-olive font-medium">United Nations SDG 3 Pillar</p>
-          <h1 id="reg-left-title" class="font-display font-bold text-[34px] sm:text-[38px] leading-[1.1] mt-3">Begin your journey to well-being.</h1>
-          <p class="text-[14px] text-ink-soft leading-relaxed mt-5 max-w-sm">Access confidential, evidence-informed mental health assessments, track longitudinal psychological patterns, and bookmark clinical resources verified under World Health Organization frameworks.</p>
+          <p class="text-xs tracking-wider uppercase text-olive font-semibold">United Nations SDG 3.4 Alignment</p>
+          <h1 id="reg-left-title" class="font-display font-bold text-[34px] sm:text-[38px] leading-[1.1] mt-3">Begin your journey with full data ownership.</h1>
+          <p class="text-[14px] text-ink-soft leading-relaxed mt-5 max-w-sm">You can browse resources, listen to calming soundtracks, and view crisis helplines without an account. Creating an account lets you manage optional longitudinal self-checks and privacy permissions.</p>
 
           <figure class="bg-white rounded-editorial shadow-card p-5 mt-7 relative">
-            <span class="absolute top-2 right-3 font-display text-[28px] text-primary/25" aria-hidden="true">&rdquo;</span>
-            <blockquote class="font-display italic text-[14px] leading-relaxed text-ink">&ldquo;There is no health without mental health. It is an integral foundation for peaceful, resilient, and thriving communities across the globe.&rdquo;</blockquote>
-            <figcaption class="mt-3 text-[10px] tracking-[.12em] uppercase text-ink-soft flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> WHO Global Mental Health Advisory</figcaption>
+            <blockquote class="font-display italic text-[14px] leading-relaxed text-ink">&ldquo;There is no health without mental health. Empowering individuals with transparent, stigma-free self-reflection is foundational to resilient communities.&rdquo;</blockquote>
+            <figcaption class="mt-3 text-xs tracking-wider uppercase text-ink-soft flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Public Health Principle</figcaption>
           </figure>
 
-          <h2 class="font-display font-bold text-[14px] mt-9">Data Stewardship &amp; Privacy</h2>
+          <h2 class="font-display font-bold text-[15px] mt-9">Privacy-by-Default Architecture</h2>
           <ul class="mt-4 space-y-4">
             <li class="flex gap-3">
               <span class="w-7 h-7 rounded bg-surface-mid text-primary grid place-items-center flex-none" aria-hidden="true"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg></span>
-              <div><p class="font-display font-bold text-[12.5px]">Transparent Data Storage</p><p class="text-[11.5px] text-ink-soft leading-snug mt-0.5">We store your name, email, phone, age, country, and optional total screening score to support account management and site administration.</p></div>
+              <div><p class="font-display font-bold text-[13px]">Unbundled Granular Consent</p><p class="text-xs text-ink-soft leading-snug mt-0.5">Account creation never forces you to store assessment scores or share data. Every optional category has its own toggle.</p></div>
             </li>
             <li class="flex gap-3">
               <span class="w-7 h-7 rounded bg-surface-mid text-primary grid place-items-center flex-none" aria-hidden="true"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/></svg></span>
-              <div><p class="font-display font-bold text-[12.5px]">Non-Commercial Public Service</p><p class="text-[11.5px] text-ink-soft leading-snug mt-0.5">Your personal information is never sold, shared with advertisers, or used for commercial profiling.</p></div>
+              <div><p class="font-display font-bold text-[13px]">Strict Role Separation</p><p class="text-xs text-ink-soft leading-snug mt-0.5">Super Administrators only see aggregate statistics. Individual records can only be viewed by a Responder you explicitly authorize.</p></div>
             </li>
             <li class="flex gap-3">
               <span class="w-7 h-7 rounded bg-surface-mid text-primary grid place-items-center flex-none" aria-hidden="true"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg></span>
-              <div><p class="font-display font-bold text-[12.5px]">User Account Control</p><p class="text-[11.5px] text-ink-soft leading-snug mt-0.5">You retain complete ownership of your data and can permanently delete your account and stored records at any time.</p></div>
+              <div><p class="font-display font-bold text-[13px]">Export &amp; One-Click Erasure</p><p class="text-xs text-ink-soft leading-snug mt-0.5">Download all your data as JSON or permanently erase your account and records at any time from your Privacy Dashboard.</p></div>
             </li>
           </ul>
         </div>
-        <p class="relative mt-auto pt-10 text-[10.5px] tracking-[.08em] uppercase text-ink-mute flex flex-wrap items-center gap-x-3 gap-y-1">
-          Catalog Ref: SDG3.4-MHD-2025
-          <span class="text-primary normal-case tracking-normal flex items-center gap-1"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/></svg> Encrypted in Transit &amp; Hashed at Rest</span>
+        <p class="relative mt-auto pt-10 text-xs text-ink-soft">
+          Need a Responder, Analyst, or Content Editor account? <a href="/admin-apply" class="text-primary font-semibold underline">Submit a Role Application &rarr;</a>
         </p>
       </section>
 
       <!-- Form panel -->
       <section class="p-8 sm:p-10" aria-labelledby="reg-title">
-        <p class="text-[10.5px] tracking-[.14em] uppercase text-primary font-medium">Account Creation</p>
+        <p class="text-xs tracking-wider uppercase text-primary font-semibold">User Registration</p>
         <h2 id="reg-title" class="font-display font-bold text-[28px] mt-1">Create Your Account</h2>
-        <p id="reg-sub" class="text-[13.5px] text-ink-soft leading-relaxed mt-2 max-w-sm">Join Unburden to track your well-being screenings and bookmark verified mental health resources.</p>
+        <p id="reg-sub" class="text-[13.5px] text-ink-soft leading-relaxed mt-2">Public registration creates a standard User account. Fields marked with * are required.</p>
 
-        <form id="register-form" class="mt-8 space-y-4" novalidate>
+        <form id="register-form" class="mt-6 space-y-4" novalidate>
           <div>
-            <label for="fullname" class="block text-[10.5px] tracking-[.12em] uppercase text-ink font-medium mb-1.5">Full Name</label>
-            <div class="relative">
-              <input id="fullname" name="fullname" type="text" autocomplete="name" placeholder="e.g., Eleanor Vance" class="w-full bg-white border border-outline rounded px-3.5 py-2.5 pr-10 text-[13.5px] placeholder:text-ink-mute focus:border-primary" required />
-              <svg class="w-4 h-4 text-ink-soft absolute right-3.5 top-1/2 -translate-y-1/2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-4 3.5-6 7-6s7 2 7 6"/></svg>
-            </div>
-            <p class="field-error hidden text-[11px] text-crisis mt-1" data-for="fullname"></p>
+            <label for="fullname" class="block text-xs tracking-wider uppercase text-ink font-semibold mb-1.5">Full Name *</label>
+            <input id="fullname" name="fullname" type="text" autocomplete="name" placeholder="e.g., Eleanor Vance" class="w-full bg-white border border-outline rounded px-3.5 py-2.5 text-[13.5px] placeholder:text-ink-mute focus:border-primary" required />
+            <p class="field-error hidden text-xs text-crisis mt-1" data-for="fullname"></p>
           </div>
 
           <div>
-            <label for="email" class="block text-[10.5px] tracking-[.12em] uppercase text-ink font-medium mb-1.5">Email Address</label>
-            <div class="relative">
-              <input id="email" name="email" type="email" autocomplete="email" placeholder="name@example.com" class="w-full bg-white border border-outline rounded px-3.5 py-2.5 pr-10 text-[13.5px] placeholder:text-ink-mute focus:border-primary" required />
-              <svg class="w-4 h-4 text-ink-soft absolute right-3.5 top-1/2 -translate-y-1/2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-            </div>
-            <p class="field-error hidden text-[11px] text-crisis mt-1" data-for="email"></p>
+            <label for="email" class="block text-xs tracking-wider uppercase text-ink font-semibold mb-1.5">Email Address *</label>
+            <input id="email" name="email" type="email" autocomplete="email" placeholder="name@example.com" class="w-full bg-white border border-outline rounded px-3.5 py-2.5 text-[13.5px] placeholder:text-ink-mute focus:border-primary" required />
+            <p class="field-error hidden text-xs text-crisis mt-1" data-for="email"></p>
           </div>
 
-          <div>
-            <label for="phone" class="block text-[10.5px] tracking-[.12em] uppercase text-ink font-medium mb-1.5">Phone Number (International)</label>
-            <div class="relative">
-              <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="+14155552671" class="w-full bg-white border border-outline rounded px-3.5 py-2.5 pr-10 text-[13.5px] placeholder:text-ink-mute focus:border-primary" required />
-              <svg class="w-4 h-4 text-ink-soft absolute right-3.5 top-1/2 -translate-y-1/2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M6.6 10.8a15 15 0 006.6 6.6l2.2-2.2a1 1 0 011-.25 11 11 0 003.5.6 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11 11 0 00.6 3.5 1 1 0 01-.25 1z"/></svg>
-            </div>
-            <p class="text-[10px] text-ink-mute mt-1">Starting with "+" followed by 8 to 15 digits (e.g. +14155552671 or +447911123456).</p>
-            <p class="field-error hidden text-[11px] text-crisis mt-1" data-for="phone"></p>
-          </div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div>
-              <label for="age" class="block text-[10.5px] tracking-[.12em] uppercase text-ink font-medium mb-1.5">Age</label>
-              <input id="age" name="age" type="number" min="13" max="120" placeholder="e.g., 28" class="w-full bg-white border border-outline rounded px-3.5 py-2.5 text-[13.5px] placeholder:text-ink-mute focus:border-primary" required />
-              <p class="field-error hidden text-[11px] text-crisis mt-1" data-for="age"></p>
-            </div>
-            <div>
-              <label for="country" class="block text-[10.5px] tracking-[.12em] uppercase text-ink font-medium mb-1.5">Country</label>
-              <select id="country" name="country" class="w-full bg-white border border-outline rounded px-3.5 py-2.5 text-[13.5px] focus:border-primary" required>
+              <label for="country" class="block text-xs tracking-wider uppercase text-ink font-semibold mb-1.5">Country (Optional)</label>
+              <select id="country" name="country" class="w-full bg-white border border-outline rounded px-3 py-2.5 text-[13px] focus:border-primary">
                 <option value="">Select country…</option>
               </select>
-              <p class="field-error hidden text-[11px] text-crisis mt-1" data-for="country"></p>
+              <p class="field-error hidden text-xs text-crisis mt-1" data-for="country"></p>
+            </div>
+            <div>
+              <label for="age" class="block text-xs tracking-wider uppercase text-ink font-semibold mb-1.5">Age 13+ (Optional)</label>
+              <input id="age" name="age" type="number" min="13" max="120" placeholder="e.g., 24" class="w-full bg-white border border-outline rounded px-3 py-2.5 text-[13px] placeholder:text-ink-mute focus:border-primary" />
+              <p class="field-error hidden text-xs text-crisis mt-1" data-for="age"></p>
+            </div>
+            <div>
+              <label for="phone" class="block text-xs tracking-wider uppercase text-ink font-semibold mb-1.5">Phone (Optional)</label>
+              <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="+919876543210" class="w-full bg-white border border-outline rounded px-3 py-2.5 text-[13px] placeholder:text-ink-mute focus:border-primary" />
+              <p class="field-error hidden text-xs text-crisis mt-1" data-for="phone"></p>
             </div>
           </div>
 
           <div>
             <div class="flex items-baseline justify-between mb-1.5">
-              <label for="password" class="block text-[10.5px] tracking-[.12em] uppercase text-ink font-medium">Password</label>
-              <span class="text-[11.5px] text-ink-soft">Min. 8 characters</span>
+              <label for="password" class="block text-xs tracking-wider uppercase text-ink font-semibold">Password *</label>
+              <span class="text-xs text-ink-soft">Min. 8 characters</span>
             </div>
             <div class="relative">
               <input id="password" name="password" type="password" autocomplete="new-password" placeholder="Create a password" class="w-full bg-white border border-outline rounded px-3.5 py-2.5 pr-11 text-[13.5px] placeholder:text-ink-mute focus:border-primary" required minlength="8" aria-describedby="strength-label" />
@@ -119,42 +108,63 @@
             <div class="grid grid-cols-4 gap-2 mt-2" aria-hidden="true" id="strength-bars">
               <span class="strength-bar"></span><span class="strength-bar"></span><span class="strength-bar"></span><span class="strength-bar"></span>
             </div>
-            <div class="flex justify-between mt-1 text-[11px]" id="strength-label" aria-live="polite">
-              <span id="strength-text" class="text-ink-mute">Enter a password</span>
-              <span id="strength-hint" class="text-ink-mute">Symbols &amp; digits recommended</span>
+            <div class="flex justify-between mt-1 text-xs" id="strength-label" aria-live="polite">
+              <span id="strength-text" class="text-ink-soft">Enter a password</span>
+              <span id="strength-hint" class="text-ink-soft">Symbols &amp; digits recommended</span>
             </div>
-            <p class="field-error hidden text-[11px] text-crisis mt-1" data-for="password"></p>
+            <p class="field-error hidden text-xs text-crisis mt-1" data-for="password"></p>
           </div>
 
           <div>
-            <label for="confirm" class="block text-[10.5px] tracking-[.12em] uppercase text-ink font-medium mb-1.5">Confirm Password</label>
+            <label for="confirm" class="block text-xs tracking-wider uppercase text-ink font-semibold mb-1.5">Confirm Password *</label>
             <div class="relative">
               <input id="confirm" name="confirm" type="password" autocomplete="new-password" placeholder="Repeat your password" class="w-full bg-white border border-outline rounded px-3.5 py-2.5 pr-11 text-[13.5px] placeholder:text-ink-mute focus:border-primary" required />
               <span id="match-icon" class="hidden absolute right-3.5 top-1/2 -translate-y-1/2 text-ok" aria-hidden="true">&#10003;</span>
             </div>
-            <p class="field-error hidden text-[11px] text-crisis mt-1" data-for="confirm"></p>
+            <p class="field-error hidden text-xs text-crisis mt-1" data-for="confirm"></p>
           </div>
 
-          <!-- Explicit Consent Checkbox (unticked by default) -->
-          <div class="pt-2">
-            <label class="flex items-start gap-3 text-[12px] text-ink-soft leading-snug cursor-pointer">
+          <!-- Mandatory Account Creation Consent -->
+          <div class="pt-2 border-t border-surface-mid">
+            <p class="text-xs font-bold uppercase tracking-wider text-ink mb-2">1. Mandatory Account Creation Consent *</p>
+            <label class="flex items-start gap-3 text-xs text-ink-soft leading-snug cursor-pointer">
               <input id="consent" name="consent" type="checkbox" class="mt-0.5 w-4 h-4 rounded border-outline accent-[#0D4FB5]" required />
-              <span>I consent to Unburden storing my name, email, phone number, age, country, and optional screening score. I understand this information is accessible only to administrators of this site for support coordination, and that I can permanently delete my account and data at any time.</span>
+              <span>I am 13 years of age or older, I agree to the <a href="/privacy" class="text-primary underline">Privacy Policy</a> and <a href="/terms" class="text-primary underline">Terms of Use</a>, and I consent to Unburden storing my basic account credentials (name, email, hashed password, and optional profile fields).</span>
             </label>
-            <p class="field-error hidden text-[11px] text-crisis mt-1" data-for="consent"></p>
+            <p class="field-error hidden text-xs text-crisis mt-1" data-for="consent"></p>
           </div>
 
-          <p id="form-status" class="hidden text-[12px] rounded p-3" role="status"></p>
+          <!-- Unbundled Optional Wellness Consents -->
+          <div class="rounded-editorial bg-surface-low p-3.5 space-y-2 border border-surface-mid">
+            <p class="text-xs font-bold uppercase tracking-wider text-ink">2. Optional Wellness Data Consents (Unbundled &amp; Editable Anytime)</p>
+            <label class="flex items-start gap-2.5 text-xs text-ink-soft cursor-pointer">
+              <input id="consent-assessments" type="checkbox" class="mt-0.5 w-4 h-4 rounded border-outline accent-[#0D4FB5]" />
+              <span><strong>Assessment Result Storage:</strong> Save my PHQ-9 / GAD-7 / WHO-5 scores so I can view longitudinal history.</span>
+            </label>
+            <label class="flex items-start gap-2.5 text-xs text-ink-soft cursor-pointer">
+              <input id="consent-mood" type="checkbox" class="mt-0.5 w-4 h-4 rounded border-outline accent-[#0D4FB5]" />
+              <span><strong>Mood Tracking:</strong> Save my voluntary 1–5 daily mood check-ins.</span>
+            </label>
+            <label class="flex items-start gap-2.5 text-xs text-ink-soft cursor-pointer">
+              <input id="consent-activity" type="checkbox" class="mt-0.5 w-4 h-4 rounded border-outline accent-[#0D4FB5]" />
+              <span><strong>Personal Activity History:</strong> Save a private log of resources and soundtracks I use.</span>
+            </label>
+            <label class="flex items-start gap-2.5 text-xs text-ink-soft cursor-pointer">
+              <input id="consent-responder" type="checkbox" class="mt-0.5 w-4 h-4 rounded border-outline accent-[#0D4FB5]" />
+              <span><strong>Responder Sharing Eligibility:</strong> Allow me to nominate verified Responders to view selected records.</span>
+            </label>
+            <label class="flex items-start gap-2.5 text-xs text-ink-soft cursor-pointer">
+              <input id="consent-research" type="checkbox" class="mt-0.5 w-4 h-4 rounded border-outline accent-[#0D4FB5]" />
+              <span><strong>Anonymized Aggregate Analytics:</strong> Include my de-identified severity band in platform statistics.</span>
+            </label>
+          </div>
 
-          <button type="submit" id="submit-btn" class="btn-primary w-full py-3.5 text-[13.5px] inline-flex items-center justify-center gap-2">Create Account <span aria-hidden="true">&rarr;</span></button>
+          <p id="form-status" class="hidden text-xs rounded p-3" role="status"></p>
+
+          <button type="submit" id="submit-btn" class="btn-primary w-full py-3.5 text-xs tracking-wider uppercase inline-flex items-center justify-center gap-2">Create User Account <span aria-hidden="true">&rarr;</span></button>
         </form>
 
-        <p class="text-center text-[12.5px] text-ink-soft mt-5">Already registered? <a href="/login" class="text-primary font-medium hover:underline">Log In</a></p>
-
-        <p class="mt-6 bg-surface-low rounded px-4 py-3.5 text-[11.5px] text-ink-soft flex items-center justify-center gap-2">
-          <svg class="w-3.5 h-3.5 text-olive flex-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>
-          Non-profit public well-being service. No tracking or commercial selling.
-        </p>
+        <p class="text-center text-xs text-ink-soft mt-5">Already registered? <a href="/login" class="text-primary font-semibold hover:underline">Log In</a></p>
       </section>
     </div>
   </main>

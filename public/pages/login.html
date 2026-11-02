@@ -4,19 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Log In — Unburden</title>
-  <meta name="description" content="Log in to access your saved mental health assessments and resource library." />
+  <meta name="description" content="Log in to access your Privacy & Wellness Dashboard, saved assessments, or Responder/Admin portal." />
+  <meta property="og:title" content="Log In — Unburden" />
+  <meta property="og:description" content="Sign in to manage your mental health self-check records and privacy consents." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="/js/tailwind-config.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/styles.css" />
 </head>
 <body data-page="login" class="bg-surface text-ink">
 
   <div data-include="header"></div>
 
-  <main class="relative overflow-hidden">
+  <main id="main-content" class="relative overflow-hidden">
     <!-- Soft decorative washes -->
     <div class="pointer-events-none absolute inset-0" aria-hidden="true">
       <div class="absolute left-[-8%] top-[15%] w-[42%] h-[60%] rounded-[3rem] bg-[radial-gradient(ellipse,rgba(150,160,220,.12),transparent_70%)]"></div>
@@ -24,78 +26,92 @@
     </div>
 
     <div class="relative max-w-xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
-      <p class="mx-auto w-fit flex items-center gap-2 bg-surface-mid text-olive rounded-full px-4 py-1.5 text-[11px] tracking-[.14em] uppercase font-medium">
+      <p class="mx-auto w-fit flex items-center gap-2 bg-surface-mid text-olive rounded-full px-4 py-1.5 text-xs tracking-wider uppercase font-semibold">
         <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/></svg>
-        Verified SDG 3 Health Portal
+        SDG 3.4 Wellness &amp; Privacy Portal
       </p>
 
       <section class="mt-6 bg-white rounded-editorial shadow-lift overflow-hidden" aria-labelledby="login-title">
         <div class="p-8 sm:p-10">
           <h1 id="login-title" data-auth-title data-default="Welcome Back" class="font-display font-bold text-[34px] text-center">Welcome Back</h1>
-          <p data-auth-sub data-default="Log in to access your saved mental health assessments and resource library." class="text-[14px] text-ink-soft leading-relaxed text-center mt-3 max-w-xs mx-auto">Log in to access your saved mental health assessments and resource library.</p>
+          <p data-auth-sub data-default="Log in to access your Privacy & Wellness Dashboard and saved self-check history." class="text-[14px] text-ink-soft leading-relaxed text-center mt-3 max-w-sm mx-auto">Log in to access your Privacy &amp; Wellness Dashboard and saved self-check history.</p>
 
-          <!-- Admin / User mode toggle -->
+          <!-- User / Admin & Responder mode toggle -->
           <div class="flex justify-center mt-5" role="radiogroup" aria-label="Account type">
             <div class="flex items-center bg-surface-mid rounded-full p-1 w-fit">
-              <button type="button" data-mode="user" aria-pressed="true" class="auth-mode-btn px-4 py-1.5 text-[12px] rounded-full font-medium">User</button>
-              <button type="button" data-mode="admin" aria-pressed="false" class="auth-mode-btn px-4 py-1.5 text-[12px] rounded-full font-medium">Admin</button>
+              <button type="button" data-mode="user" aria-pressed="true" class="auth-mode-btn px-4 py-1.5 text-xs rounded-full font-semibold">User</button>
+              <button type="button" data-mode="admin" aria-pressed="false" class="auth-mode-btn px-4 py-1.5 text-xs rounded-full font-semibold">Admin / Responder</button>
             </div>
           </div>
 
           <form id="login-form" class="mt-6 space-y-5" novalidate>
             <div>
-              <label for="email" class="block text-[11px] tracking-[.12em] uppercase text-ink font-medium mb-1.5">Email Address</label>
+              <label for="email" class="block text-xs tracking-wider uppercase text-ink font-semibold mb-1.5">Email Address</label>
               <input id="email" name="email" type="email" autocomplete="email" placeholder="name@example.com" class="w-full bg-white border border-surface-high rounded px-3.5 py-3 text-[13.5px] placeholder:text-ink-mute focus:border-primary" required />
-              <p class="field-error hidden text-[11px] text-crisis mt-1" data-for="email"></p>
+              <p class="field-error hidden text-xs text-crisis mt-1" data-for="email"></p>
             </div>
 
             <div>
-              <label for="password" class="block text-[11px] tracking-[.12em] uppercase text-ink font-medium mb-1.5">Password</label>
+              <label for="password" class="block text-xs tracking-wider uppercase text-ink font-semibold mb-1.5">Password</label>
               <div class="relative">
                 <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" class="w-full bg-white border border-surface-high rounded px-3.5 py-3 pr-11 text-[13.5px] placeholder:text-ink-mute focus:border-primary" required />
                 <button type="button" id="toggle-pw" class="absolute right-3 top-1/2 -translate-y-1/2 text-ink-soft hover:text-primary" aria-label="Show password" aria-pressed="false">
                   <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
                 </button>
               </div>
-              <p class="field-error hidden text-[11px] text-crisis mt-1" data-for="password"></p>
+              <p class="field-error hidden text-xs text-crisis mt-1" data-for="password"></p>
             </div>
 
-            <div class="flex items-center justify-between text-[12.5px]">
+            <div class="flex items-center justify-between text-xs">
               <label class="flex items-center gap-2 text-ink-soft cursor-pointer">
-                <input id="remember" name="remember" type="checkbox" class="w-4 h-4 rounded border-outline accent-[#0D4FB5]" /> Remember Me
+                <input id="remember" name="remember" type="checkbox" class="w-4 h-4 rounded border-outline accent-[#0D4FB5]" /> Remember Me (14 days)
               </label>
-              <a href="#" class="text-primary hover:underline">Forgot Password?</a>
+              <button type="button" id="forgot-pw-toggle" aria-expanded="false" class="text-primary font-semibold hover:underline">Forgot Password?</button>
             </div>
 
-            <p id="form-status" class="hidden text-[12px] rounded p-3" role="status"></p>
+            <p id="form-status" class="hidden text-xs rounded p-3" role="status"></p>
 
-            <button type="submit" id="submit-btn" class="btn-primary w-full py-4 text-[13px] tracking-[.12em] uppercase inline-flex items-center justify-center gap-2">Log In <span aria-hidden="true">&rarr;</span></button>
+            <button type="submit" id="submit-btn" class="btn-primary w-full py-3.5 text-xs tracking-wider uppercase inline-flex items-center justify-center gap-2">Log In <span aria-hidden="true">&rarr;</span></button>
           </form>
 
-          <div class="flex items-center gap-4 my-6" role="separator">
-            <span class="flex-1 h-px bg-surface-high"></span>
-            <span class="text-[10.5px] tracking-[.14em] uppercase text-ink-mute">Or continue with secure SSO</span>
-            <span class="flex-1 h-px bg-surface-high"></span>
+          <!-- Collapsible Password Reset Panel -->
+          <div id="reset-pw-panel" class="hidden mt-6 pt-5 border-t border-surface-mid space-y-4">
+            <h2 class="font-display font-bold text-[15px] text-ink">Reset Your Account Password</h2>
+            <form id="request-reset-form" class="space-y-3">
+              <div>
+                <label for="reset-email" class="block text-xs font-semibold text-ink-soft mb-1">1. Request Single-Use Reset Token</label>
+                <div class="flex gap-2">
+                  <input id="reset-email" type="email" required placeholder="Enter your account email" class="flex-1 bg-surface-low border border-surface-high rounded px-3 py-2 text-xs" />
+                  <button type="submit" class="btn-secondary px-3.5 py-2 text-xs shrink-0">Request Token</button>
+                </div>
+              </div>
+              <p id="reset-request-status" class="hidden text-xs rounded p-2.5" role="status"></p>
+            </form>
+
+            <form id="complete-reset-form" class="space-y-3 pt-2 border-t border-surface-low">
+              <p class="text-xs font-semibold text-ink-soft">2. Complete Password Reset</p>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <input id="reset-token" type="text" required placeholder="Paste reset token" class="bg-surface-low border border-surface-high rounded px-3 py-2 text-xs font-mono" />
+                <input id="reset-new-password" type="password" required minlength="8" placeholder="New password (8+ chars)" class="bg-surface-low border border-surface-high rounded px-3 py-2 text-xs" />
+              </div>
+              <button type="submit" class="btn-primary px-4 py-2 text-xs w-full">Set New Password</button>
+              <p id="reset-complete-status" class="hidden text-xs rounded p-2.5" role="status"></p>
+            </form>
           </div>
 
-          <div class="grid grid-cols-2 gap-3">
-            <button type="button" class="sso-btn bg-surface-low rounded px-4 py-3 text-[13px] flex items-center justify-center gap-2 hover:bg-surface-mid" data-provider="Google">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M22 12.2c0-.7-.1-1.4-.2-2H12v3.8h5.6a4.8 4.8 0 01-2.1 3.1v2.6h3.4c2-1.8 3.1-4.5 3.1-7.5z"/><path fill="#34A853" d="M12 22c2.8 0 5.1-.9 6.9-2.5l-3.4-2.6c-.9.6-2.1 1-3.5 1-2.7 0-5-1.8-5.8-4.3H2.7v2.7A10 10 0 0012 22z"/><path fill="#FBBC05" d="M6.2 13.6a6 6 0 010-3.8V7.1H2.7a10 10 0 000 9.2z"/><path fill="#EA4335" d="M12 5.9c1.5 0 2.9.5 4 1.6l3-3A10 10 0 002.7 7.1l3.5 2.7C7 7.7 9.3 5.9 12 5.9z"/></svg>
-              Google Account
-            </button>
-            <button type="button" class="sso-btn bg-surface-low rounded px-4 py-3 text-[13px] flex items-center justify-center gap-2 hover:bg-surface-mid" data-provider="Health ID">
-              <svg class="w-4 h-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M12 8v8M8 12h8"/></svg>
-              Health ID SSO
-            </button>
-          </div>
-          <p id="admin-login-help" class="hidden text-[11.5px] text-center text-ink-soft">Administrator access is restricted to verified accounts. <a href="/register" class="text-primary font-medium hover:underline">Register an admin account &rarr;</a></p>
+          <p id="admin-login-help" class="hidden mt-5 text-xs text-center text-ink-soft bg-surface-low rounded p-3">
+            Privileged roles cannot be self-registered. <a href="/admin-apply" class="text-primary font-semibold hover:underline">Apply for a Responder, Analyst, or Content Editor role &rarr;</a>
+          </p>
         </div>
 
-        <p class="bg-surface-low text-center text-[13px] text-ink-soft py-4">Don&rsquo;t have an account yet? <a href="/register" class="text-primary font-medium hover:underline">Register now</a></p>
+        <p class="bg-surface-low text-center text-xs text-ink-soft py-4">
+          Don&rsquo;t have an account yet? <a href="/register" class="text-primary font-semibold hover:underline">Register now</a>
+          &middot; <a href="/admin-apply" class="text-ink-soft hover:text-primary underline">Role Applications</a>
+        </p>
       </section>
 
-      <p class="mt-6 bg-surface-low rounded px-5 py-4 text-[12.5px] text-ink-soft text-center leading-relaxed">
-        <strong class="text-ink">In an acute crisis?</strong> You don&rsquo;t need an account to get help &mdash; call or text <a href="tel:988" class="text-primary font-medium hover:underline">988</a> directly.
+      <p class="mt-6 bg-surface-low rounded px-5 py-4 text-xs text-ink-soft text-center leading-relaxed">
+        <strong class="text-ink">In an acute crisis?</strong> You don&rsquo;t need an account to get help &mdash; call <a href="tel:14416" class="text-primary font-semibold hover:underline">14416</a> (India) or <a href="tel:988" class="text-primary font-semibold hover:underline">988</a> (US/Canada), or open the <a href="/find-support" class="text-primary font-semibold hover:underline">Global Helpline Directory</a>.
       </p>
     </div>
   </main>

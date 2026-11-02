@@ -1,29 +1,29 @@
 [
   {
     "id": "988",
+    "organisationName": "988 Suicide & Crisis Lifeline",
     "name": "988 Suicide & Crisis Lifeline",
+    "countryName": "United States",
+    "countryCode": "US",
     "badge": "24/7 Free & Confidential",
-    "designation": "Federal Designation: US & Canada",
-    "categories": [
-      "crisis"
-    ],
-    "regions": [
-      "us-ca"
-    ],
-    "description": "Immediate support for individuals experiencing mental health-related distress, suicidal thoughts, or emotional crisis. Callers speak with trained specialists equipped to provide non-judgmental crisis intervention, safety planning, and warm transfers to local emergency psychiatric services.",
+    "designation": "National Crisis Service · United States",
+    "categories": ["crisis"],
+    "regions": ["us-ca", "US"],
+    "phone": "988",
+    "smsAvailable": true,
+    "smsDetails": "Text 988",
+    "website": "https://988lifeline.org/",
+    "languages": ["English", "Spanish"],
+    "operatingHours": "24 hours, 7 days a week",
+    "eligibility": "Anyone in emotional distress or suicidal crisis in the United States",
+    "description": "Free, confidential support for people in suicidal crisis or mental health-related distress across the United States. Connect by phone, text, or online chat with trained crisis counselors.",
+    "sourceUrl": "https://988lifeline.org/",
+    "lastVerifiedAt": "2026-01-15T00:00:00.000Z",
+    "verificationStatus": "verified",
     "channels": [
-      {
-        "icon": "phone",
-        "label": "Call 988"
-      },
-      {
-        "icon": "chat",
-        "label": "Text 988"
-      },
-      {
-        "icon": "chat",
-        "label": "Online Chat Available"
-      }
+      { "icon": "phone", "label": "Call 988" },
+      { "icon": "chat", "label": "Text 988" },
+      { "icon": "globe", "label": "Online Chat Available" }
     ],
     "primary": {
       "label": "Call 988 Now",
@@ -31,175 +31,291 @@
       "href": "tel:988"
     },
     "secondary": {
-      "label": "Start Web Chat",
-      "href": "https://988lifeline.org/chat/",
+      "label": "Official Website",
+      "href": "https://988lifeline.org/",
+      "external": true
+    }
+  },
+  {
+    "id": "988-ca",
+    "organisationName": "988 Suicide Crisis Helpline (Canada)",
+    "name": "988 Suicide Crisis Helpline (Canada)",
+    "countryName": "Canada",
+    "countryCode": "CA",
+    "badge": "24/7 Free & Confidential",
+    "designation": "Public Health Agency of Canada · CAMH",
+    "categories": ["crisis"],
+    "regions": ["us-ca", "CA"],
+    "phone": "988",
+    "smsAvailable": true,
+    "smsDetails": "Text 988",
+    "website": "https://988.ca/",
+    "languages": ["English", "French"],
+    "operatingHours": "24 hours, 7 days a week",
+    "eligibility": "All residents of Canada",
+    "description": "A national 3-digit number for suicide prevention and emotional distress across Canada, providing trauma-informed, culturally affirming support by phone and text in English and French.",
+    "sourceUrl": "https://988.ca/",
+    "lastVerifiedAt": "2026-01-15T00:00:00.000Z",
+    "verificationStatus": "verified",
+    "channels": [
+      { "icon": "phone", "label": "Call 988" },
+      { "icon": "chat", "label": "Text 988" }
+    ],
+    "primary": {
+      "label": "Call 988 Now",
+      "icon": "phone",
+      "href": "tel:988"
+    },
+    "secondary": {
+      "label": "Official Website",
+      "href": "https://988.ca/",
       "external": true
     }
   },
   {
     "id": "crisis-text-line",
+    "organisationName": "Crisis Text Line",
     "name": "Crisis Text Line",
+    "countryName": "United States",
+    "countryCode": "US",
     "badge": "24/7 Text Support",
     "designation": "US, UK, Ireland, Canada",
-    "categories": [
-      "crisis",
-      "peer"
-    ],
-    "regions": [
-      "us-ca",
-      "uk-ie"
-    ],
-    "description": "A non-profit network providing high-speed text-based emotional support. Users are connected with empathetic, certified crisis counselors within minutes to de-escalate acute panic, severe loneliness, depressive episodes, and interpersonal crisis through structured active listening.",
+    "categories": ["crisis", "peer"],
+    "regions": ["us-ca", "uk-ie", "US", "CA", "GB", "IE"],
+    "phone": "",
+    "smsAvailable": true,
+    "smsDetails": "Text HOME to 741741 (US/CA) or 85258 (UK) or 50808 (IE)",
+    "website": "https://www.crisistextline.org/",
+    "languages": ["English", "Spanish"],
+    "operatingHours": "24 hours, 7 days a week",
+    "eligibility": "Anyone in crisis via SMS text",
+    "description": "A non-profit network providing free, 24/7 text-based mental health support and crisis intervention. Connect with a trained volunteer crisis counselor by SMS.",
+    "sourceUrl": "https://www.crisistextline.org/",
+    "lastVerifiedAt": "2026-01-15T00:00:00.000Z",
+    "verificationStatus": "verified",
     "channels": [
-      {
-        "icon": "chat",
-        "label": "Text HOME to 741741 (US / CA)"
-      },
-      {
-        "icon": "chat",
-        "label": "Text 85258 (UK)"
-      }
+      { "icon": "chat", "label": "Text HOME to 741741 (US / CA)" },
+      { "icon": "chat", "label": "Text SHOUT to 85258 (UK)" }
     ],
     "primary": {
-      "label": "Start Text Chat",
+      "label": "Text 741741",
       "icon": "chat",
       "href": "sms:741741&body=HOME"
     },
     "secondary": {
-      "label": "Program Details",
+      "label": "Official Website",
       "href": "https://www.crisistextline.org/",
-      "external": false
-    }
-  },
-  {
-    "id": "trevor",
-    "name": "The Trevor Project",
-    "badge": "LGBTQ+ Youth Crisis",
-    "designation": "Affirming & Specialized Care",
-    "categories": [
-      "crisis",
-      "youth"
-    ],
-    "regions": [
-      "us-ca"
-    ],
-    "description": "The leading national provider of suicide prevention and affirmative crisis intervention for lesbian, gay, bisexual, transgender, queer, and questioning (LGBTQ+) young people under 25. Accessible via encrypted phone, text, and secure browser terminals.",
-    "channels": [
-      {
-        "icon": "phone",
-        "label": "Call 1-866-488-7386"
-      },
-      {
-        "icon": "chat",
-        "label": "Text START to 678-678"
-      }
-    ],
-    "primary": {
-      "label": "Connect Now",
-      "icon": "chat",
-      "href": "https://www.thetrevorproject.org/get-help/"
-    },
-    "secondary": {
-      "label": "TrevorSpace Safe Portal",
-      "href": "https://www.trevorspace.org/",
       "external": true
     }
   },
   {
-    "id": "iasp",
-    "name": "International Helplines Directory (Befrienders Worldwide & IASP)",
-    "badge": "Global Network (100+ Countries)",
-    "designation": "UN-Accredited Partnerships",
-    "categories": [
-      "crisis",
-      "peer",
-      "therapy"
-    ],
-    "regions": [
-      "us-ca",
-      "uk-ie",
-      "global"
-    ],
-    "description": "A federated directory maintaining vetted emotional support helplines across Latin America, Africa, Asia-Pacific, Europe, and the Middle East. Facilitated in concert with the International Association for Suicide Prevention (IASP) to support SDG 3 target health outcomes.",
+    "id": "trevor",
+    "organisationName": "The Trevor Project",
+    "name": "The Trevor Project",
+    "countryName": "United States",
+    "countryCode": "US",
+    "badge": "LGBTQ+ Youth Crisis",
+    "designation": "Youth Crisis Intervention · United States",
+    "categories": ["crisis", "youth"],
+    "regions": ["us-ca", "US"],
+    "phone": "1-866-488-7386",
+    "smsAvailable": true,
+    "smsDetails": "Text START to 678-678",
+    "website": "https://www.thetrevorproject.org/get-help/",
+    "languages": ["English", "Spanish"],
+    "operatingHours": "24 hours, 7 days a week",
+    "eligibility": "LGBTQ+ young people under 25",
+    "description": "Suicide prevention and crisis intervention organization for lesbian, gay, bisexual, transgender, queer, and questioning (LGBTQ+) young people, reachable by phone, text, and web chat.",
+    "sourceUrl": "https://www.thetrevorproject.org/get-help/",
+    "lastVerifiedAt": "2026-01-15T00:00:00.000Z",
+    "verificationStatus": "verified",
     "channels": [
-      {
-        "icon": "globe",
-        "label": "Web Directory & Local Helplines"
-      },
-      {
-        "icon": "globe",
-        "label": "Multilingual Country Indices"
-      }
+      { "icon": "phone", "label": "Call 1-866-488-7386" },
+      { "icon": "chat", "label": "Text START to 678-678" }
     ],
     "primary": {
-      "label": "Find Your Local Line",
-      "icon": "globe",
-      "href": "https://www.iasp.info/crisis-centres-helplines/"
+      "label": "Call 1-866-488-7386",
+      "icon": "phone",
+      "href": "tel:18664887386"
     },
     "secondary": {
-      "label": "IASP Global Index",
-      "href": "https://www.iasp.info/",
-      "external": false
+      "label": "Get Help Online",
+      "href": "https://www.thetrevorproject.org/get-help/",
+      "external": true
+    }
+  },
+  {
+    "id": "samaritans-uk",
+    "organisationName": "Samaritans (UK & Ireland)",
+    "name": "Samaritans (UK & Ireland)",
+    "countryName": "United Kingdom",
+    "countryCode": "GB",
+    "badge": "24/7 Free & Confidential",
+    "designation": "Registered Charity · United Kingdom & Republic of Ireland",
+    "categories": ["crisis", "peer"],
+    "regions": ["uk-ie", "GB", "IE"],
+    "phone": "116 123",
+    "smsAvailable": false,
+    "smsDetails": "Email jo@samaritans.org",
+    "website": "https://www.samaritans.org/",
+    "languages": ["English", "Welsh"],
+    "operatingHours": "24 hours, 7 days a week",
+    "eligibility": "Anyone in the UK or Republic of Ireland",
+    "description": "Round-the-clock confidential emotional support for anyone experiencing feelings of distress, despair, or suicidal thoughts across the United Kingdom and Ireland.",
+    "sourceUrl": "https://www.samaritans.org/how-we-can-help/contact-samaritan/",
+    "lastVerifiedAt": "2026-01-15T00:00:00.000Z",
+    "verificationStatus": "verified",
+    "channels": [
+      { "icon": "phone", "label": "Call 116 123 (Free)" },
+      { "icon": "chat", "label": "Email jo@samaritans.org" }
+    ],
+    "primary": {
+      "label": "Call 116 123",
+      "icon": "phone",
+      "href": "tel:116123"
+    },
+    "secondary": {
+      "label": "Samaritans Website",
+      "href": "https://www.samaritans.org/",
+      "external": true
+    }
+  },
+  {
+    "id": "lifeline-au",
+    "organisationName": "Lifeline Australia",
+    "name": "Lifeline Australia",
+    "countryName": "Australia",
+    "countryCode": "AU",
+    "badge": "24/7 Crisis Support",
+    "designation": "National Charity · Australia",
+    "categories": ["crisis"],
+    "regions": ["global", "AU"],
+    "phone": "13 11 14",
+    "smsAvailable": true,
+    "smsDetails": "Text 0477 13 11 14",
+    "website": "https://www.lifeline.org.au/",
+    "languages": ["English"],
+    "operatingHours": "24 hours, 7 days a week",
+    "eligibility": "Anyone in Australia",
+    "description": "National charity providing all Australians experiencing emotional distress with access to 24-hour crisis support and suicide prevention services via phone, text, and online chat.",
+    "sourceUrl": "https://www.lifeline.org.au/",
+    "lastVerifiedAt": "2026-01-15T00:00:00.000Z",
+    "verificationStatus": "verified",
+    "channels": [
+      { "icon": "phone", "label": "Call 13 11 14" },
+      { "icon": "chat", "label": "Text 0477 13 11 14" }
+    ],
+    "primary": {
+      "label": "Call 13 11 14",
+      "icon": "phone",
+      "href": "tel:131114"
+    },
+    "secondary": {
+      "label": "Lifeline Website",
+      "href": "https://www.lifeline.org.au/",
+      "external": true
     }
   },
   {
     "id": "kiran",
+    "organisationName": "KIRAN Mental Health Rehabilitation Helpline",
     "name": "KIRAN Mental Health Rehabilitation Helpline",
+    "countryName": "India",
+    "countryCode": "IN",
     "badge": "24/7 Free & Confidential",
-    "designation": "Government of India · Ministry of Social Justice and Empowerment",
-    "categories": [
-      "crisis",
-      "therapy"
-    ],
-    "regions": [
-      "in"
-    ],
-    "description": "A national toll-free, 24/7 helpline offering support in 13 languages for individuals experiencing anxiety, stress, depression, suicidal thoughts, and other mental health concerns. Staffed by trained counselors and mental health professionals coordinating with rehabilitation services across India.",
+    "designation": "Ministry of Social Justice and Empowerment · India",
+    "categories": ["crisis", "therapy"],
+    "regions": ["in", "IN"],
+    "phone": "1800-599-0019",
+    "smsAvailable": false,
+    "smsDetails": "",
+    "website": "https://depwd.gov.in/",
+    "languages": ["English", "Hindi", "Assamese", "Tamil", "Marathi", "Odia", "Telugu", "Malayalam", "Gujarati", "Punjabi", "Kannada", "Bengali", "Urdu"],
+    "operatingHours": "24 hours, 7 days a week",
+    "eligibility": "Residents of India seeking mental health support",
+    "description": "A national toll-free 24/7 helpline offering support in 13 languages for individuals experiencing anxiety, stress, depression, suicidal thoughts, and other mental health concerns across India.",
+    "sourceUrl": "https://pib.gov.in/PressReleasePage.aspx?PRID=1652240",
+    "lastVerifiedAt": "2026-01-15T00:00:00.000Z",
+    "verificationStatus": "verified",
     "channels": [
-      {
-        "icon": "phone",
-        "label": "Call 1800-599-0019"
-      }
+      { "icon": "phone", "label": "Call 1800-599-0019" }
     ],
     "primary": {
-      "label": "Call KIRAN Now",
+      "label": "Call 1800-599-0019",
       "icon": "phone",
       "href": "tel:18005990019"
     },
     "secondary": {
-      "label": "Program Details",
-      "href": "https://socialjustice.gov.in/",
+      "label": "Official Reference",
+      "href": "https://pib.gov.in/PressReleasePage.aspx?PRID=1652240",
+      "external": true
+    }
+  },
+  {
+    "id": "tele-manas",
+    "organisationName": "Tele-MANAS (National Tele Mental Health Programme)",
+    "name": "Tele-MANAS (National Tele Mental Health Programme)",
+    "countryName": "India",
+    "countryCode": "IN",
+    "badge": "24/7 Toll-Free National Line",
+    "designation": "Ministry of Health & Family Welfare · Government of India",
+    "categories": ["crisis", "therapy"],
+    "regions": ["in", "IN"],
+    "phone": "14416",
+    "smsAvailable": false,
+    "smsDetails": "Also reachable at 1800-891-4416",
+    "website": "https://telemanas.mohfw.gov.in/",
+    "languages": ["English", "Hindi", "20+ regional Indian languages"],
+    "operatingHours": "24 hours, 7 days a week",
+    "eligibility": "Anyone in India",
+    "description": "Government of India's national 24/7 tele-mental health service linking callers with trained counselors and mental health specialists across all states and union territories.",
+    "sourceUrl": "https://telemanas.mohfw.gov.in/",
+    "lastVerifiedAt": "2026-01-15T00:00:00.000Z",
+    "verificationStatus": "verified",
+    "channels": [
+      { "icon": "phone", "label": "Call 14416" },
+      { "icon": "phone", "label": "Call 1800-891-4416" }
+    ],
+    "primary": {
+      "label": "Call 14416",
+      "icon": "phone",
+      "href": "tel:14416"
+    },
+    "secondary": {
+      "label": "Tele-MANAS Portal",
+      "href": "https://telemanas.mohfw.gov.in/",
       "external": true
     }
   },
   {
     "id": "ispf-icall",
+    "organisationName": "iCall Psychosocial Helpline (TISS)",
     "name": "iCall Psychosocial Helpline (TISS)",
-    "badge": "6 Days a Week · Multilingual",
+    "countryName": "India",
+    "countryCode": "IN",
+    "badge": "Monday–Saturday · Multilingual",
     "designation": "Tata Institute of Social Sciences",
-    "categories": [
-      "crisis",
-      "peer",
-      "therapy"
-    ],
-    "regions": [
-      "in"
-    ],
-    "description": "A psychosocial helpline run by mental health professionals at the Tata Institute of Social Sciences, offering free, confidential counseling over phone and email in English and Hindi to anyone facing emotional distress, relationship concerns, or mental health difficulties.",
+    "categories": ["crisis", "peer", "therapy"],
+    "regions": ["in", "IN"],
+    "phone": "+91-9152987821",
+    "smsAvailable": false,
+    "smsDetails": "Email icall@tiss.edu",
+    "website": "https://icallhelpline.org/",
+    "languages": ["English", "Hindi", "Marathi", "Gujarati", "Bengali", "Tamil", "Telugu"],
+    "operatingHours": "Monday to Saturday, 10:00 AM – 8:00 PM IST",
+    "eligibility": "Anyone seeking psychosocial counseling",
+    "description": "A psychosocial helpline run by professional counselors at the Tata Institute of Social Sciences, offering free, confidential telephone and email counseling.",
+    "sourceUrl": "https://icallhelpline.org/",
+    "lastVerifiedAt": "2026-01-15T00:00:00.000Z",
+    "verificationStatus": "verified",
     "channels": [
-      {
-        "icon": "phone",
-        "label": "Call 9152987821"
-      },
-      {
-        "icon": "chat",
-        "label": "Email Counseling"
-      }
+      { "icon": "phone", "label": "Call 9152987821" },
+      { "icon": "chat", "label": "Email icall@tiss.edu" }
     ],
     "primary": {
       "label": "Call iCall",
       "icon": "phone",
-      "href": "tel:9152987821"
+      "href": "tel:+919152987821"
     },
     "secondary": {
       "label": "iCall Website",
@@ -209,35 +325,143 @@
   },
   {
     "id": "vandrevala",
+    "organisationName": "Vandrevala Foundation Helpline",
     "name": "Vandrevala Foundation Helpline",
-    "badge": "24/7 Free & Confidential",
-    "designation": "National Crisis & Mental Health Support",
-    "categories": [
-      "crisis",
-      "therapy"
-    ],
-    "regions": [
-      "in"
-    ],
-    "description": "A round-the-clock national helpline providing free psychological first aid, crisis intervention, and counseling referrals across India, staffed by trained mental health professionals reachable by phone or WhatsApp.",
+    "countryName": "India",
+    "countryCode": "IN",
+    "badge": "24/7 Crisis & Counseling",
+    "designation": "Non-Profit Mental Health Foundation · India",
+    "categories": ["crisis", "therapy"],
+    "regions": ["in", "IN"],
+    "phone": "+91-9999666555",
+    "smsAvailable": true,
+    "smsDetails": "WhatsApp +91 9999 666 555",
+    "website": "https://www.vandrevalafoundation.com/",
+    "languages": ["English", "Hindi", "Regional languages"],
+    "operatingHours": "24 hours, 7 days a week",
+    "eligibility": "Anyone in India",
+    "description": "A round-the-clock helpline providing free psychological counseling and crisis intervention across India via telephone and WhatsApp.",
+    "sourceUrl": "https://www.vandrevalafoundation.com/",
+    "lastVerifiedAt": "2026-01-15T00:00:00.000Z",
+    "verificationStatus": "verified",
     "channels": [
-      {
-        "icon": "phone",
-        "label": "Call 1860-2662-345"
-      },
-      {
-        "icon": "chat",
-        "label": "WhatsApp Support"
-      }
+      { "icon": "phone", "label": "Call +91 9999 666 555" },
+      { "icon": "chat", "label": "WhatsApp Support" }
     ],
     "primary": {
-      "label": "Call Vandrevala",
+      "label": "Call +91 9999 666 555",
       "icon": "phone",
-      "href": "tel:18602662345"
+      "href": "tel:+919999666555"
     },
     "secondary": {
       "label": "Foundation Website",
       "href": "https://www.vandrevalafoundation.com/",
+      "external": true
+    }
+  },
+  {
+    "id": "find-a-helpline",
+    "organisationName": "Find A Helpline (International Directory)",
+    "name": "Find A Helpline (International Directory)",
+    "countryName": "International",
+    "countryCode": "GLOBAL",
+    "badge": "Global Directory (130+ Countries)",
+    "designation": "ThroughLine · International Helplines Network",
+    "categories": ["crisis", "peer", "therapy", "youth"],
+    "regions": ["global", "us-ca", "uk-ie", "in", "GLOBAL"],
+    "phone": "",
+    "smsAvailable": false,
+    "smsDetails": "Web directory of local phone, SMS, and chat lines",
+    "website": "https://findahelpline.com/",
+    "languages": ["Multilingual"],
+    "operatingHours": "Directory accessible 24/7 (local service hours vary)",
+    "eligibility": "Global public",
+    "description": "An international directory connecting individuals in over 130 countries with free, confidential crisis and emotional support helplines. Note: As an international directory, availability and response times depend on local partner services.",
+    "sourceUrl": "https://findahelpline.com/",
+    "lastVerifiedAt": "2026-01-15T00:00:00.000Z",
+    "verificationStatus": "verified",
+    "channels": [
+      { "icon": "globe", "label": "Search 130+ Countries" }
+    ],
+    "primary": {
+      "label": "Open Find A Helpline",
+      "icon": "globe",
+      "href": "https://findahelpline.com/"
+    },
+    "secondary": {
+      "label": "Browse Countries",
+      "href": "https://findahelpline.com/i/iasp",
+      "external": true
+    }
+  },
+  {
+    "id": "befrienders-worldwide",
+    "organisationName": "Befrienders Worldwide",
+    "name": "Befrienders Worldwide",
+    "countryName": "International",
+    "countryCode": "GLOBAL",
+    "badge": "Global Emotional Support Network",
+    "designation": "International Volunteer Network",
+    "categories": ["crisis", "peer"],
+    "regions": ["global", "GLOBAL"],
+    "phone": "",
+    "smsAvailable": false,
+    "smsDetails": "",
+    "website": "https://www.befrienders.org/",
+    "languages": ["Multilingual"],
+    "operatingHours": "Directory accessible 24/7 (local center hours vary)",
+    "eligibility": "Global public",
+    "description": "A global network of emotional support centers across dozens of countries providing confidential listening for people experiencing distress or suicidal thoughts. Note: Local center operating hours and immediate availability vary by country.",
+    "sourceUrl": "https://www.befrienders.org/",
+    "lastVerifiedAt": "2026-01-15T00:00:00.000Z",
+    "verificationStatus": "verified",
+    "channels": [
+      { "icon": "globe", "label": "Find Local Center" }
+    ],
+    "primary": {
+      "label": "Open Befrienders Directory",
+      "icon": "globe",
+      "href": "https://www.befrienders.org/"
+    },
+    "secondary": {
+      "label": "Official Website",
+      "href": "https://www.befrienders.org/",
+      "external": true
+    }
+  },
+  {
+    "id": "iasp",
+    "organisationName": "International Association for Suicide Prevention (IASP)",
+    "name": "International Association for Suicide Prevention (IASP) Crisis Centres",
+    "countryName": "International",
+    "countryCode": "GLOBAL",
+    "badge": "Global Crisis Centre Index",
+    "designation": "International NGO in Official Relations with WHO",
+    "categories": ["crisis", "peer", "therapy"],
+    "regions": ["us-ca", "uk-ie", "in", "global", "GLOBAL"],
+    "phone": "",
+    "smsAvailable": false,
+    "smsDetails": "",
+    "website": "https://www.iasp.info/crisis-centres-helplines/",
+    "languages": ["Multilingual"],
+    "operatingHours": "Directory accessible 24/7",
+    "eligibility": "Global public",
+    "description": "An international directory of crisis centers and suicide prevention resources across Africa, the Americas, Asia, Europe, and Oceania maintained by the International Association for Suicide Prevention.",
+    "sourceUrl": "https://www.iasp.info/crisis-centres-helplines/",
+    "lastVerifiedAt": "2026-01-15T00:00:00.000Z",
+    "verificationStatus": "verified",
+    "channels": [
+      { "icon": "globe", "label": "Web Directory & Local Helplines" },
+      { "icon": "globe", "label": "Regional Crisis Centre Index" }
+    ],
+    "primary": {
+      "label": "Find Your Local Line",
+      "icon": "globe",
+      "href": "https://www.iasp.info/crisis-centres-helplines/"
+    },
+    "secondary": {
+      "label": "IASP Website",
+      "href": "https://www.iasp.info/",
       "external": true
     }
   }

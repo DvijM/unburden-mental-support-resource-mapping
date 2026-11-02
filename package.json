@@ -1,11 +1,14 @@
 {
   "name": "unburden",
-  "version": "1.2.0",
-  "description": "Unburden: Accessible Mental Support & Resource Mapping",
+  "version": "2.0.0",
+  "description": "Unburden: Accessible Mental Health Support & Resource Mapping Platform aligned with UN SDG 3.4",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "dev": "node --watch server.js",
+    "build:css": "tailwindcss -i ./src/input.css -o ./public/css/styles.css --minify",
+    "build": "npm run build:css",
+    "test": "node --test tests/platform.test.js",
     "create-admin": "node scripts/create-admin.js",
     "import-legacy-users": "node scripts/import-legacy-users.js"
   },
@@ -18,5 +21,10 @@
     "express": "^4.19.2",
     "express-rate-limit": "^8.7.1",
     "mongoose": "^8.5.0"
+  },
+  "devDependencies": {
+    "mongodb-memory-server": "^11.3.0",
+    "supertest": "^7.3.1",
+    "tailwindcss": "^3.4.19"
   }
 }

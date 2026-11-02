@@ -1,0 +1,368 @@
+<!doctype html>
+<html class="light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Privacy &amp; Wellness Dashboard — Unburden</title>
+    <meta
+      name="description"
+      content="Manage your granular privacy consents, PHQ-9 self-check history, mood check-ins, responder sharing permissions, access audit logs, and personal data export."
+    />
+    <meta property="og:title" content="Privacy & Wellness Dashboard — Unburden" />
+    <meta property="og:description" content="Full user ownership over mental health self-check records, consents, and responder sharing." />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body class="bg-[#f9f9f6] text-[#2e3430] font-body antialiased min-h-screen flex flex-col">
+    <div data-include="header"></div>
+
+    <main id="main-content" class="flex-1 max-w-6xl w-full mx-auto px-6 py-10 space-y-10">
+      <!-- Top Profile & Data Ownership Bar -->
+      <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <span class="inline-flex items-center gap-1 rounded-full bg-teal-100 px-3 py-0.5 text-xs font-bold uppercase tracking-wider text-teal-900">
+            Privacy &amp; Data Control Center
+          </span>
+          <h1 class="font-headline text-2xl md:text-3xl font-extrabold text-slate-900 mt-1" id="dash-user-name">Loading profile...</h1>
+          <p class="text-xs text-slate-600 mt-1">
+            Email: <strong id="dash-user-email">—</strong> &middot; Role: <strong id="dash-user-role">—</strong> &middot; Country: <strong id="dash-user-country">—</strong>
+          </p>
+        </div>
+        <div class="flex flex-wrap items-center gap-3">
+          <a
+            href="/assessment"
+            class="rounded-xl bg-teal-800 px-4 py-2.5 text-xs font-bold text-white hover:bg-teal-900"
+          >
+            Take PHQ-9 Self-Check
+          </a>
+          <button
+            type="button"
+            id="btn-export-data"
+            class="rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-xs font-bold text-slate-800 hover:bg-slate-50"
+          >
+            Export My Data (JSON)
+          </button>
+        </div>
+      </section>
+
+      <!-- Grid: Granular Consent Controls & Mood Check-In -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <!-- Granular Consent Management -->
+        <section class="lg:col-span-7 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="font-headline text-lg font-bold text-slate-900">Granular Consent Preferences</h2>
+              <p class="text-xs text-slate-600">
+                Optional data categories are never bundled with account creation. Toggle any category at any time.
+              </p>
+            </div>
+            <span class="text-xs font-semibold text-teal-800 bg-teal-50 px-2.5 py-1 rounded-full">Policy v2.0</span>
+          </div>
+
+          <div id="consent-save-status" class="hidden rounded-lg bg-emerald-50 border border-emerald-200 px-3 py-2 text-xs font-semibold text-emerald-800" role="status" aria-live="polite"></div>
+
+          <div class="divide-y divide-slate-100 text-sm">
+            <label class="py-3 flex items-start justify-between gap-4 cursor-pointer">
+              <div>
+                <div class="font-semibold text-slate-900">Assessment Result Storage</div>
+                <p class="text-xs text-slate-600">Store my PHQ-9, GAD-7, and WHO-5 self-assessment scores so I can view longitudinal history.</p>
+              </div>
+              <input type="checkbox" data-consent-category="assessment_storage" class="mt-1 h-5 w-5 rounded border-slate-300 text-teal-700 focus:ring-teal-700" />
+            </label>
+
+            <label class="py-3 flex items-start justify-between gap-4 cursor-pointer">
+              <div>
+                <div class="font-semibold text-slate-900">Longitudinal Mood Tracking</div>
+                <p class="text-xs text-slate-600">Store my voluntary 1–5 mood check-in ratings and personal reflections.</p>
+              </div>
+              <input type="checkbox" data-consent-category="mood_tracking" class="mt-1 h-5 w-5 rounded border-slate-300 text-teal-700 focus:ring-teal-700" />
+            </label>
+
+            <label class="py-3 flex items-start justify-between gap-4 cursor-pointer">
+              <div>
+                <div class="font-semibold text-slate-900">Personal Activity History</div>
+                <p class="text-xs text-slate-600">Save a personal log of soundtracks and resources I use inside my private account.</p>
+              </div>
+              <input type="checkbox" data-consent-category="activity_history" class="mt-1 h-5 w-5 rounded border-slate-300 text-teal-700 focus:ring-teal-700" />
+            </label>
+
+            <label class="py-3 flex items-start justify-between gap-4 cursor-pointer">
+              <div>
+                <div class="font-semibold text-slate-900">Responder Data Sharing Eligibility</div>
+                <p class="text-xs text-slate-600">Allow me to grant time-limited access to specific Verified Responders I nominate below. Revoking this immediately revokes all active responder grants.</p>
+              </div>
+              <input type="checkbox" data-consent-category="responder_sharing" class="mt-1 h-5 w-5 rounded border-slate-300 text-teal-700 focus:ring-teal-700" />
+            </label>
+
+            <label class="py-3 flex items-start justify-between gap-4 cursor-pointer">
+              <div>
+                <div class="font-semibold text-slate-900">Anonymized Aggregate Research Analytics</div>
+                <p class="text-xs text-slate-600">Include my de-identified severity band in aggregate SDG 3.4 platform statistics.</p>
+              </div>
+              <input type="checkbox" data-consent-category="research_analytics" class="mt-1 h-5 w-5 rounded border-slate-300 text-teal-700 focus:ring-teal-700" />
+            </label>
+          </div>
+
+          <details class="pt-2">
+            <summary class="text-xs font-bold text-teal-800 cursor-pointer">View Versioned Consent Audit History</summary>
+            <div class="mt-3 overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr class="border-b border-slate-200 text-xs text-slate-500 uppercase">
+                    <th class="py-1.5 pr-3">Category</th>
+                    <th class="py-1.5 pr-3">Status</th>
+                    <th class="py-1.5 pr-3">Version</th>
+                    <th class="py-1.5">Timestamp</th>
+                  </tr>
+                </thead>
+                <tbody id="consent-history-body"></tbody>
+              </table>
+            </div>
+          </details>
+        </section>
+
+        <!-- Longitudinal Mood Check-In -->
+        <section class="lg:col-span-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm space-y-4">
+          <h2 class="font-headline text-lg font-bold text-slate-900">Daily Mood Check-In</h2>
+          <p class="text-xs text-slate-600">Log a quick 1–5 check-in. Requires Mood Tracking consent.</p>
+
+          <form id="mood-checkin-form" class="space-y-4">
+            <fieldset>
+              <legend class="text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">How are you feeling right now?</legend>
+              <div class="grid grid-cols-5 gap-2">
+                <label class="cursor-pointer rounded-xl border border-slate-200 p-2 text-center hover:border-teal-600">
+                  <input type="radio" name="mood-rating" value="1" class="sr-only peer" />
+                  <span class="block text-base font-bold text-slate-900 peer-checked:text-teal-800">1</span>
+                  <span class="block text-[11px] text-slate-600">Very low</span>
+                </label>
+                <label class="cursor-pointer rounded-xl border border-slate-200 p-2 text-center hover:border-teal-600">
+                  <input type="radio" name="mood-rating" value="2" class="sr-only peer" />
+                  <span class="block text-base font-bold text-slate-900 peer-checked:text-teal-800">2</span>
+                  <span class="block text-[11px] text-slate-600">Low</span>
+                </label>
+                <label class="cursor-pointer rounded-xl border border-slate-200 p-2 text-center hover:border-teal-600">
+                  <input type="radio" name="mood-rating" value="3" class="sr-only peer" />
+                  <span class="block text-base font-bold text-slate-900 peer-checked:text-teal-800">3</span>
+                  <span class="block text-[11px] text-slate-600">Neutral</span>
+                </label>
+                <label class="cursor-pointer rounded-xl border border-slate-200 p-2 text-center hover:border-teal-600">
+                  <input type="radio" name="mood-rating" value="4" class="sr-only peer" />
+                  <span class="block text-base font-bold text-slate-900 peer-checked:text-teal-800">4</span>
+                  <span class="block text-[11px] text-slate-600">Good</span>
+                </label>
+                <label class="cursor-pointer rounded-xl border border-slate-200 p-2 text-center hover:border-teal-600">
+                  <input type="radio" name="mood-rating" value="5" class="sr-only peer" />
+                  <span class="block text-base font-bold text-slate-900 peer-checked:text-teal-800">5</span>
+                  <span class="block text-[11px] text-slate-600">Very good</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <div>
+              <label for="mood-note" class="block text-xs font-semibold text-slate-700 mb-1">Optional Reflection Note (max 300 chars)</label>
+              <input
+                id="mood-note"
+                type="text"
+                maxlength="300"
+                placeholder="Sleep, energy, or context notes..."
+                class="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm"
+              />
+            </div>
+
+            <label class="flex items-center gap-2 text-xs text-slate-700 cursor-pointer">
+              <input id="mood-inline-consent" type="checkbox" checked class="h-4 w-4 rounded border-slate-300 text-teal-700" />
+              <span>Enable Mood Tracking consent to store this check-in</span>
+            </label>
+
+            <button type="submit" class="w-full rounded-xl bg-teal-800 px-4 py-2.5 text-xs font-bold text-white hover:bg-teal-900">
+              Save Mood Check-In
+            </button>
+            <p id="mood-status-msg" class="hidden" role="status" aria-live="polite"></p>
+          </form>
+
+          <div class="pt-3 border-t border-slate-100">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Recent Mood Check-Ins</h3>
+            <div id="dash-mood-list" class="space-y-2 max-h-60 overflow-y-auto"></div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Saved Assessment History -->
+      <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <h2 class="font-headline text-lg font-bold text-slate-900">My Saved Assessment History</h2>
+            <p class="text-xs text-slate-600">Accessible only to you (and any Responder you explicitly authorize below).</p>
+          </div>
+          <a href="/assessment" class="text-xs font-bold text-teal-800 hover:underline">New Assessment &rarr;</a>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-slate-200 text-xs text-slate-500 uppercase">
+                <th class="py-2 pr-3">Instrument</th>
+                <th class="py-2 pr-3">Total Score</th>
+                <th class="py-2 pr-3">Severity Category</th>
+                <th class="py-2 pr-3">Completed At</th>
+                <th class="py-2 text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody id="dash-assessments-body">
+              <tr><td colspan="5" class="py-4 text-center text-slate-500 text-sm">Loading assessment records...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Responder Data Sharing Permissions -->
+      <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm space-y-6">
+        <div>
+          <h2 class="font-headline text-lg font-bold text-slate-900">Responder Data-Sharing Permissions</h2>
+          <p class="text-xs text-slate-600">
+            Grant time-limited access to a verified Responder and choose the exact data categories they are permitted to view. Every access is recorded in your audit log below.
+          </p>
+        </div>
+
+        <form id="share-grant-form" class="rounded-xl border border-slate-200 bg-slate-50 p-4 space-y-4">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <label for="share-responder-select" class="block text-xs font-bold text-slate-700 mb-1">Select Verified Responder</label>
+              <select id="share-responder-select" class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-xs">
+                <option value="">Loading verified responders...</option>
+              </select>
+            </div>
+            <div>
+              <label for="share-responder-email" class="block text-xs font-bold text-slate-700 mb-1">Or Enter Responder Email</label>
+              <input
+                id="share-responder-email"
+                type="email"
+                placeholder="responder@institution.org"
+                class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-xs"
+              />
+            </div>
+            <div>
+              <label for="share-expiry-days" class="block text-xs font-bold text-slate-700 mb-1">Access Duration</label>
+              <select id="share-expiry-days" class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-xs">
+                <option value="7">7 Days</option>
+                <option value="14" selected>14 Days</option>
+                <option value="30">30 Days</option>
+                <option value="90">90 Days</option>
+              </select>
+            </div>
+          </div>
+
+          <fieldset>
+            <legend class="text-xs font-bold text-slate-700 mb-2">Categories to Share:</legend>
+            <div class="flex flex-wrap gap-4 text-xs text-slate-800">
+              <label class="inline-flex items-center gap-1.5 cursor-pointer">
+                <input id="share-cat-profile" type="checkbox" checked class="h-4 w-4 rounded border-slate-300 text-teal-700" />
+                <span>Basic Profile &amp; Contact</span>
+              </label>
+              <label class="inline-flex items-center gap-1.5 cursor-pointer">
+                <input id="share-cat-latest" type="checkbox" checked class="h-4 w-4 rounded border-slate-300 text-teal-700" />
+                <span>Latest Assessment Result</span>
+              </label>
+              <label class="inline-flex items-center gap-1.5 cursor-pointer">
+                <input id="share-cat-history" type="checkbox" class="h-4 w-4 rounded border-slate-300 text-teal-700" />
+                <span>Full Assessment History</span>
+              </label>
+              <label class="inline-flex items-center gap-1.5 cursor-pointer">
+                <input id="share-cat-mood" type="checkbox" class="h-4 w-4 rounded border-slate-300 text-teal-700" />
+                <span>Mood Check-Ins</span>
+              </label>
+              <label class="inline-flex items-center gap-1.5 cursor-pointer">
+                <input id="share-cat-activity" type="checkbox" class="h-4 w-4 rounded border-slate-300 text-teal-700" />
+                <span>Activity History</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <button type="submit" class="rounded-xl bg-teal-800 px-5 py-2 text-xs font-bold text-white hover:bg-teal-900">
+            Grant Responder Access
+          </button>
+          <p id="share-grant-status" class="hidden" role="status" aria-live="polite"></p>
+        </form>
+
+        <div>
+          <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Active &amp; Past Sharing Grants</h3>
+          <div id="active-grants-list" class="space-y-2"></div>
+        </div>
+      </section>
+
+      <!-- Access Audit Log -->
+      <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm space-y-4">
+        <div>
+          <h2 class="font-headline text-lg font-bold text-slate-900">My Record Access &amp; Security Audit Log</h2>
+          <p class="text-xs text-slate-600">
+            Complete transparency log showing every time your consent settings changed or a Responder viewed your shared records.
+          </p>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-slate-200 text-xs text-slate-500 uppercase">
+                <th class="py-2 pr-3">Actor</th>
+                <th class="py-2 pr-3">Event / Action</th>
+                <th class="py-2 pr-3">Category</th>
+                <th class="py-2">Timestamp</th>
+              </tr>
+            </thead>
+            <tbody id="my-audit-logs-body">
+              <tr><td colspan="4" class="py-4 text-center text-slate-500 text-xs">Loading audit log...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Security & Delete My Data -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm space-y-4">
+          <h2 class="font-headline text-lg font-bold text-slate-900">Change Account Password</h2>
+          <form id="change-password-form" class="space-y-3">
+            <div>
+              <label for="current-password" class="block text-xs font-semibold text-slate-700 mb-1">Current Password *</label>
+              <input id="current-password" type="password" required class="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm" />
+            </div>
+            <div>
+              <label for="new-password" class="block text-xs font-semibold text-slate-700 mb-1">New Password (8+ characters) *</label>
+              <input id="new-password" type="password" required minlength="8" maxlength="200" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm" />
+            </div>
+            <button type="submit" class="rounded-xl bg-slate-800 px-4 py-2 text-xs font-bold text-white hover:bg-slate-900">
+              Update Password
+            </button>
+            <p id="change-pw-status" class="hidden" role="status" aria-live="polite"></p>
+          </form>
+        </section>
+
+        <section class="rounded-2xl border border-red-200 bg-red-50/50 p-6 shadow-sm space-y-4">
+          <h2 class="font-headline text-lg font-bold text-red-900">Delete My Data &amp; Account</h2>
+          <p class="text-xs text-slate-700 leading-relaxed">
+            Permanently erases your user profile, PHQ-9/GAD-7/WHO-5 assessment history, mood check-ins, activity logs, consent records, and active sessions from the primary database, and anonymizes personal references in security audit logs. Encrypted database backups are automatically purged on a rolling 30-day retention cycle.
+          </p>
+          <form id="delete-account-form" class="space-y-3">
+            <label class="flex items-start gap-2.5 text-xs text-red-900 font-medium cursor-pointer">
+              <input id="confirm-delete-checkbox" type="checkbox" required class="mt-0.5 h-4 w-4 rounded border-red-300 text-red-700" />
+              <span>I understand that this action permanently deletes my account and personal records and cannot be undone.</span>
+            </label>
+            <button type="submit" class="rounded-xl bg-red-700 px-4 py-2.5 text-xs font-bold text-white hover:bg-red-800">
+              Permanently Delete My Data
+            </button>
+            <p id="delete-account-status" class="hidden" role="status" aria-live="polite"></p>
+          </form>
+        </section>
+      </div>
+    </main>
+
+    <div data-include="footer"></div>
+    <script src="/js/main.js" defer></script>
+    <script src="/js/dashboard.js" defer></script>
+  </body>
+</html>
+

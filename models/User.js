@@ -5,6 +5,7 @@ const countries = require('../data/countries.json');
 
 const COUNTRY_CODES = new Set(countries.map((c) => c.code));
 const PHONE_RE = /^\+[0-9]{8,15}$/;
+const ROLES = ['user', 'responder', 'analyst', 'content_editor', 'super_admin', 'admin'];
 
 const userSchema = new mongoose.Schema(
   {
@@ -59,11 +60,58 @@ const userSchema = new mongoose.Schema(
         message: 'Country must be a valid ISO 3166-1 alpha-2 code.',
       },
     },
+    preferredLanguage: {
+      type: String,
+      trim: true,
+      default: 'en',
+      maxlength: 10,
+    },
     role: {
       type: String,
-      enum: ['user', 'admin'],
+      enum: ROLES,
       default: 'user',
       required: true,
+    },
+    organisation: {
+      type: String,
+      trim: true,
+      default: '',
+      maxlength: 150,
+    },
+    designation: {
+      type: String,
+      trim: true,
+      default: '',
+      maxlength: 150,
+    },
+    accountStatus: {
+      type: String,
+      enum: ['active', 'suspended', 'pending_verification', 'deleted'],
+      default: 'active',
+    },
+    emailVerified: {
+      type: Boolean,
+      default: false,
+    },
+    profileCompleted: {
+      type: Boolean,
+      default: true,
+    },
+    lastLoginAt: {
+      type: Date,
+      default: null,
+    },
+    consentSummary: {
+      account: { type: Boolean, default: true },
+      assessment_storage: { type: Boolean, default: false },
+      mood_tracking: { type: Boolean, default: false },
+      activity_history: { type: Boolean, default: false },
+      responder_sharing: { type: Boolean, default: false },
+      research_analytics: { type: Boolean, default: false },
+    },
+    consentPolicyVersion: {
+      type: String,
+      default: '2.0',
     },
     salt: {
       type: String,
@@ -75,18 +123,21 @@ const userSchema = new mongoose.Schema(
       required: true,
       select: false,
     },
+    resetTokenHash: {
+      type: String,
+      default: null,
+      select: false,
+    },
+    resetTokenExpiresAt: {
+      type: Date,
+      default: null,
+      select: false,
+    },
     screeningScore: {
       type: Number,
       default: null,
       min: 0,
       max: 27,
-      validate: {
-        validator: function (v) {
-          if (v === null || v === undefined) return true;
-          return Number.isInteger(v) && v >= 0 && v <= 27;
-        },
-        message: 'Screening score must be an integer between 0 and 27.',
-      },
     },
     gad7Score: {
       type: Number,
@@ -102,10 +153,13 @@ const userSchema = new mongoose.Schema(
     },
     consentAt: {
       type: Date,
-      default: null,
+      default: Date.now,
     },
   },
   { timestamps: true, collection: 'users' }
 );
+
+userSchema.index({ role: 1 });
+userSchema.index({ country: 1 });
 
 module.exports = mongoose.model('User', userSchema);

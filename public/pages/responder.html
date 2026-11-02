@@ -1,0 +1,72 @@
+<!doctype html>
+<html class="light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responder Portal — Consent-Based Support Access | Unburden</title>
+    <meta
+      name="description"
+      content="Consent-based Responder Portal for viewing user-shared assessment and wellness records with full audit logging."
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body class="bg-[#f9f9f6] text-[#2e3430] font-body antialiased min-h-screen flex flex-col">
+    <div data-include="header"></div>
+
+    <main id="main-content" class="flex-1 max-w-6xl w-full mx-auto px-6 py-10 space-y-8">
+      <header class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-6">
+        <div>
+          <span class="inline-flex items-center gap-1 rounded-full bg-teal-100 px-3 py-0.5 text-xs font-bold uppercase tracking-wider text-teal-900">
+            Consent-Gated Access
+          </span>
+          <h1 class="font-headline text-3xl font-extrabold text-slate-900 mt-1">Responder Support Portal</h1>
+          <p class="text-sm text-slate-600 mt-1">
+            You can only view users who have explicitly opted into Responder Sharing and created an active Share Grant for your account. Every record view generates a user-visible audit log entry.
+          </p>
+        </div>
+        <div id="responder-name-badge" class="text-xs font-semibold text-slate-700 bg-white border border-slate-200 px-3.5 py-2 rounded-xl"></div>
+      </header>
+
+      <!-- Auth Gate if not logged in as responder -->
+      <div id="responder-auth-gate" class="hidden">
+        <div class="rounded-2xl border border-slate-200 bg-white p-8 text-center space-y-4">
+          <h2 class="font-headline text-xl font-bold text-slate-900">Responder Sign-In Required</h2>
+          <p class="text-sm text-slate-600 max-w-lg mx-auto">
+            Please sign in with an approved Responder account to view consented user records, or submit a role application for Super Administrator review.
+          </p>
+          <div class="flex justify-center gap-3">
+            <a href="/login?next=/responder" class="rounded-xl bg-teal-800 px-5 py-2.5 text-xs font-bold text-white hover:bg-teal-900">Sign In</a>
+            <a href="/admin-apply" class="rounded-xl border border-slate-300 bg-white px-5 py-2.5 text-xs font-bold text-slate-800 hover:bg-slate-50">Apply for Responder Role</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Responder Workspace -->
+      <div id="responder-portal-main" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <section class="lg:col-span-5 space-y-4">
+          <div class="flex items-center justify-between">
+            <h2 class="font-headline text-lg font-bold text-slate-900">Consented Users</h2>
+            <a href="/find-support" class="text-xs font-bold text-teal-800 hover:underline">Verified Helpline Directory &rarr;</a>
+          </div>
+          <div id="responder-clients-list" class="space-y-3"></div>
+        </section>
+
+        <section class="lg:col-span-7">
+          <div id="responder-client-detail" class="hidden"></div>
+        </section>
+      </div>
+    </main>
+
+    <div data-include="footer"></div>
+    <script src="/js/main.js" defer></script>
+    <script src="/js/responder.js" defer></script>
+  </body>
+</html>
+

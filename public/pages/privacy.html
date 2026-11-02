@@ -1,0 +1,120 @@
+<!doctype html>
+<html class="light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Privacy Policy &amp; Data Governance — Unburden</title>
+    <meta
+      name="description"
+      content="Transparent Privacy Policy and Data Governance statement for the Unburden mental health support and resource-mapping platform."
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body class="bg-[#f9f9f6] text-[#2e3430] font-body antialiased min-h-screen flex flex-col">
+    <div data-include="header"></div>
+
+    <main id="main-content" class="flex-1 max-w-4xl w-full mx-auto px-6 py-12 space-y-8">
+      <header class="space-y-2 border-b border-slate-200 pb-6">
+        <span class="inline-flex items-center rounded-full bg-teal-100 px-3 py-1 text-xs font-bold uppercase tracking-wider text-teal-900">
+          Policy Version 2.0 &middot; Effective November 2026
+        </span>
+        <h1 class="font-headline text-3xl md:text-4xl font-extrabold text-slate-900">Privacy Policy &amp; Data Governance</h1>
+        <p class="text-sm text-slate-600">
+          Unburden is an independent educational mental health support and resource-mapping platform developed in alignment with UN Sustainable Development Goal 3.4. This document explains honestly and clearly how your information is handled.
+        </p>
+      </header>
+
+      <div class="rounded-2xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm space-y-6 text-sm leading-relaxed text-slate-700">
+        <section class="space-y-2">
+          <h2 class="font-headline text-lg font-bold text-slate-900">1. What Information We Collect</h2>
+          <ul class="list-disc pl-5 space-y-1">
+            <li><strong>Account Information (Mandatory for registered accounts):</strong> Name, email address, and a salted scrypt password hash. Country, age, and phone number are optional.</li>
+            <li><strong>Self-Assessment Records (Opt-In Only):</strong> PHQ-9, GAD-7, and WHO-5 question responses, total score, severity band, and functional impact rating — stored in the database only if you explicitly grant <em>Assessment Result Storage</em> consent.</li>
+            <li><strong>Mood Check-Ins (Opt-In Only):</strong> Voluntary 1–5 mood ratings and brief reflection notes — stored only if you grant <em>Mood Tracking</em> consent.</li>
+            <li><strong>Platform Usage Counters:</strong> Anonymous, session-deduplicated counters of soundtrack plays and educational article views used to rank helpful resources.</li>
+          </ul>
+        </section>
+
+        <section class="space-y-2">
+          <h2 class="font-headline text-lg font-bold text-slate-900">2. Why Information Is Collected</h2>
+          <p>
+            We process data solely to provide self-guided screening feedback, display country-relevant crisis helplines, allow you to review your longitudinal wellness history, and — only when you explicitly request it — share selected records with a Verified Responder you nominate.
+          </p>
+        </section>
+
+        <section class="space-y-2">
+          <h2 class="font-headline text-lg font-bold text-slate-900">3. Which Features Work Without an Account</h2>
+          <p>
+            You can browse the Global Helpline Directory (<a href="/find-support" class="text-teal-800 underline">/find-support</a>), read educational articles (<a href="/resources" class="text-teal-800 underline">/resources</a>), listen to ambient soundtracks (<a href="/sounds" class="text-teal-800 underline">/sounds</a>), and view immediate PHQ-9 self-check feedback in your browser without creating an account.
+          </p>
+        </section>
+
+        <section class="space-y-2">
+          <h2 class="font-headline text-lg font-bold text-slate-900">4. Granular Consent &amp; How to Withdraw It</h2>
+          <p>
+            Account creation consent is never bundled with optional health data storage or sharing. From your <a href="/dashboard" class="text-teal-800 underline font-semibold">Privacy &amp; Wellness Dashboard</a>, you can independently grant or revoke consent for:
+          </p>
+          <ul class="list-disc pl-5 space-y-1">
+            <li><code>assessment_storage</code> — Saving PHQ-9 / GAD-7 / WHO-5 results to your account history.</li>
+            <li><code>mood_tracking</code> — Saving 1–5 mood check-ins.</li>
+            <li><code>activity_history</code> — Saving personal resource and soundtrack history.</li>
+            <li><code>responder_sharing</code> — Allowing nominated Responders to view selected categories.</li>
+            <li><code>research_analytics</code> — Contributing de-identified severity bands to aggregate statistics.</li>
+          </ul>
+        </section>
+
+        <section class="space-y-2">
+          <h2 class="font-headline text-lg font-bold text-slate-900">5. Who Can Access Your Data &amp; Audit Logging</h2>
+          <p>
+            <strong>Super Administrators do not have automatic access to your individual mental health assessments or mood records.</strong> Administrators only see anonymized, aggregate platform statistics and account status metadata.
+          </p>
+          <p>
+            Individual assessment or mood records can only be viewed by a verified <strong>Responder</strong> whom you have explicitly nominated via a time-limited <em>Share Grant</em>. Every time a Responder views your shared record, an immutable entry is written to your personal Access Audit Log in your dashboard.
+          </p>
+        </section>
+
+        <section class="space-y-2">
+          <h2 class="font-headline text-lg font-bold text-slate-900">6. Data Export &amp; Permanent Erasure ("Delete My Data")</h2>
+          <p>
+            At any time, you may download a complete machine-readable JSON archive of your profile, assessments, mood check-ins, consents, share grants, and access audit logs via <strong>Export My Data</strong> on your dashboard.
+          </p>
+          <p>
+            Selecting <strong>Permanently Delete My Data</strong> immediately deletes your user account, active sessions, saved assessments, mood check-ins, consent history, activity events, and responder share grants from the active MongoDB database, and anonymizes personal references in security audit logs.
+          </p>
+        </section>
+
+        <section class="space-y-2">
+          <h2 class="font-headline text-lg font-bold text-slate-900">7. Retention &amp; Backup Purge Cycle</h2>
+          <p>
+            Active records are retained until you delete them or delete your account. Sessions expire automatically via database TTL indexes. When you delete your account, records are removed immediately from the primary database; encrypted infrastructure backups managed by our cloud database provider are automatically overwritten on a rolling 30-day retention cycle.
+          </p>
+        </section>
+
+        <section class="space-y-2">
+          <h2 class="font-headline text-lg font-bold text-slate-900">8. Security Architecture &amp; Honest Scope</h2>
+          <p>
+            Unburden uses HTTPS transport encryption, salted scrypt password hashing, HTTP-only session cookies with CSRF protection, strict server-side role-based access control (RBAC), and MongoDB schema validation. Unburden is an educational screening and resource-mapping platform, not a hospital electronic medical record system or emergency dispatch provider.
+          </p>
+        </section>
+
+        <section class="space-y-2">
+          <h2 class="font-headline text-lg font-bold text-slate-900">9. Emergency Limitations</h2>
+          <p>
+            Unburden does not monitor self-assessments in real time and cannot dispatch emergency services. If you or someone you know is in immediate danger, contact your local emergency services (such as 112, 911, or 999) or connect directly with a crisis helpline on our <a href="/find-support" class="text-teal-800 underline font-semibold">Find Support</a> page.
+          </p>
+        </section>
+      </div>
+    </main>
+
+    <div data-include="footer"></div>
+    <script src="/js/main.js" defer></script>
+  </body>
+</html>
+

@@ -1,0 +1,255 @@
+<!doctype html>
+<html class="light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Apply for Administrative or Responder Role — Unburden</title>
+    <meta
+      name="description"
+      content="Apply for a verified Responder, Analyst, or Content Editor role on the Unburden mental health support and resource-mapping platform."
+    />
+    <meta property="og:title" content="Role Application & Invitation Activation — Unburden" />
+    <meta
+      property="og:description"
+      content="Credentialed application workflow for Responders, Analysts, and Content Editors."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body class="bg-[#f9f9f6] text-[#2e3430] font-body antialiased min-h-screen flex flex-col">
+    <div data-include="header"></div>
+
+    <main id="main-content" class="flex-1 max-w-5xl w-full mx-auto px-6 py-12 space-y-12">
+      <header class="space-y-3">
+        <span class="inline-flex items-center gap-1.5 rounded-full bg-teal-100 px-3 py-1 text-xs font-bold uppercase tracking-wider text-teal-900">
+          Role-Based Access Governance
+        </span>
+        <h1 class="font-headline text-3xl md:text-4xl font-extrabold text-slate-900">
+          Administrative &amp; Responder Role Application
+        </h1>
+        <p class="text-slate-600 max-w-3xl text-base leading-relaxed">
+          To prevent unauthorized access to sensitive records, public accounts cannot self-assign privileged roles. Verified support professionals, researchers, and directory editors may apply below. Approved applications receive a single-use cryptographic invitation token.
+        </p>
+      </header>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Application Form -->
+        <section class="lg:col-span-2 rounded-2xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
+          <h2 class="font-headline text-xl font-bold text-slate-900 mb-2">1. Submit Role Application</h2>
+          <p class="text-xs text-slate-600 mb-6">
+            Lifecycle: <strong>Submitted &rarr; Pending Review &rarr; Approved / Rejected</strong> by a Super Administrator.
+          </p>
+
+          <div id="apply-alert" class="hidden" role="status" aria-live="polite"></div>
+
+          <form id="admin-apply-form" class="space-y-5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="app-fullName" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Full Name *</label>
+                <input
+                  id="app-fullName"
+                  type="text"
+                  required
+                  minlength="2"
+                  maxlength="100"
+                  placeholder="e.g. Jordan Patel"
+                  class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:border-teal-700 focus:outline-none"
+                />
+              </div>
+              <div>
+                <label for="app-email" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Institutional / Professional Email *</label>
+                <input
+                  id="app-email"
+                  type="email"
+                  required
+                  placeholder="name@institution.org"
+                  class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:border-teal-700 focus:outline-none"
+                />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="app-organisation" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Organisation or Institution *</label>
+                <input
+                  id="app-organisation"
+                  type="text"
+                  required
+                  minlength="2"
+                  maxlength="150"
+                  placeholder="University / Clinic / NGO Name"
+                  class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:border-teal-700 focus:outline-none"
+                />
+              </div>
+              <div>
+                <label for="app-designation" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Professional Designation *</label>
+                <input
+                  id="app-designation"
+                  type="text"
+                  required
+                  minlength="2"
+                  maxlength="150"
+                  placeholder="Counselor / Public Health Researcher"
+                  class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:border-teal-700 focus:outline-none"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label for="app-role" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Requested Role *</label>
+              <select
+                id="app-role"
+                required
+                class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm focus:border-teal-700 focus:outline-none"
+              >
+                <option value="responder">Responder — View individual user records ONLY when the user explicitly grants consent</option>
+                <option value="analyst">Analyst — View anonymized, aggregated platform statistics and SDG 3.4 trends only</option>
+                <option value="content_editor">Content Editor — Maintain verified helpline listings and educational resources</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="app-reason" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Reason for Requesting Access *</label>
+              <textarea
+                id="app-reason"
+                rows="3"
+                required
+                minlength="10"
+                maxlength="1000"
+                placeholder="Describe how you intend to use this role to support users, research, or helpline accuracy..."
+                class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:border-teal-700 focus:outline-none"
+              ></textarea>
+            </div>
+
+            <div>
+              <label for="app-qualifications" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Relevant Experience or Qualifications *</label>
+              <textarea
+                id="app-qualifications"
+                rows="3"
+                required
+                minlength="10"
+                maxlength="1000"
+                placeholder="Summarize relevant training, academic supervision, crisis support credentials, or editorial experience..."
+                class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:border-teal-700 focus:outline-none"
+              ></textarea>
+            </div>
+
+            <div class="rounded-xl border border-slate-200 bg-slate-50 p-4">
+              <label class="flex items-start gap-3 text-xs text-slate-700 cursor-pointer">
+                <input id="app-policy" type="checkbox" required class="mt-0.5 h-4 w-4 rounded border-slate-300 text-teal-700 focus:ring-teal-700" />
+                <span>
+                  I agree to Unburden's <a href="/privacy" class="underline font-semibold text-teal-800">Privacy &amp; Data Governance Policy</a>. I understand that all record accesses are permanently logged in user-visible audit logs, and that Responders may never access user records without an active, unrevoked user share grant.
+                </span>
+              </label>
+            </div>
+
+            <button
+              type="submit"
+              class="w-full sm:w-auto rounded-xl bg-teal-800 px-6 py-3 text-sm font-bold text-white hover:bg-teal-900 transition-colors"
+            >
+              Submit Application for Review
+            </button>
+          </form>
+        </section>
+
+        <!-- Sidebar: Check Status & Activate Invite -->
+        <aside class="space-y-6">
+          <!-- Check Application Status -->
+          <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+            <h2 class="font-headline text-lg font-bold text-slate-900 mb-1">2. Check Application Status</h2>
+            <p class="text-xs text-slate-600 mb-4">Enter your application email (and optional Application ID) to inspect review progress.</p>
+            <form id="status-check-form" class="space-y-3">
+              <div>
+                <label for="status-email" class="block text-xs font-semibold text-slate-700 mb-1">Application Email *</label>
+                <input
+                  id="status-email"
+                  type="email"
+                  required
+                  placeholder="name@institution.org"
+                  class="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm"
+                />
+              </div>
+              <div>
+                <label for="status-id" class="block text-xs font-semibold text-slate-700 mb-1">Application ID (Optional)</label>
+                <input
+                  id="status-id"
+                  type="text"
+                  placeholder="24-char ID"
+                  class="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm font-mono"
+                />
+              </div>
+              <button
+                type="submit"
+                class="w-full rounded-xl border border-slate-300 bg-slate-100 px-4 py-2 text-xs font-bold text-slate-800 hover:bg-slate-200"
+              >
+                Check Status
+              </button>
+            </form>
+            <div id="status-result" class="hidden" role="status" aria-live="polite"></div>
+          </section>
+
+          <!-- Activate Single-Use Invitation -->
+          <section id="invite-activation-section" class="rounded-2xl border border-teal-200 bg-white p-6 shadow-sm">
+            <h2 class="font-headline text-lg font-bold text-slate-900 mb-1">3. Activate Approved Invitation</h2>
+            <p class="text-xs text-slate-600 mb-4">
+              Have a single-use invitation token from a Super Administrator? Verify your email and set your account password below.
+            </p>
+            <div id="invite-alert" class="hidden" role="status" aria-live="polite"></div>
+            <form id="invite-activate-form" class="space-y-3">
+              <div>
+                <label for="invite-token" class="block text-xs font-semibold text-slate-700 mb-1">Single-Use Invitation Token *</label>
+                <input
+                  id="invite-token"
+                  type="text"
+                  required
+                  placeholder="Paste 64-character token"
+                  class="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs font-mono"
+                />
+              </div>
+              <div>
+                <label for="invite-email" class="block text-xs font-semibold text-slate-700 mb-1">Approved Applicant Email *</label>
+                <input
+                  id="invite-email"
+                  type="email"
+                  required
+                  placeholder="name@institution.org"
+                  class="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm"
+                />
+              </div>
+              <div>
+                <label for="invite-password" class="block text-xs font-semibold text-slate-700 mb-1">Create Account Password (8+ chars) *</label>
+                <input
+                  id="invite-password"
+                  type="password"
+                  required
+                  minlength="8"
+                  maxlength="200"
+                  placeholder="••••••••"
+                  class="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm"
+                />
+              </div>
+              <button
+                type="submit"
+                class="w-full rounded-xl bg-teal-700 px-4 py-2.5 text-xs font-bold text-white hover:bg-teal-800"
+              >
+                Verify Email &amp; Activate Role
+              </button>
+            </form>
+          </section>
+        </aside>
+      </div>
+    </main>
+
+    <div data-include="footer"></div>
+    <script src="/js/main.js" defer></script>
+    <script src="/js/admin-apply.js" defer></script>
+  </body>
+</html>
+

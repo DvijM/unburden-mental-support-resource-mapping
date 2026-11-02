@@ -4,12 +4,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Admin Dashboard — Unburden</title>
+  <title>Admin &amp; Analytics Governance Dashboard — Unburden</title>
+  <meta name="description" content="Role-based Administration, Aggregate SDG 3.4 Analytics, Soundtrack & Resource Popularity, Role Application Review, and Helpline Directory Governance." />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="/js/tailwind-config.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/styles.css" />
 </head>
 
@@ -19,134 +19,180 @@
   <header class="bg-white border-b border-surface-mid sticky top-0 z-40">
     <nav class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between" aria-label="Primary">
       <a href="/" class="flex items-center gap-2" aria-label="Unburden home">
-        <span class="w-6 h-6 rounded bg-primary text-white grid place-items-center text-[12px] font-serif font-bold">U</span>
+        <span class="w-6 h-6 rounded bg-primary text-white grid place-items-center text-xs font-serif font-bold">U</span>
         <span class="font-display font-bold text-[17px]">Unburden</span>
       </a>
-      <div class="flex items-center gap-4 text-[13px]">
-        <span id="admin-greeting" class="hidden sm:flex items-center gap-2 text-[11px] tracking-[.12em] uppercase text-ink-soft">Admin</span>
-        <a href="/" class="text-ink-soft hover:text-primary text-[12px]">← Back to site</a>
-        <button id="admin-logout" type="button" class="btn-secondary px-3.5 py-1.5 text-[11px] tracking-[.1em] uppercase">Log Out</button>
+      <div class="flex items-center gap-4 text-xs">
+        <span id="admin-greeting" class="hidden sm:flex items-center gap-2 text-xs tracking-wider uppercase text-ink-soft font-semibold">Admin</span>
+        <a href="/dashboard" class="text-ink-soft hover:text-primary">My Privacy</a>
+        <a href="/" class="text-ink-soft hover:text-primary">&larr; Back to site</a>
+        <button id="admin-logout" type="button" class="btn-secondary px-3.5 py-1.5 text-xs tracking-wider uppercase">Log Out</button>
       </div>
     </nav>
   </header>
 
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
-    <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 mb-6">
+  <main id="main-content" class="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
       <div>
-        <h1 class="font-display font-bold text-[26px]">Admin Dashboard</h1>
-        <p class="text-[11.5px] text-ink-soft mt-1">Data-minimised administration</p>
+        <h1 class="font-display font-bold text-[26px]">Platform Governance &amp; Aggregate Analytics</h1>
+        <p class="text-xs text-ink-soft mt-1">Strict privacy separation: Individual mental health records are never exposed here. All metrics below are anonymized aggregates.</p>
       </div>
-      <p class="text-[11px] text-ink-mute">Updated: <span id="last-updated">—</span></p>
+      <div class="flex flex-wrap items-center gap-3">
+        <label for="analytics-days-filter" class="text-xs font-semibold text-ink-soft">Time Window:</label>
+        <select id="analytics-days-filter" class="bg-white border border-surface-mid rounded px-3 py-1.5 text-xs text-ink">
+          <option value="all" selected>All Time</option>
+          <option value="1">Today (24h)</option>
+          <option value="7">Last 7 Days</option>
+          <option value="30">Last 30 Days</option>
+        </select>
+        <p class="text-xs text-ink-soft">Updated: <span id="last-updated">—</span></p>
+      </div>
     </div>
 
-    <!-- Core Metrics Overview -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+    <!-- Core Metrics Overview Row 1 -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
       <div class="bg-white rounded-editorial shadow-card p-4">
-        <p class="text-[9.5px] tracking-[.1em] uppercase text-ink-mute">Total Registered Users</p>
+        <p class="text-xs tracking-wider uppercase text-ink-soft">Total Registered Users</p>
         <p class="font-display font-bold text-[28px] text-ink mt-1" id="stat-total">—</p>
+        <p class="text-xs text-ink-soft mt-1">Active Accounts: <strong id="stat-active-users">—</strong></p>
       </div>
       <div class="bg-white rounded-editorial shadow-card p-4">
-        <p class="text-[9.5px] tracking-[.1em] uppercase text-ink-mute">Screenings Completed</p>
+        <p class="text-xs tracking-wider uppercase text-ink-soft">Screenings Completed</p>
         <p class="font-display font-bold text-[28px] text-ink mt-1" id="stat-scores">—</p>
+        <p class="text-xs text-ink-soft mt-1">Mood Check-Ins: <strong id="stat-mood-checkins">—</strong></p>
       </div>
       <div class="bg-white rounded-editorial shadow-card p-4">
-        <p class="text-[9.5px] tracking-[.1em] uppercase text-ink-mute">Average Score</p>
-        <p class="font-display font-bold text-[28px] text-primary mt-1"><span id="stat-avg">—</span><span class="text-[14px] text-ink-mute"> / 27</span></p>
+        <p class="text-xs tracking-wider uppercase text-ink-soft">Average PHQ-9 Score</p>
+        <p class="font-display font-bold text-[28px] text-primary mt-1"><span id="stat-avg">—</span><span class="text-[14px] text-ink-soft"> / 27</span></p>
+        <p class="text-xs text-ink-soft mt-1">De-identified aggregate mean</p>
       </div>
-      <div class="bg-white rounded-editorial shadow-card p-4 border border-crisis/10">
-        <p class="text-[9.5px] tracking-[.1em] uppercase text-crisis font-semibold">Helpline Inquiries</p>
-        <p class="font-display font-bold text-[28px] text-crisis mt-1" id="stat-requests">—</p>
+      <div class="bg-white rounded-editorial shadow-card p-4">
+        <p class="text-xs tracking-wider uppercase text-ink-soft font-semibold">Pending Role Applications</p>
+        <p class="font-display font-bold text-[28px] text-primary mt-1" id="stat-pending-apps">—</p>
+        <p class="text-xs text-ink-soft mt-1">Support Inquiries: <strong id="stat-requests">0</strong></p>
       </div>
+    </div>
+
+    <!-- Content Highlights Row 2 -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+      <div class="bg-white rounded-editorial shadow-card p-4 border-l-4 border-primary">
+        <p class="text-xs tracking-wider uppercase text-ink-soft font-semibold">Most Played Ambient Soundtrack</p>
+        <p class="font-display font-bold text-[18px] text-ink mt-1" id="stat-top-sound">—</p>
+      </div>
+      <div class="bg-white rounded-editorial shadow-card p-4 border-l-4 border-olive">
+        <p class="text-xs tracking-wider uppercase text-ink-soft font-semibold">Most Viewed Educational Resource</p>
+        <p class="font-display font-bold text-[18px] text-ink mt-1" id="stat-top-resource">—</p>
+      </div>
+    </div>
+
+    <!-- Soundtrack & Resource Popularity Rankings -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+      <section class="bg-white rounded-editorial shadow-card p-5 sm:p-6" aria-labelledby="sound-rank-title">
+        <div class="flex items-center justify-between border-b border-surface-mid pb-3">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-primary">Soundscape Analytics</span>
+            <h2 id="sound-rank-title" class="font-display font-bold text-[16px] text-ink mt-1">Soundtrack Popularity Rankings</h2>
+            <p class="text-xs text-ink-soft">Session-deduplicated user plays (excludes admin previews)</p>
+          </div>
+        </div>
+        <ul id="soundtrack-rankings-list" class="mt-4 space-y-2.5 text-xs">
+          <li class="text-ink-soft">Loading soundtrack analytics…</li>
+        </ul>
+      </section>
+
+      <section class="bg-white rounded-editorial shadow-card p-5 sm:p-6" aria-labelledby="resource-rank-title">
+        <div class="flex items-center justify-between border-b border-surface-mid pb-3">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-olive">Literacy Analytics</span>
+            <h2 id="resource-rank-title" class="font-display font-bold text-[16px] text-ink mt-1">Educational Resource Engagement</h2>
+            <p class="text-xs text-ink-soft">Most viewed articles and guides across selected time window</p>
+          </div>
+        </div>
+        <ul id="resource-rankings-list" class="mt-4 space-y-2.5 text-xs">
+          <li class="text-ink-soft">Loading resource analytics…</li>
+        </ul>
+      </section>
     </div>
 
     <!-- Visual Graphical Analytics: Pie Chart of Ages & Score Distribution Graph -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-      <!-- 1. Pie Chart of Ages that Used the Site -->
+      <!-- 1. Pie Chart of Ages -->
       <section class="bg-white rounded-editorial shadow-card p-5 sm:p-6" aria-labelledby="chart-age-title">
         <div class="flex items-center justify-between border-b border-surface-mid pb-3">
           <div>
-            <span class="label-caps text-primary bg-primary-tint rounded px-2 py-0.5">Demographic Visualization</span>
-            <h2 id="chart-age-title" class="font-display font-bold text-[16px] text-ink mt-1.5">User Age Distribution (Pie Chart)</h2>
-            <p class="text-[11px] text-ink-mute">Graphical representation of user ages across standard demographic tiers</p>
+            <span class="text-xs font-bold uppercase tracking-wider text-primary">Demographic Visualization</span>
+            <h2 id="chart-age-title" class="font-display font-bold text-[16px] text-ink mt-1">User Age Distribution</h2>
+            <p class="text-xs text-ink-soft">Aggregate breakdown across standard age bands</p>
           </div>
         </div>
         <div class="mt-5 flex flex-col sm:flex-row items-center justify-center gap-6">
           <div class="relative w-56 h-56 flex-none">
             <canvas id="age-pie-chart" width="224" height="224" class="w-full h-full"></canvas>
-            <div id="age-chart-empty" class="hidden absolute inset-0 grid place-items-center text-[12px] text-ink-mute bg-surface-low rounded-full">
+            <div id="age-chart-empty" class="hidden absolute inset-0 grid place-items-center text-xs text-ink-soft bg-surface-low rounded-full">
               No age data yet
             </div>
           </div>
-          <div id="age-pie-legend" class="flex-1 w-full space-y-1.5 text-[11.5px]">
-            <!-- Populated dynamically with color swatches & counts -->
-          </div>
+          <div id="age-pie-legend" class="flex-1 w-full space-y-1.5 text-xs"></div>
         </div>
       </section>
 
-      <!-- 2. Assessment Score Distribution & Average Position Graph (per inventory) -->
+      <!-- 2. Assessment Score Distribution & Average Position Graph -->
       <section class="bg-white rounded-editorial shadow-card p-5 sm:p-6" aria-labelledby="chart-score-title">
         <div class="flex flex-wrap items-start justify-between gap-3 border-b border-surface-mid pb-3">
           <div>
-            <span class="label-caps text-olive bg-surface-mid rounded px-2 py-0.5">Clinical Severity Analysis</span>
-            <h2 id="chart-score-title" class="font-display font-bold text-[16px] text-ink mt-1.5">Assessment Scores &amp; Average Benchmark</h2>
-            <p class="text-[11px] text-ink-mute">Frequency distribution across severity bands and average score positioning</p>
+            <span class="text-xs font-bold uppercase tracking-wider text-olive">Aggregate Severity Analysis</span>
+            <h2 id="chart-score-title" class="font-display font-bold text-[16px] text-ink mt-1">Assessment Scores &amp; Average Benchmark</h2>
+            <p class="text-xs text-ink-soft">Frequency distribution across severity bands</p>
           </div>
           <div>
-            <label for="assessment-select" class="block text-[9.5px] tracking-[.1em] uppercase text-ink-mute font-semibold mb-1">Assessment</label>
-            <select id="assessment-select" class="border border-surface-mid rounded-lg bg-white text-[12px] text-ink px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-primary/30">
-              <option value="phq9">PHQ-9 &bull; Depression</option>
+            <label for="assessment-select" class="block text-xs tracking-wider uppercase text-ink-soft font-semibold mb-1">Instrument</label>
+            <select id="assessment-select" class="border border-surface-mid rounded-lg bg-white text-xs text-ink px-3 py-1.5">
+              <option value="phq9">PHQ-9 &bull; Mood</option>
               <option value="gad7">GAD-7 &bull; Anxiety</option>
               <option value="who5">WHO-5 &bull; Well-Being</option>
             </select>
           </div>
         </div>
 
-        <!-- Average Score Spectrum Gauge -->
         <div class="mt-4 bg-surface-low rounded-editorial p-4 border border-surface-mid">
           <div class="flex items-baseline justify-between">
-            <p class="text-[10px] tracking-[.1em] uppercase text-ink-mute font-semibold">Average Assessment Score Placement</p>
-            <p class="text-[13px] font-bold text-ink"><span id="gauge-score-value">—</span> <span class="text-ink-mute font-normal text-[11px]">/ <span id="gauge-max">27</span></span> <span id="gauge-band-name" class="ml-1 text-primary text-[11.5px] font-medium"></span></p>
+            <p class="text-xs tracking-wider uppercase text-ink-soft font-semibold">Average Score Placement</p>
+            <p class="text-xs font-bold text-ink"><span id="gauge-score-value">—</span> <span class="text-ink-soft font-normal">/ <span id="gauge-max">27</span></span> <span id="gauge-band-name" class="ml-1 text-primary font-semibold"></span></p>
           </div>
-          <!-- Clinical Spectrum Bar (built per inventory) -->
           <div class="relative mt-3 pt-5">
             <div id="gauge-pin" class="absolute top-0 transition-all duration-500 -translate-x-1/2 flex flex-col items-center" style="left: 0%;">
               <span id="gauge-pin-badge" class="bg-primary text-white text-[10px] font-bold px-1.5 py-0.5 rounded shadow-sm">Avg</span>
               <span class="w-0 h-0 border-x-4 border-x-transparent border-t-4 border-t-primary"></span>
             </div>
             <div id="gauge-bar" class="h-3 rounded-full overflow-hidden flex shadow-inner"></div>
-            <div id="gauge-labels" class="flex justify-between text-[9px] text-ink-mute mt-1.5 font-mono"></div>
+            <div id="gauge-labels" class="flex justify-between text-[10px] text-ink-soft mt-1.5 font-mono"></div>
           </div>
         </div>
 
-        <!-- Score Distribution Frequency Graph -->
         <div class="mt-4">
-          <p class="text-[10px] tracking-[.1em] uppercase text-ink-mute mb-2">Respondents per Severity Band <span id="dist-total" class="normal-case tracking-normal text-ink-soft"></span></p>
+          <p class="text-xs tracking-wider uppercase text-ink-soft mb-2">Respondents per Severity Band <span id="dist-total" class="normal-case tracking-normal text-ink-soft"></span></p>
           <canvas id="score-dist-chart" width="400" height="150" class="w-full"></canvas>
         </div>
       </section>
     </div>
 
     <!-- Aggregates Grid: Severity Distribution, Age Bands -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-      <!-- Screening Severity Distribution -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
       <section class="bg-white rounded-editorial shadow-card p-5" aria-labelledby="severity-title">
-        <h2 id="severity-title" class="font-display font-bold text-[14px] text-ink">Score Severity Distribution</h2>
-        <p class="text-[10px] text-ink-mute mt-0.5">Aggregated PHQ-9 symptom bands</p>
-        <ul id="severity-list" class="mt-4 space-y-2.5 text-[12px]">
-          <li class="text-ink-mute text-[11px]">Loading severity distribution…</li>
+        <h2 id="severity-title" class="font-display font-bold text-[15px] text-ink">Score Severity Distribution</h2>
+        <p class="text-xs text-ink-soft mt-0.5">Aggregated PHQ-9 symptom bands</p>
+        <ul id="severity-list" class="mt-4 space-y-2.5 text-xs">
+          <li class="text-ink-soft">Loading severity distribution…</li>
         </ul>
       </section>
 
-      <!-- Users by Age Band -->
       <section class="bg-white rounded-editorial shadow-card p-5" aria-labelledby="age-title">
-        <div class="flex items-center justify-between">
-          <h2 id="age-title" class="font-display font-bold text-[14px] text-ink">Demographic Age Bands</h2>
-        </div>
-        <ul id="age-list" class="mt-4 space-y-2.5 text-[12px]">
-          <li class="text-ink-mute text-[11px]">Loading age demographics…</li>
+        <h2 id="age-title" class="font-display font-bold text-[15px] text-ink">Demographic Age Bands</h2>
+        <p class="text-xs text-ink-soft mt-0.5">Optional age group distribution</p>
+        <ul id="age-list" class="mt-4 space-y-2.5 text-xs">
+          <li class="text-ink-soft">Loading age demographics…</li>
         </ul>
       </section>
-
     </div>
 
     <!-- Geographic Distribution: heat map -->
@@ -154,16 +200,16 @@
       <div class="flex items-center justify-between border-b border-surface-mid pb-3">
         <div>
           <h2 id="country-title" class="font-display font-bold text-[16px] text-ink">Geographic Distribution</h2>
-          <p class="text-[11px] text-ink-mute">Registered users and helpline inquiries by country &mdash; hover a country for details</p>
+          <p class="text-xs text-ink-soft">Registered users by country &mdash; hover a country for details</p>
         </div>
       </div>
       <div class="mt-4 grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-6 items-stretch">
         <div>
           <div id="geo-map" class="relative w-full bg-surface-low rounded-editorial overflow-hidden">
-            <div id="geo-map-loading" class="p-10 text-center text-ink-mute text-[11px]">Loading map…</div>
-            <div id="geo-tooltip" class="hidden absolute z-10 pointer-events-none bg-ink text-white rounded-lg shadow-lg px-3 py-2 text-[11px] leading-snug"></div>
+            <div id="geo-map-loading" class="p-10 text-center text-ink-soft text-xs">Loading map…</div>
+            <div id="geo-tooltip" class="hidden absolute z-10 pointer-events-none bg-ink text-white rounded-lg shadow-lg px-3 py-2 text-xs leading-snug"></div>
           </div>
-          <div class="flex items-center gap-2 mt-3 text-[10px] text-ink-mute">
+          <div class="flex items-center gap-2 mt-3 text-xs text-ink-soft">
             <span>Fewer</span>
             <span class="h-2.5 flex-1 max-w-[220px] rounded-full" style="background: linear-gradient(to right, #D6E8DE, #7DB89C, #3B6E59, #14382B);"></span>
             <span>More activity</span>
@@ -171,70 +217,107 @@
           </div>
         </div>
         <div class="relative min-h-0 max-h-80 lg:max-h-none">
-          <ul id="country-list" class="text-[12px] space-y-1 overflow-y-auto pr-2 max-h-80 lg:max-h-none lg:absolute lg:inset-0">
-            <li class="text-ink-mute text-[11px]">Loading geographic data…</li>
+          <ul id="country-list" class="text-xs space-y-1 overflow-y-auto pr-2 max-h-80 lg:max-h-none lg:absolute lg:inset-0">
+            <li class="text-ink-soft">Loading geographic data…</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <!-- Crisis & Helpline Support Inquiries Table (Forced intake from Find Support page) -->
-    <section class="bg-white rounded-editorial shadow-card overflow-hidden mb-8 border border-crisis/15" aria-labelledby="inquiries-title">
-      <div class="p-5 border-b border-surface-mid flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-crisis-bg/20">
+    <!-- Super Admin: Role Applications Review -->
+    <section class="bg-white rounded-editorial shadow-card overflow-hidden mb-8" aria-labelledby="apps-title">
+      <div class="p-5 border-b border-surface-mid flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-crisis animate-pulse"></span>
-            <h2 id="inquiries-title" class="font-display font-bold text-[16px] text-ink">Crisis &amp; Helpline Inquiries</h2>
-          </div>
-          <p id="inquiries-count" class="text-[11px] text-ink-mute mt-0.5">Direct intake submissions from users seeking helpline assistance</p>
+          <span class="text-xs font-bold uppercase tracking-wider text-primary">Super Admin Governance</span>
+          <h2 id="apps-title" class="font-display font-bold text-[16px] text-ink mt-0.5">Responder, Analyst &amp; Content Editor Applications</h2>
+          <p class="text-xs text-ink-soft mt-0.5">Approving an application generates a single-use cryptographic invitation token (48h expiry)</p>
         </div>
-        <span class="label-caps text-crisis bg-crisis-bg px-2.5 py-1 rounded">Immediate Support Records</span>
+        <a href="/admin-apply" class="btn-secondary px-3.5 py-1.5 text-xs">Open Public Application Page &rarr;</a>
       </div>
+
+      <div id="admin-invite-result" class="hidden m-5 rounded-editorial border border-emerald-300 bg-emerald-50 p-4" role="status"></div>
 
       <div class="overflow-x-auto">
         <table class="admin-table w-full">
           <thead>
             <tr>
-              <th scope="col">Date &amp; Time</th>
-              <th scope="col">Seeker Name</th>
-              <th scope="col">Contact Phone</th>
-              <th scope="col">Email</th>
-              <th scope="col">Age / Country</th>
-              <th scope="col">Helpline Contacted</th>
-              <th scope="col">Concern / Notes</th>
+              <th scope="col">Applicant</th>
+              <th scope="col">Organisation &amp; Designation</th>
+              <th scope="col">Requested Role</th>
+              <th scope="col">Qualifications &amp; Reason</th>
+              <th scope="col">Status</th>
+              <th scope="col" class="text-right">Review Decision</th>
             </tr>
           </thead>
-          <tbody id="inquiries-table-body">
-            <tr><td colspan="7" class="text-center py-6 text-ink-mute">Loading support requests…</td></tr>
+          <tbody id="applications-table-body">
+            <tr><td colspan="6" class="text-center py-6 text-ink-soft text-xs">Loading role applications…</td></tr>
           </tbody>
         </table>
       </div>
-
-      <!-- Inquiries Pagination Footer -->
-      <div class="p-4 border-t border-surface-mid flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-[12px]">
-        <p id="inquiries-page-info" class="text-ink-mute">Page 1</p>
-        <div class="flex items-center gap-2">
-          <button id="btn-prev-inquiries" type="button" class="btn-secondary px-3 py-1.5 text-[11px] tracking-[.06em] uppercase disabled:opacity-40 disabled:cursor-not-allowed" disabled>
-            &larr; Previous
-          </button>
-          <span id="inquiries-page-display" class="font-mono text-[11px] px-2 text-ink-soft">1</span>
-          <button id="btn-next-inquiries" type="button" class="btn-secondary px-3 py-1.5 text-[11px] tracking-[.06em] uppercase disabled:opacity-40 disabled:cursor-not-allowed" disabled>
-            Next &rarr;
-          </button>
-        </div>
-      </div>
     </section>
 
-    <!-- User Directory Table with Server-side Pagination & Search -->
-    <section class="bg-white rounded-editorial shadow-card overflow-hidden" aria-labelledby="users-title">
+    <!-- Helpline Directory Management (Super Admin & Content Editor) -->
+    <section class="bg-white rounded-editorial shadow-card p-5 sm:p-6 mb-8" aria-labelledby="hl-manage-title">
+      <div class="border-b border-surface-mid pb-3 mb-4">
+        <span class="text-xs font-bold uppercase tracking-wider text-olive">Directory Maintenance</span>
+        <h2 id="hl-manage-title" class="font-display font-bold text-[16px] text-ink mt-0.5">Add or Update Verified Helpline Entry</h2>
+        <p class="text-xs text-ink-soft">Requires an official source URL before publishing to the global helpline directory.</p>
+      </div>
+
+      <form id="admin-helpline-form" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+        <div>
+          <label for="hl-id" class="block font-semibold text-ink mb-1">Helpline Slug ID *</label>
+          <input id="hl-id" type="text" required placeholder="e.g. in-tele-manas" class="w-full bg-surface-mid rounded px-3 py-2" />
+        </div>
+        <div>
+          <label for="hl-country-code" class="block font-semibold text-ink mb-1">ISO Country Code *</label>
+          <input id="hl-country-code" type="text" required placeholder="e.g. IN, US, GB, GLOBAL" class="w-full bg-surface-mid rounded px-3 py-2 uppercase" />
+        </div>
+        <div>
+          <label for="hl-country-name" class="block font-semibold text-ink mb-1">Country Name *</label>
+          <input id="hl-country-name" type="text" required placeholder="e.g. India" class="w-full bg-surface-mid rounded px-3 py-2" />
+        </div>
+        <div>
+          <label for="hl-org" class="block font-semibold text-ink mb-1">Organisation Name *</label>
+          <input id="hl-org" type="text" required placeholder="e.g. Tele-MANAS" class="w-full bg-surface-mid rounded px-3 py-2" />
+        </div>
+        <div>
+          <label for="hl-phone" class="block font-semibold text-ink mb-1">Phone Number</label>
+          <input id="hl-phone" type="text" placeholder="e.g. 14416" class="w-full bg-surface-mid rounded px-3 py-2" />
+        </div>
+        <div>
+          <label for="hl-hours" class="block font-semibold text-ink mb-1">Operating Hours</label>
+          <input id="hl-hours" type="text" placeholder="24/7" class="w-full bg-surface-mid rounded px-3 py-2" />
+        </div>
+        <div>
+          <label for="hl-website" class="block font-semibold text-ink mb-1">Official Website URL</label>
+          <input id="hl-website" type="url" placeholder="https://..." class="w-full bg-surface-mid rounded px-3 py-2" />
+        </div>
+        <div>
+          <label for="hl-source" class="block font-semibold text-ink mb-1">Verification Source URL *</label>
+          <input id="hl-source" type="url" required placeholder="https://..." class="w-full bg-surface-mid rounded px-3 py-2" />
+        </div>
+        <div class="sm:col-span-2 lg:col-span-3">
+          <label for="hl-desc" class="block font-semibold text-ink mb-1">Service Description *</label>
+          <input id="hl-desc" type="text" required placeholder="Brief verified description of eligibility, languages, and crisis support scope..." class="w-full bg-surface-mid rounded px-3 py-2" />
+        </div>
+        <div class="flex items-end">
+          <button type="submit" class="btn-primary w-full py-2 text-xs">Save Verified Helpline</button>
+        </div>
+      </form>
+      <p id="admin-helpline-status" class="hidden mt-2" role="status"></p>
+    </section>
+
+    <!-- User Directory Table (Account Administration Only — No Individual Mental Health Records) -->
+    <section class="bg-white rounded-editorial shadow-card overflow-hidden mb-8" aria-labelledby="users-title">
       <div class="p-5 border-b border-surface-mid flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h2 id="users-title" class="font-display font-bold text-[16px]">User Directory</h2>
-          <p id="user-count" class="text-[11px] text-ink-mute mt-0.5">Loading users…</p>
+          <h2 id="users-title" class="font-display font-bold text-[16px]">User Account Administration</h2>
+          <p id="user-count" class="text-xs text-ink-soft mt-0.5">Loading users…</p>
         </div>
         <div class="relative">
           <input type="search" id="user-search" placeholder="Search by name or email…"
-            class="w-full sm:w-72 bg-surface-mid rounded px-3 py-2 text-[12px] border border-transparent focus:border-primary placeholder:text-ink-mute"
+            class="w-full sm:w-72 bg-surface-mid rounded px-3 py-2 text-xs border border-transparent focus:border-primary placeholder:text-ink-mute"
             aria-label="Search users by name or email" />
         </div>
       </div>
@@ -246,25 +329,91 @@
               <th scope="col">Name</th>
               <th scope="col">Email</th>
               <th scope="col">Country</th>
-              <th scope="col">Registered</th>
+              <th scope="col">Role &amp; Account Status</th>
               <th scope="col" class="text-right">Action</th>
             </tr>
           </thead>
           <tbody id="user-table-body">
-            <tr><td colspan="5" class="text-center py-6 text-ink-mute">Loading users…</td></tr>
+            <tr><td colspan="5" class="text-center py-6 text-ink-soft text-xs">Loading users…</td></tr>
           </tbody>
         </table>
       </div>
 
-      <!-- Pagination Footer -->
-      <div class="p-4 border-t border-surface-mid flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-[12px]">
-        <p id="page-info" class="text-ink-mute">Page 1</p>
+      <div class="p-4 border-t border-surface-mid flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+        <p id="page-info" class="text-ink-soft">Page 1</p>
         <div class="flex items-center gap-2">
-          <button id="btn-prev-page" type="button" class="btn-secondary px-3 py-1.5 text-[11px] tracking-[.06em] uppercase disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+          <button id="btn-prev-page" type="button" class="btn-secondary px-3 py-1.5 text-xs tracking-wider uppercase disabled:opacity-40 disabled:cursor-not-allowed" disabled>
             &larr; Previous
           </button>
-          <span id="page-number-display" class="font-mono text-[11px] px-2 text-ink-soft">1</span>
-          <button id="btn-next-page" type="button" class="btn-secondary px-3 py-1.5 text-[11px] tracking-[.06em] uppercase disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+          <span id="page-number-display" class="font-mono text-xs px-2 text-ink-soft">1</span>
+          <button id="btn-next-page" type="button" class="btn-secondary px-3 py-1.5 text-xs tracking-wider uppercase disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+            Next &rarr;
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- System Audit Logs -->
+    <section class="bg-white rounded-editorial shadow-card overflow-hidden mb-8" aria-labelledby="audit-title">
+      <div class="p-5 border-b border-surface-mid">
+        <span class="text-xs font-bold uppercase tracking-wider text-primary">Security &amp; Governance Trail</span>
+        <h2 id="audit-title" class="font-display font-bold text-[16px] text-ink mt-0.5">System Audit Logs</h2>
+        <p class="text-xs text-ink-soft">Immutable log of administrative actions, role approvals, helpline reports, and consent events.</p>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="admin-table w-full">
+          <thead>
+            <tr>
+              <th scope="col">Timestamp</th>
+              <th scope="col">Actor</th>
+              <th scope="col">Action</th>
+              <th scope="col">Category</th>
+              <th scope="col">Details</th>
+            </tr>
+          </thead>
+          <tbody id="audit-logs-body">
+            <tr><td colspan="5" class="text-center py-6 text-ink-soft text-xs">Loading audit logs…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Optional Support Inquiries Table -->
+    <section class="bg-white rounded-editorial shadow-card overflow-hidden" aria-labelledby="inquiries-title">
+      <div class="p-5 border-b border-surface-mid flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <h2 id="inquiries-title" class="font-display font-bold text-[16px] text-ink">Voluntary Support Inquiries</h2>
+          <p id="inquiries-count" class="text-xs text-ink-soft mt-0.5">Optional callback requests submitted by users</p>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="admin-table w-full">
+          <thead>
+            <tr>
+              <th scope="col">Date &amp; Time</th>
+              <th scope="col">Name</th>
+              <th scope="col">Phone</th>
+              <th scope="col">Email</th>
+              <th scope="col">Age / Country</th>
+              <th scope="col">Helpline</th>
+              <th scope="col">Notes</th>
+            </tr>
+          </thead>
+          <tbody id="inquiries-table-body">
+            <tr><td colspan="7" class="text-center py-6 text-ink-soft text-xs">Loading support requests…</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="p-4 border-t border-surface-mid flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+        <p id="inquiries-page-info" class="text-ink-soft">Page 1</p>
+        <div class="flex items-center gap-2">
+          <button id="btn-prev-inquiries" type="button" class="btn-secondary px-3 py-1.5 text-xs tracking-wider uppercase disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+            &larr; Previous
+          </button>
+          <span id="inquiries-page-display" class="font-mono text-xs px-2 text-ink-soft">1</span>
+          <button id="btn-next-inquiries" type="button" class="btn-secondary px-3 py-1.5 text-xs tracking-wider uppercase disabled:opacity-40 disabled:cursor-not-allowed" disabled>
             Next &rarr;
           </button>
         </div>
@@ -272,47 +421,47 @@
     </section>
   </main>
 
-  <!-- User Details Modal (Data Minimisation: revealed on demand with audit log) -->
+  <!-- User Details Modal (Account Administration Metadata Only) -->
   <div id="details-modal" class="hidden fixed inset-0 z-50 bg-ink/40 backdrop-blur-sm grid place-items-center p-4" role="dialog" aria-modal="true" aria-labelledby="modal-title">
     <div class="bg-white rounded-editorial shadow-lift max-w-md w-full p-6 border border-surface-mid relative">
       <div class="flex items-start justify-between gap-4">
         <div>
-          <span class="label-caps text-primary bg-primary-tint rounded px-2 py-0.5">Audit-Logged View</span>
-          <h3 id="modal-title" class="font-display font-bold text-[18px] text-ink mt-2">User Details</h3>
-          <p class="text-[11px] text-ink-mute mt-0.5">Revealed on demand &middot; Access logged to server audit trail</p>
+          <span class="text-xs font-bold uppercase tracking-wider text-primary">Audit-Logged Account View</span>
+          <h3 id="modal-title" class="font-display font-bold text-[18px] text-ink mt-1">Account Metadata</h3>
+          <p class="text-xs text-ink-soft mt-0.5">Individual mental health records are excluded from admin view</p>
         </div>
-        <button id="btn-close-modal" type="button" class="text-ink-mute hover:text-ink text-[18px] p-1 leading-none" aria-label="Close dialog">&times;</button>
+        <button id="btn-close-modal" type="button" class="text-ink-soft hover:text-ink text-[18px] p-1 leading-none" aria-label="Close dialog">&times;</button>
       </div>
 
-      <dl class="mt-5 space-y-3 text-[12.5px] border-t border-surface-mid pt-4">
+      <dl class="mt-5 space-y-3 text-xs border-t border-surface-mid pt-4">
         <div class="flex justify-between py-1 border-b border-surface-low">
-          <dt class="text-ink-mute">Full Name:</dt>
+          <dt class="text-ink-soft">Full Name:</dt>
           <dd id="detail-name" class="font-medium text-ink">—</dd>
         </div>
         <div class="flex justify-between py-1 border-b border-surface-low">
-          <dt class="text-ink-mute">Email Address:</dt>
+          <dt class="text-ink-soft">Email Address:</dt>
           <dd id="detail-email" class="font-medium text-ink">—</dd>
         </div>
         <div class="flex justify-between py-1 border-b border-surface-low">
-          <dt class="text-ink-mute">Phone Number:</dt>
+          <dt class="text-ink-soft">Phone Number:</dt>
           <dd id="detail-phone" class="font-mono text-primary font-medium">—</dd>
         </div>
         <div class="flex justify-between py-1 border-b border-surface-low">
-          <dt class="text-ink-mute">Age:</dt>
+          <dt class="text-ink-soft">Age:</dt>
           <dd id="detail-age" class="font-medium text-ink">—</dd>
         </div>
         <div class="flex justify-between py-1 border-b border-surface-low">
-          <dt class="text-ink-mute">Country:</dt>
+          <dt class="text-ink-soft">Country:</dt>
           <dd id="detail-country" class="font-medium text-ink">—</dd>
         </div>
         <div class="flex justify-between py-1">
-          <dt class="text-ink-mute">Registered Date:</dt>
+          <dt class="text-ink-soft">Registered Date:</dt>
           <dd id="detail-date" class="text-ink-soft">—</dd>
         </div>
       </dl>
 
       <div class="mt-6 flex justify-end">
-        <button id="btn-dismiss-modal" type="button" class="btn-secondary px-4 py-2 text-[11px] tracking-[.08em] uppercase">Close</button>
+        <button id="btn-dismiss-modal" type="button" class="btn-secondary px-4 py-2 text-xs tracking-wider uppercase">Close</button>
       </div>
     </div>
   </div>
@@ -323,13 +472,13 @@
       <div class="flex items-start justify-between gap-4">
         <div>
           <h3 id="note-title" class="font-display font-bold text-[18px] text-ink">Concern / Notes</h3>
-          <p id="note-from" class="text-[11px] text-ink-mute mt-0.5"></p>
+          <p id="note-from" class="text-xs text-ink-soft mt-0.5"></p>
         </div>
-        <button type="button" data-close-note class="text-ink-mute hover:text-ink text-[18px] p-1 leading-none" aria-label="Close note">&times;</button>
+        <button type="button" data-close-note class="text-ink-soft hover:text-ink text-[18px] p-1 leading-none" aria-label="Close note">&times;</button>
       </div>
-      <p id="note-body" class="mt-4 text-[13px] text-ink leading-relaxed whitespace-pre-wrap break-words max-h-[60vh] overflow-y-auto border-t border-surface-mid pt-4"></p>
+      <p id="note-body" class="mt-4 text-xs text-ink leading-relaxed whitespace-pre-wrap break-words max-h-[60vh] overflow-y-auto border-t border-surface-mid pt-4"></p>
       <div class="mt-6 flex justify-end">
-        <button type="button" data-close-note class="btn-secondary px-4 py-2 text-[11px] tracking-[.08em] uppercase">Close</button>
+        <button type="button" data-close-note class="btn-secondary px-4 py-2 text-xs tracking-wider uppercase">Close</button>
       </div>
     </div>
   </div>
